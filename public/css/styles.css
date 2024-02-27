@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Exo+2&display=swap');
+
+body {
+    background-color: #1E1E1E;
+    color: #D5D5D5;
+    margin: auto;
+}
+
+header {
+    background-color: #B51A1A;
+    height: 10%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    border-radius: 12px 12px 12px 12px;
+}
+
+.headerLink {
+    text-decoration: none !important;
+    color: inherit;
+}
+
+#homeLinkText {
+    font-family: 'Exo 2', serif;
+    font-size: 20pt;
+
+    color: white;
+    background-color: #6A0F0F;
+
+    display: inline;
+    border: solid black 2px;
+    border-radius: 18px 4px 18px 4px;
+    padding: 0px 4px 6px 4px;
+    margin-left: 8px;
+}
+
+.headerText {
+    font-family: 'Exo 2', serif;
+    font-size: 12pt;
+
+    color: white;
+
+    display: inline;
+    vertical-align: center;
+    margin-left: 16px;
+}
+
+.holder {
+    background-color: #D6AD29;
+    border-radius: 20px 20px 20px 20px;
+}
+
+.signin-signup-Fields {
+    background-color: black;
+    color: white;
+
+    height: 15px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+
+    padding-left: 10px;
+    border-radius: 10px 10px 10px 10px;
+    white-space-collapse: discard;
+}

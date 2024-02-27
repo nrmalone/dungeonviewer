@@ -1,7 +1,5 @@
-<html>
-    <head>
-    </head>
-    <body>
-        <h1><?= $_SESSION['error'] ?></h1>
-    </body>
-</html>
+<?php require_once '../app/components/pageheader.php'; ?>
+
+<h1>Whoops, something's wrong. Roll 'Performance' for breakfix...</h1>
+
+<?php require_once '../app/components/pagefooter.php';

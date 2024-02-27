@@ -28,3 +28,4 @@ ROOT is then defined  as the root directory of the app's public components
 $path = str_replace('\\', '/', PROTOCOL . '://' . $_SERVER['SERVER_NAME'] . __DIR__ . '/');
 $path = str_replace($_SERVER['DOCUMENT_ROOT'], '', $path);
 define('ROOT', str_replace('app/core', 'public', $path));
+define('PRIVATEROOT', str_replace('app/core', 'app', $path));
