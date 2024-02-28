@@ -36,9 +36,7 @@ CREATE TABLE pcs (
     pcINT               INT             NOT NULL DEFAULT 0,
     pcWIS               INT             NOT NULL DEFAULT 0,
     pcCHA               INT             NOT NULL DEFAULT 0,                  
-    CONSTRAINT pcs_PK PRIMARY KEY (charID),
-    CONSTRAINT pcs_UserFK FOREIGN KEY (userID),
-    CONSTRAINT pcs_CampaignFK FOREIGN KEY (campaignID),
+    CONSTRAINT pcs_PK PRIMARY KEY (pcID),
     INDEX pcs_UserIDX (userID),
     INDEX pcs_CampaignIDX (campaignID)
 );
@@ -54,11 +52,17 @@ CREATE TABLE npcs (
     INDEX npcs_CampaignIDX (campaignID)
 );
 
-CREATE campaigns (
+CREATE TABLE campaigns (
     campaignID          INT             NOT NULL AUTO_INCREMENT,
     dmID                INT             NOT NULL,
     campaignName        VARCHAR(32)     NOT NULL,
     CONSTRAINT campaigns_PK PRIMARY KEY (campaignID),
-    CONSTRAINT campaigns_DMFK FOREIGN KEY (dmID),
     INDEX campaigns_DMIDX (dmID)
 );
+
+CREATE USER IF NOT EXISTS 'dungeonmaster'@'localhost'
+IDENTIFIED BY 'rollforinitiative1d20';
+
+GRANT SELECT, INSERT, DELETE, UPDATE
+ON dndviewer.*
+TO 'dungeonmaster'@'localhost';

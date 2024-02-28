@@ -9,6 +9,7 @@ class Controller
         {
             include '../app/views/' . $view . '.php';
         } else {
+            $_SESSION['error'] = "Couldn't find the necessary display for " . $view;
             include '../app/views/error.php';
         }
     }
@@ -21,6 +22,7 @@ class Controller
             include '../app/models/' . $model . '.php';
             print_r("");
         } else {
+            $_SESSION['error'] = "Unable to load data for " . $model;
             include '../app/views/error.php';
         }
     }
