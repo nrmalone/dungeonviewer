@@ -11,14 +11,14 @@
     <body>
         <header>            
             <h1 id="homeLinkText"><a class="headerLink" href="<?=ROOT?>">DND Viewer</a></h1>
-            <?php if (isset($_SESSION['user_name'])) {
+            <?php if (isset($_SESSION['username'])) {
                 echo '<h2 class="headerText"><a class="headerLink" href="' . ROOT . 'campaign" target="_blank">Campaigns</a></h2>';
                 echo '<h2 class="headerText"><a class="headerLink" href="' . ROOT . 'character" target="_blank">Characters</a></h2>';
-                echo '<h2 class="headerText"><a class="headerLink" href="' . ROOT . 'user" target="_blank">Account</a></h2>';
-                echo '<h2 class="headerText"><a class="headerLink" href="' . ROOT . 'user/signout">Sign Out</a></h2>';
+                echo '<h2 class="headerText"><a class="headerLink" href="' . ROOT . 'account" target="_blank">Account</a></h2>';
+                echo '<h2 class="headerText"><a class="headerLink" href="' . ROOT . 'account/signout">Sign Out</a></h2>';
             } else {
-                echo '<h2 class="headerText"><a class="headerLink" href="' . ROOT . 'user/signin">Sign In</a></h2>';
-                echo '<h2 class="headerText"><a class="headerLink" href="' . ROOT . 'user/signup">Create Account</a></h2>';                
+                echo '<h2 class="headerText"><a class="headerLink" href="' . ROOT . 'account/signin">Sign In</a></h2>';
+                echo '<h2 class="headerText"><a class="headerLink" href="' . ROOT . 'account/signup">Create Account</a></h2>';                
             }
             ?>
         </header>

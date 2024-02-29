@@ -1,6 +1,6 @@
 <?php
 
-class User extends Controller
+class Account extends Controller
 {
     public function index()
     {
@@ -11,15 +11,23 @@ class User extends Controller
 
     public function signup()
     {
+        $user = $this->loadModel('User');
         $data['title_page'] = 'Signup';
 
         $this->view('signup', $data);
+
+        $userModel = new User;
+        $userModel->signup($_POST);
     }
 
     public function signin()
     {
+        $user = $this->loadModel('User');
         $data['title_page'] = 'Signin';
 
         $this->view('signin', $data);
+
+        $userModel = new User;
+        $userModel->signin($_POST);
     }
 }
