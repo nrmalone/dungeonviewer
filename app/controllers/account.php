@@ -30,4 +30,12 @@ class Account extends Controller
         $userModel = new User;
         $userModel->signin($_POST);
     }
+
+    public function signout()
+    {
+        $user = $this->loadModel('User');
+
+        $userModel = new User;
+        $userModel->signout();
+    }
 }
