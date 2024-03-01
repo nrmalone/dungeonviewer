@@ -59,7 +59,7 @@ class User
 
                     if ($data) {
                         //$_SESSION['message'] = 'User account successfully created!';
-                        $_SESSION['message'] = 'User account successfully created! -- ' . $arr['password'];
+                        $_SESSION['message'] = 'User account successfully created!';
                         header("Location:" . ROOT . "account/signin");
                     }
                 } else {
