@@ -1,14 +1,14 @@
 <?php require_once '../app/components/pageheader.php'; ?>
 
 <?php if (isset($_SESSION['message'])) {
-    echo '<div class="signin-signup-Div" style="margin-left: 2%; margin-top: 2%; max-width: max-content;"><strong>' . $_SESSION['message'] . '</strong></p></div>';
+    echo '<div class="accountDiv" style="margin-left: 2%; margin-top: 2%; max-width: max-content;"><strong>' . $_SESSION['message'] . '</strong></p></div>';
 }
 unset($_SESSION['message']);
 ?>
 
 <div style="justify-content: center; max-width: max-content; margin: auto;">
     <h1>Account Sign-in</h1>
-    <div class="signin-signup-Div" style="max-width: 100%; max-height: max-content;">
+    <div class="accountDiv" style="max-width: 100%; max-height: max-content;">
         <table style="display: flex;">    
             <form method="POST">
                 <tr align="center">

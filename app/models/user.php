@@ -21,6 +21,7 @@ class User
                 $hashed_password = $data[0]->userPassword;
 
                 if (password_verify($sanitized_password, $hashed_password)) {
+                    $_SESSION['userid'] = $data[0]->userID;
                     $_SESSION['username'] = $data[0]->username;
                     $_SESSION['email'] = $data[0]->userEmail;
                     

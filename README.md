@@ -10,3 +10,6 @@ Developing a DIY alternative to roll20 &amp; DND Beyond
 * Testing user account functionality
 ### 02-29-24:
 * User account functionality completed
+### 03-02-24:
+* Created component for displaying account info
+* Added to styles.css
