@@ -12,9 +12,9 @@
         <header>            
             <h1 id="homeLinkText"><a class="headerLink" href="<?=ROOT?>">DND Viewer</a></h1>
             <?php if (isset($_SESSION['username'])) {
-                echo '<h2 class="headerText"><a class="headerLink" href="' . ROOT . 'campaign" target="_blank">Campaigns</a></h2>';
-                echo '<h2 class="headerText"><a class="headerLink" href="' . ROOT . 'character" target="_blank">Characters</a></h2>';
-                echo '<h2 class="headerText"><a class="headerLink" href="' . ROOT . 'account" target="_blank">Account</a></h2>';
+                echo '<h2 class="headerText"><a class="headerLink" href="' . ROOT . 'campaign">Campaigns</a></h2>';
+                echo '<h2 class="headerText"><a class="headerLink" href="' . ROOT . 'character">Characters</a></h2>';
+                echo '<h2 class="headerText"><a class="headerLink" href="' . ROOT . 'account">Account</a></h2>';
                 echo '<h2 class="headerText"><a class="headerLink" href="' . ROOT . 'account/signout">Sign Out</a></h2>';
             } else {
                 echo '<h2 class="headerText"><a class="headerLink" href="' . ROOT . 'account/signin">Sign In</a></h2>';

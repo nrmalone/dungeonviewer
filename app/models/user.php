@@ -21,7 +21,7 @@ class User
                 $hashed_password = $data[0]->userPassword;
 
                 if (password_verify($sanitized_password, $hashed_password)) {
-                    $_SESSION['userid'] = $data[0]->userID;
+                    $_SESSION['userID'] = $data[0]->userID;
                     $_SESSION['username'] = $data[0]->username;
                     $_SESSION['email'] = $data[0]->userEmail;
                     
@@ -72,6 +72,48 @@ class User
                 header("Location:" . ROOT . "account/signup");
             }
         }
+    }
+
+    function updateaccount($POST)
+    {
+        $DB = new Database;
+        $_SESSION['error'] = '';
+        $arr['userID'] = $_SESSION['userID'];
+
+        if (isset($POST['username'])) { $submittedUsername = sanitize($POST['username']); }
+        if (isset($POST['email'])) { $submittedEmail = sanitize($POST['email']); }
+
+        if (isset($submittedUsername)) {
+            $arr['submittedUsername'] = $submittedUsername;
+            $checkUsernameQuery = "SELECT * FROM users WHERE username = :submittedUsername limit 1;";
+            $data = $DB->read($checkUsernameQuery, $arr);
+
+            if (!$data) {
+                $updateUsernameQuery = "UPDATE users SET username = :submittedUsername WHERE userID = :userID;";
+                $data = $DB->write($updateUsernameQuery, $arr);
+                unset($data);
+                unset($arr['submittedUsername']);
+            } else {
+                $_SESSION['message'] .= 'Unable to update username. ';
+            }
+        }
+
+        if (isset($submittedEmail)) {
+            $arr['submittedEmail'] = $submittedEmail;
+            $checkEmailQuery = "SELECT * FROM users WHERE userEmail = :submittedEmail limit 1;";
+            $data = $DB->read($checkEmailQuery, $arr);
+
+            if (!$data) {
+                $updateEmailQuery = "UPDATE users SET userEmail = :submittedEmail WHERE userID = :userID;";
+                $data = $DB->write($updateEmailQuery, $arr);
+                unset($data);
+                unset($arr['submittedEmail']);
+            } else {
+                $_SESSION['message'] .= 'Unable to update email.';
+            }
+        }
+        
+        header("Location" . ROOT . "account");
     }
 
     function signout()

@@ -2,8 +2,8 @@
 
 <?php if (isset($_SESSION['message'])) {
     echo '<div class="accountDiv" style="margin-left: 2%; margin-top: 2%; max-width: max-content;"><strong>' . $_SESSION['message'] . '</strong></p></div>';
+    unset($_SESSION['message']);
 }
-unset($_SESSION['message']);
 ?>
 
 <div style="justify-content: center; max-width: max-content; margin: auto;">
@@ -29,7 +29,7 @@ unset($_SESSION['message']);
                             Password cannot contain:<br>
                             \ &nbsp; / &nbsp; ' &nbsp; " &nbsp; , &nbsp; < &nbsp; > &nbsp; ! &nbsp; &
                     </h5></td>
-                    <td><button style="background-color: #1E1E1E; color: white; border-radius: 10px 10px 10px 10px; padding: 5px 10px 5px 10px;" type="submit">Submit</button></td>
+                    <td><button class="accountButton" type="submit">Submit</button></td>
                 </tr>
             </form>
         </table>
