@@ -153,19 +153,18 @@ class User
             $checkUserQuery = "SELECT * FROM users WHERE username = :submittedUsername;";
             $checkUser = $DB->read($checkUserQuery, $arr);
             if(is_array($checkUser) && password_verify($sanitized_password, $checkUser[0]->userPassword)) {
+                
+                // TODO -- SQL delete not working
                 $deleteUserQuery = "DELETE FROM users WHERE username = :submittedUsername;";
                 $deleteUser = $DB->write($deleteUserQuery, $arr);
 
                 $_SESSION['message'] = $arr['submittedUsername'] . '\'s account has been deleted.';
-                header("Location:" . ROOT . "signout");
+                $this->signout();
             } else {
                 $_SESSION['message'] = 'Unable to delete ' . $arr['submittedUsername'] . '\'s account at this time.';
-                header("Location:" . ROOT . "account/deleteaccount");
+                header("Location:" . ROOT . "account");
+                exit();
             }
-        } else {
-            $_SESSION['message'] = 'Username entered does not match account.';
-            header("Location:" . ROOT . "account/deleteaccount");
-            exit();
         }
     }
 

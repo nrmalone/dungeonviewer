@@ -60,4 +60,15 @@ class Account extends Controller
         $userModel = new User;
         $userModel->updateemail($_POST);
     }
+
+    public function deleteaccount()
+    {
+        $user = $this->loadModel('User');
+        $data['title_page'] = 'Delete Account';
+
+        $this->view('account', $data);
+
+        $userModel = new User;
+        $userModel->deleteaccount($_POST);
+    }
 }
