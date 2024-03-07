@@ -46,7 +46,7 @@ class User
 
         if(isset($POST['username']) && isset($POST['email']) && isset($POST['password']))
         {
-            if(strlen($POST['username']) >= 4 && !str_contains($POST['password'],'\\') && !str_contains($POST['password'],'\/') && !str_contains($POST['password'],'\'') && !str_contains($POST['password'],'*') && !str_contains($POST['password'],',') && !str_contains($POST['password'],'<') && !str_contains($POST['password'],'>') && !str_contains($POST['password'],'!') && !str_contains($POST['password'],'&')) {
+            if(strlen($POST['username']) >= 4 && strlen($POST['username']) <= 16 && !str_contains($POST['password'],'\\') && !str_contains($POST['password'],'\/') && !str_contains($POST['password'],'\'') && !str_contains($POST['password'],'*') && !str_contains($POST['password'],',') && !str_contains($POST['password'],'<') && !str_contains($POST['password'],'>') && !str_contains($POST['password'],'!') && !str_contains($POST['password'],'&')) {
                 $arr['username'] = sanitize($POST['username']);
                 $arr['email'] = sanitize($POST['email']);            
 
@@ -74,46 +74,99 @@ class User
         }
     }
 
-    function updateaccount($POST)
+    function updateemail($POST)
     {
         $DB = new Database;
         $_SESSION['error'] = '';
-        $arr['userID'] = $_SESSION['userID'];
 
-        if (isset($POST['username'])) { $submittedUsername = sanitize($POST['username']); }
-        if (isset($POST['email'])) { $submittedEmail = sanitize($POST['email']); }
+        if(isset($POST['email']) && filter_var(sanitize($POST['email']), FILTER_VALIDATE_EMAIL)) {
+            $arr['submittedEmail'] = sanitize($POST['email']);
 
-        if (isset($submittedUsername)) {
-            $arr['submittedUsername'] = $submittedUsername;
-            $checkUsernameQuery = "SELECT * FROM users WHERE username = :submittedUsername limit 1;";
-            $data = $DB->read($checkUsernameQuery, $arr);
+            $checkDuplicateQuery = "SELECT * FROM users WHERE userEmail = :submittedEmail;";
+            $checkDuplicate = $DB->read($checkDuplicateQuery, $arr);
+            if(!$checkDuplicate) {
+                $arr['userID'] = $_SESSION['userID'];
 
-            if (!$data) {
+                $updateUsernameQuery = "UPDATE users SET userEmail = :submittedEmail WHERE userID = :userID;";
+                $data = $DB->write($updateUsernameQuery, $arr);
+
+                if ($data) {
+                    $_SESSION['email'] = $arr['submittedEmail'];
+                    $_SESSION['message'] = 'Email updated to' . $arr['submittedEmail'];
+                    header("Location:" . ROOT . "account");
+                    exit();
+                } else {
+                    $_SESSION['message'] = 'Unable to update email at this time.';
+                    header("Location:" . ROOT . "account/updateemail");
+                    exit();
+                }
+            } else {
+                $_SESSION['message'] = 'Unable to update. Email ' . $arr['submittedEmail'] . ' is already in use.';
+                header("Location:" . ROOT . "account/updateemail");
+                exit();
+            }
+        }
+    }
+
+    function updateusername($POST)
+    {
+        $DB = new Database;
+        $_SESSION['error'] = '';
+
+        if(isset($POST['username']) && strlen($POST['username']) >= 4 && strlen($POST['username']) <= 16) {
+            $arr['submittedUsername'] = sanitize($POST['username']);
+
+            $checkDuplicateQuery = "SELECT * FROM users WHERE username = :submittedUsername;";
+            $checkDuplicate = $DB->read($checkDuplicateQuery, $arr);
+            if(!$checkDuplicate) {
+                $arr['userID'] = $_SESSION['userID'];
+
                 $updateUsernameQuery = "UPDATE users SET username = :submittedUsername WHERE userID = :userID;";
                 $data = $DB->write($updateUsernameQuery, $arr);
-                unset($data);
-                unset($arr['submittedUsername']);
+
+                if ($data) {
+                    $_SESSION['username'] = $arr['submittedUsername'];
+                    $_SESSION['message'] = 'Username updated to ' . $arr['submittedUsername'];
+                    header("Location:" . ROOT . "account");
+                    exit();
+                } else {
+                    $_SESSION['message'] = 'Unable to update username at this time.';
+                    header("Location:" . ROOT . "account/updateusername");
+                    exit();
+                }
             } else {
-                $_SESSION['message'] .= 'Unable to update username. ';
+                $_SESSION['message'] = 'Unable to update. Username ' . $arr['submittedUsername'] . ' is already in use.';
+                header("Location:" . ROOT . "account/updateusername");
+                exit();
             }
         }
+    }
 
-        if (isset($submittedEmail)) {
-            $arr['submittedEmail'] = $submittedEmail;
-            $checkEmailQuery = "SELECT * FROM users WHERE userEmail = :submittedEmail limit 1;";
-            $data = $DB->read($checkEmailQuery, $arr);
+    function deleteaccount($POST) {
+        $DB = new Database;
+        $_SESSION['error'] = '';
 
-            if (!$data) {
-                $updateEmailQuery = "UPDATE users SET userEmail = :submittedEmail WHERE userID = :userID;";
-                $data = $DB->write($updateEmailQuery, $arr);
-                unset($data);
-                unset($arr['submittedEmail']);
+        if((isset($POST['username']) && strlen($POST['username']) >=4 && strlen($POST['username']) <= 16) && isset($POST['password'])) {
+            $arr['submittedUsername'] = sanitize($POST['username']);
+            $sanitized_password = sanitize($POST['password']);
+
+            $checkUserQuery = "SELECT * FROM users WHERE username = :submittedUsername;";
+            $checkUser = $DB->read($checkUserQuery, $arr);
+            if(is_array($checkUser) && password_verify($sanitized_password, $checkUser[0]->userPassword)) {
+                $deleteUserQuery = "DELETE FROM users WHERE username = :submittedUsername;";
+                $deleteUser = $DB->write($deleteUserQuery, $arr);
+
+                $_SESSION['message'] = $arr['submittedUsername'] . '\'s account has been deleted.';
+                header("Location:" . ROOT . "signout");
             } else {
-                $_SESSION['message'] .= 'Unable to update email.';
+                $_SESSION['message'] = 'Unable to delete ' . $arr['submittedUsername'] . '\'s account at this time.';
+                header("Location:" . ROOT . "account/deleteaccount");
             }
+        } else {
+            $_SESSION['message'] = 'Username entered does not match account.';
+            header("Location:" . ROOT . "account/deleteaccount");
+            exit();
         }
-        
-        header("Location" . ROOT . "account");
     }
 
     function signout()

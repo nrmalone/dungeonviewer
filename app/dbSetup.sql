@@ -1,6 +1,6 @@
-DROP DATABASE IF EXISTS dndviewer;
-CREATE DATABASE dndviewer;
-USE dndviewer;
+DROP DATABASE IF EXISTS dungeonviewer;
+CREATE DATABASE dungeonviewer;
+USE dungeonviewer;
 
 CREATE TABLE dms (
     dmID                INT             NOT NULL AUTO_INCREMENT,
@@ -28,7 +28,6 @@ CREATE TABLE pcs (
     pcInitiative        INT             NOT NULL DEFAULT 0,
     pcLevel             INT             NOT NULL DEFAULT 0,
     pcXP                INT             NOT NULL DEFAULT 0,
-    pcHP                INT             NOT NULL DEFAULT 0,
     pcAC                INT             NOT NULL DEFAULT 0,
     pcSTR               INT             NOT NULL DEFAULT 0,
     pcDEX               INT             NOT NULL DEFAULT 0,
@@ -65,5 +64,5 @@ CREATE USER IF NOT EXISTS 'dungeonmaster'@'localhost'
 IDENTIFIED BY 'rollforinitiative1d20';
 
 GRANT SELECT, INSERT, DELETE, UPDATE
-ON dndviewer.*
+ON dungeonviewer.*
 TO 'dungeonmaster'@'localhost';

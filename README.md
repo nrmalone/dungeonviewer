@@ -1,24 +1,11 @@
-# dndviewer
-Developing a DIY alternative to roll20 &amp; DND Beyond
+# Dungeon Viewer
+### DIY alternative to virtual tabletop RPG mapping
 
-## 02-27-24
-### Notes
+## Week 1 (02-27-24 to 03-02-24)
+* Established 
 * Initial CSS setup
 * Created simple landing page, header & footer elements
-## 02-28-24:
-### Notes
-* Created signup & signin pages
-* Testing user account functionality
-## 02-29-24:
-### Notes
-* User account functionality completed
-## 03-02-24:
-### Notes
-* Created component for displaying account info
-* Added to styles.css
-## 03-03-24:
-### Notes
-* Created JS & backend code for updating accounts
+* Preliminary signup, signin, and signout pages & backend completed
+## Week 2 (03-03-24 to 03-09-24):
+* Created pages for users to update account info
 * General updates to styles.css for clarity
-### Issues
-* HTML elements created w/ JS not picked up by PHP for SQL

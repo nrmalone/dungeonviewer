@@ -1,9 +1,9 @@
 <?php
-define("WEBSITE_NAME", "DND Viewer");
+define("WEBSITE_NAME", "Dungeon Viewer");
 
 
 define("DB_TYPE", 'mysql');
-define("DB_NAME", 'dndviewer');
+define("DB_NAME", 'dungeonviewer');
 
 
 /*

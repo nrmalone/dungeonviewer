@@ -4,13 +4,9 @@ class Account extends Controller
 {
     public function index()
     {
-        $user = $this->loadModel('User');
         $data['title_page'] = 'Account Info';
 
-        $userModel = new User;
-
         $this->view('account', $data);
-        $userModel->updateaccount($_POST);
     }
 
     public function signup()
@@ -41,5 +37,27 @@ class Account extends Controller
 
         $userModel = new User;
         $userModel->signout();
+    }
+
+    public function updateusername()
+    {
+        $user = $this->loadModel('User');
+        $data['title_page'] = 'Update Username';
+
+        $this->view('account', $data);
+
+        $userModel = new User;
+        $userModel->updateusername($_POST);
+    }
+
+    public function updateemail()
+    {
+        $user = $this->loadModel('User');
+        $data['title_page'] = 'Update Email';
+
+        $this->view('account', $data);
+
+        $userModel = new User;
+        $userModel->updateemail($_POST);
     }
 }

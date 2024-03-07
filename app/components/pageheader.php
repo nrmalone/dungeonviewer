@@ -10,7 +10,7 @@
     </head>
     <body>
         <header>            
-            <h1 id="homeLinkText"><a class="headerLink" href="<?=ROOT?>">DND Viewer</a></h1>
+            <h1 id="homeLinkText"><a class="headerLink" href="<?=ROOT?>">Dungeon Viewer</a></h1>
             <?php if (isset($_SESSION['username'])) {
                 echo '<h2 class="headerText"><a class="headerLink" href="' . ROOT . 'campaign">Campaigns</a></h2>';
                 echo '<h2 class="headerText"><a class="headerLink" href="' . ROOT . 'character">Characters</a></h2>';
