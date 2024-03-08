@@ -11,3 +11,7 @@
 ## Week 2 (03-03-24 to 03-09-24):
 * Created pages for users to update account info
 * General updates to styles.css for clarity
+* Started character sheet creation form
+* Website licensing and privacy policy info
+  * CC-BY-4.0 license of D&D 5E content & WotC Fan Content Policy
+  * privacy around emails and user passwords explicitly outlined
