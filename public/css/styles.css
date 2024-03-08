@@ -1,5 +1,42 @@
 @import url('https://fonts.googleapis.com/css2?family=Exo+2&display=swap');
 
+
+/* WORKING TO MAKE STICKY HEADER ON MOBILE */
+/*
+body {
+    background-color: #1E1E1E;
+    color: #D5D5D5;
+    margin: auto;
+
+    font-family: 'Exo 2', serif;
+    position: fixed;
+}
+
+main {
+    background-color: #1E1E1E;
+    color: #D5D5D5;
+    margin-top: 70px;
+    
+    position: relative;
+    display: flex;
+    margin-bottom: 70px;
+}
+
+header {
+    overflow-x: auto;
+    background-color: #B51A1A;
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    border-bottom: 5px solid #6A0F0F;
+
+    margin-top: 0;
+    padding: 0;
+    position: fixed;
+}
+*/
+
 body {
     background-color: #1E1E1E;
     color: #D5D5D5;
@@ -9,9 +46,10 @@ body {
 }
 
 header {
+    overflow-x: auto;
     background-color: #B51A1A;
     width: 100%;
-    height: 50px;
+    height: 55px;
     display: flex;
     align-items: center;
     border-bottom: 5px solid #6A0F0F;
@@ -24,7 +62,7 @@ header {
 
 #homeLinkText {
     font-family: 'Exo 2', serif;
-    font-size: 20pt;
+    font-size: 150%;
 
     color: white;
     background-color: #6A0F0F;
@@ -50,12 +88,17 @@ header {
 footer {
     background-color: #B51A1A;
     width: 100%;
-    height: 30px;
+    height: 2.5%;
     display: flex;
     position: absolute;
     bottom: 0%;
     align-items: center;
     border-top: 5px solid #6A0F0F;
+
+    padding-top: 5px;
+    padding-bottom: 10px;
+
+    position: fixed;
 }
 
 .footerElement {
@@ -108,4 +151,25 @@ footer {
 .pcAlignment {
     border: 2px solid #D5D5D5;
     background-color: #1E1E1E;
+}
+
+.notStarted {
+    background-color:#1E1E1E;
+    color: #B51A1A;
+
+    padding: 0 2px 2px 2px;
+}
+.inProgress {
+    background-color: #1E1E1E;
+    color: #c5bd27;
+
+    padding: 0 2px 2px 2px;
+
+}
+
+.completed {
+    background-color: #1E1E1E;
+    color: #5DB81F;
+
+    padding: 0 2px 2px 2px;
 }

@@ -4,7 +4,7 @@
 }
 ?>
 
-<div style="justify-content: center; max-width: max-content; margin: auto;">
+<div align="center" style="justify-content: center; max-width: max-content; margin: auto;">
     <h1>Account info for <?= $_SESSION['username'] ?></h1>
     <div style="max-width: max-content;" class="accountDiv">
         <table style="display: flex;">
