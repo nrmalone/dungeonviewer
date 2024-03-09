@@ -47,6 +47,7 @@ body {
 
 header {
     overflow-x: auto;
+    overflow-y: hidden;
     background-color: #B51A1A;
     width: 100%;
     height: 55px;
@@ -134,7 +135,7 @@ footer {
 }
 
 .pcDiv {
-    background-color: #6A0F0F;
+    background-color: #B51A1A;
 
     padding-top: 5px;
     padding-bottom: 5px;
@@ -144,8 +145,9 @@ footer {
 }
 
 .pcCreationText {
-    background-color: #B51A1A;
+    background-color: #6A0F0F;
     border-radius: 8px 0 0 8px;
+    padding: 0 0 4px 4px;
 }
 
 .pcAlignment {
@@ -157,19 +159,31 @@ footer {
     background-color:#1E1E1E;
     color: #B51A1A;
 
-    padding: 0 2px 2px 2px;
+    padding: 0 2px 4px 2px;
+    border-bottom: 1px solid white;
+    border-right: 1px solid white;
 }
 .inProgress {
     background-color: #1E1E1E;
     color: #c5bd27;
 
-    padding: 0 2px 2px 2px;
-
+    padding: 0 2px 4px 2px;
+    border-bottom: 1px solid white;
+    border-right: 1px solid white;
 }
 
 .completed {
     background-color: #1E1E1E;
     color: #5DB81F;
 
-    padding: 0 2px 2px 2px;
+    padding: 0 2px 4px 2px;
+    border-bottom: 1px solid white;
+    border-right: 1px solid white;
+}
+
+.roadmapDefault {
+
+    padding: 0 2px 4px 2px;
+    border-bottom: 1px solid white;
+    border-right: 1px solid white;
 }

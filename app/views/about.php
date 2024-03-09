@@ -12,8 +12,8 @@
         That being said, if you like what you see, please feel free to donate to the development of Dungeon Viewer at the following links or check out the portfolios of our dev team.
     </p>
     <ul align="center">
-        <li style="list-style-type: none;" align="center"><a>test</a></li>
-        <li style="list-style-type: none;" align="center"><a>test</a></li>
+        <li style="list-style-type: none;" align="center"><a href="" style="color: white; text-decoration: none; text-decoration: underline;">placeholder</a></li>
+        <li style="list-style-type: none;" align="center"><a href="" style="color: white; text-decoration: none; text-decoration: underline;">placeholder</a></li>
     </ul>
     <h1>Who is working on Dungeon Viewer?</h1>
     <table style="width: 80%;">
@@ -48,23 +48,45 @@
         <h1>Roadmap</h1>
         <div class="accountDiv" style="width: 80%; padding-bottom: 10px;">
             <table style="margin-left: 2%; width: 80%; display: inline-table; border: 2px solid white; border-radius: 10px 10px 0 0; background-color: #1E1E1E;">
-                <tr>
-                    <th align="center" style="width: 25%; border: 1px solid white; border-radius: 10px 0 0 0;">User Accounts</th>
-                    <th align="center" style="width: 25%; border: 1px solid white;">Character Sheets</th>
-                    <th align="center" style="width: 25%; border: 1px solid white;">3D Character Modeler</th>
-                    <th align="center" style="width: 25%; border: 1px solid white; border-radius: 0 10px 0 0;">Campaign Mapping</th>
+                <tr name="roadmapHeaders">
+                    <th align="center" class="roadmapDefault" style="width: 25%;">
+                        User Accounts</th>
+                    <th align="center" class="roadmapDefault" style="width: 25%;">
+                        Character Sheets</th>
+                    <th align="center" class="roadmapDefault" style="width: 25%;">
+                        3D Character Modeler</th>
+                    <th align="center" class="roadmapDefault" style="width: 25%;">
+                        Campaign Mapping</th>
                 </tr>
-                <tr>
-                    <td align="center" class="completed" style="width: 25%;">Updating/deleting accounts</td>
-                    <td align="center" style="width: 25%;"></td>
-                    <td align="center" style="width: 25%;"></td>
-                    <td align="center" style="width: 25%;"></td>
+                <tr name="roadmapRow1">
+                    <td align="center" class="completed" style="width: 25%;">
+                        Updating/deleting accounts</td>
+                    <td align="center" class="inProgress" style="width: 25%;">
+                        5E Compatible Character Creation</td>
+                    <td align="center" class="notStarted" style="width: 25%;">
+                        Models for all default 5E races</td>
+                    <td align="center" class="notStarted" style="width: 25%;">
+                        Default landscapes/interiors</td>
                 </tr>
-                <tr>
-                    <td align="center" style="width: 25%;"></td>
-                    <td align="center" style="width: 25%;"></td>
-                    <td align="center" style="width: 25%;"></td>
-                    <td align="center" style="width: 25%;"></td>
+                <tr name="roadmapRow2">
+                    <td align="center" class="notStarted" style="width: 25%;">
+                        Password Reset Emails</td>
+                    <td align="center" class="notStarted" style="width: 25%;">
+                        Avatar Photo Upload</td>
+                    <td align="center" class="notStarted" style="width: 25%;">
+                        Background/Prop Customization</td>
+                    <td align="center" class="notStarted" style="width: 25%;">
+                        NPC and PC Movement</td>
+                </tr>
+                <tr name="roadmapRow3">
+                    <td align="center" class="notStarted" style="width: 25%;">
+                        Campaign Hosting & Organizing</td>
+                    <td align="center" class="notStarted" style="width: 25%;">
+                        Custom Weapons & Items</td>
+                    <td align="center" class="notStarted" style="width: 25%;">
+                        Screenshot Export</td>
+                    <td align="center" class="notStarted" style="width: 25%;">
+                        Prop Placement</td>
                 </tr>
             </table>
             <table style="margin-left: 2%; margin-right: 2%; display: inline-table; background-color: #1E1E1E; border: 2px solid white; border-radius: 10px 10px 0 0;">

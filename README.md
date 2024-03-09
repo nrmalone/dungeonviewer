@@ -12,6 +12,6 @@
 * Created pages for users to update account info
 * General updates to styles.css for clarity
 * Started character sheet creation form
-* Website licensing and privacy policy info
+* Website licensing info, privacy policy, and about page
   * CC-BY-4.0 license of D&D 5E content & WotC Fan Content Policy
-  * privacy around emails and user passwords explicitly outlined
+  * security and privacy of emails and user passwords explicitly outlined
