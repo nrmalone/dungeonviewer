@@ -7,7 +7,7 @@
         <br><br>
     </h4>
     <p align="left" style="width: 80%;">
-        We are currently working on support for character sheets, a simple 3D character modeler, and a VTT mapping system for 5E compatible campaign DMs (made possible by the <a style="color: white; text-decoration: none; text-decoration: underline;">CC-BY-4.0</a> license provided by WotC). We may expand to other tabletop games and enable more customization in the future, but for the time being we're sticking to what we know and what we are legally able to do with a preliminary budget of $0 and no paid licensing.
+        We are currently working on support for character sheets, a simple 3D character modeler, and a VTT mapping system for 5E compatible campaign DMs (made possible by the <a style="color: white; text-decoration: none; text-decoration: underline;">CC-BY-4.0</a> license provided by WotC, attribution visible at bottom of this page and as part of footer). We may expand to other tabletop games and enable more customization in the future, but for the time being we're sticking to what we know and what we are legally able to do with a preliminary budget of $0 and no paid licensing.
         <br><br>
         That being said, if you like what you see, please feel free to donate to the development of Dungeon Viewer at the following links or check out the portfolios of our dev team.
     </p>
@@ -97,6 +97,13 @@
             </table>
         </div>
     </div>
+</div>
+<div style="width: 85%; margin: auto; padding-top: 35px;">
+    <h4>CC-BY-4.0 Attribution</h4>
+    <p align="left" style="font-size: 12pt;">This work includes material taken from the System Reference Document 5.1 (“SRD 5.1”) by Wizards of
+        the Coast LLC and available at <a href="https://dnd.wizards.com/resources/systems-reference-document" style="color: white; text-decoration: none; text-decoration: underline;">https://dnd.wizards.com/resources/systems-reference-document</a>. The
+        SRD 5.1 is licensed under the Creative Commons Attribution 4.0 International License available at <a href="https://creativecommons.org/licenses/by/4.0/legalcode" style="color: white; text-decoration: none; text-decoration: underline;">https://creativecommons.org/licenses/by/4.0/legalcode</a>.
+    </p>
 </div>
 
 <?php require_once '../app/components/pagefooter.php'; ?>

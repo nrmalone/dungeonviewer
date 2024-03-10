@@ -7,19 +7,28 @@
 ?>
 
 <?php /*
-DONE: name, race, class, alignment, level, STR, DEX, CON, INT, WIS, CHA
-NEED: AC, attribute modifiers
+DONE: name, race, class, alignment, level, STR, DEX, CON, INT, WIS, CHA, AC
+NEED: attribute modifiers, backstory, equipment, lifestyle, gold
 */ ?>
 
 <div style="justify-content: center; max-width: max-content; margin: auto;">
     <div style="margin-top: 55px;">
         <h1 align="center">Character Creation</h1>
-        <div class="pcDiv" style="max-width: 100%; max-height: 50%;">
+        <div class="pcDiv" style="max-width: 100%; max-height: 50%; padding-top: 10px;">
             <form>
                 <!-- made a disabled & hidden submit button to prevent enter auto-submitting form -->
                 <button type="submit" disabled style="display: none;"></button>
                 <!-- left half character creation -->
-                <table style="display: inline;">
+                <table style="display: inline; padding-left: 10px;">
+                    <!-- Systems Reference Guide -->
+                    <tr align="center">
+                        <td style="border: 1px solid white; border-radius: 10px 0 0 0;">Need help<br> building a<br>character?</td>
+                        <td align="left" style="border: 1px solid white; border-radius: 0 10px 0 0;">Check out the <a href="https://dnd.wizards.com/products/rpg_playershandbook" style="color: white; text-decoration: none; text-decoration: underline;" target="_blank">Player's Handbook</a> or the <a href="https://media.wizards.com/2023/downloads/dnd/SRD_CC_v5.1.pdf" style="color: white; text-decoration: none; text-decoration: underline;" target="_blank">SRD 5.1</a><br><span style="font-size: 10pt;"><em>We recommend the handbook since it directly supports<br> the publishers of D&D and contains important tips/context.</em></span></td>
+                    </tr>
+                    <tr>
+                        <!-- spacer -->
+                        <td style="padding-top: 1em;"></td>
+                    </tr>
                     <!-- Name -->
                     <tr align="center">
                         <td class="pcCreationText">Name:&nbsp;</td>
@@ -81,13 +90,13 @@ NEED: AC, attribute modifiers
                     </tr>
                     <tr>
                         <td align="center" class="pcCreationText">Backstory:&nbsp;</td>
-                        <!-- Can't get text wrapping working... -->
-                        <td><input type="textarea" maxlength="2000" class="textField" style="width: 85%; height: 65px; word-wrap: break-word; overflow: scroll;"></td>
+                        <!-- Can't get text wrapping working... disabled & removed from SQL for now -->
+                        <td><input type="textarea" maxlength="2000" class="textField" style="width: 85%; height: 65px; word-wrap: break-word; overflow: scroll;" disabled></td>
                     </tr>
                 </table>
 
                 <!-- right side character creation -->
-                <table style="display: inline;">
+                <table style="display: inline; padding-right: 10px;">
                     <!-- Attributes -->
                     <!-- STR -->
                     <tr align="center">

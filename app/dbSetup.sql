@@ -24,7 +24,6 @@ CREATE TABLE pcs (
     pcRace              VARCHAR(16)     NOT NULL,
     pcClass             VARCHAR(16)     NOT NULL,
     pcAlignment         VARCHAR(16)     NOT NULL,
-    pcBio               VARCHAR(2000),
     pcHP                INT             NOT NULL DEFAULT 0,
     pcLevel             INT             NOT NULL DEFAULT 1,
     pcXP                INT             NOT NULL DEFAULT 0,

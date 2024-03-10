@@ -42,7 +42,10 @@ body {
     color: #D5D5D5;
     margin: auto;
 
+    overflow-y: auto;
+
     font-family: 'Exo 2', serif;
+    padding-bottom: 55px;
 }
 
 header {

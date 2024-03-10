@@ -9,10 +9,10 @@ class Home extends Controller
         $this->view('home', $data);
     }
 
-    public function privacypolicy()
+    public function sitepolicies()
     {
-        $data['title_page'] = 'Privacy Policy';
-        $this->view('privacypolicy', $data);
+        $data['title_page'] = 'Site Policies';
+        $this->view('sitepolicies', $data);
     }
 
     public function about()
