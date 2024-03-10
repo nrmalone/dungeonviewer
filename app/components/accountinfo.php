@@ -19,7 +19,7 @@
                 </tr>
                 <tr align="center">
                     <td>New Email:</td>
-                    <td><input class="textField" name="email" type="email" value="<?=$_SESSION['email']?>" required></td>
+                    <td><input class="textField" name="email" type="email" value="<?=$_SESSION['email']?>" maxlength="100" required></td>
                     <td></td>
                 </tr>
                 <tr align="center">
@@ -39,7 +39,7 @@
                 </tr>
                 <tr align="center">
                     <td>New Username:</td>
-                    <td><input class="textField" name="username" type="text" value="<?=$_SESSION['username']?>" required></td>
+                    <td><input class="textField" name="username" type="text" value="<?=$_SESSION['username']?>" maxlength="16" required></td>
                     <td></td>
                 </tr>
                 <tr align="center">
@@ -54,12 +54,12 @@
                 <form method="POST">
                 <tr align="center">
                     <td>Confirm Username:</td>
-                    <td><input class="textField" name="username" type="text" required></td>
+                    <td><input class="textField" name="username" type="text" maxlength="16" required></td>
                     <td><a href="<?=ROOT?>account"><button class="accountButton" type="button">Cancel</button></a></td>
                 </tr>
                 <tr align="center">
                     <td>Password:</td>
-                    <td><input class="textField" name="password" type="password" required></td>
+                    <td><input class="textField" name="password" type="password" maxlength="255" required></td>
                     <td></td>
                 </tr>
                 <tr align="center">

@@ -13,11 +13,11 @@
             <form method="POST">
                 <tr align="center">
                     <td><p style="display: inline; width: 25%;">Username: </p></td>
-                    <td><input name="username" class="textField" type="text" required></td>
+                    <td><input name="username" class="textField" type="text" maxlength="16" required></td>
                 </tr>
                 <tr align="center">
                     <td><p style="display: inline; width: 25%;">Password: </p></td>
-                    <td><input name="password" class="textField" type="password" required></td>
+                    <td><input name="password" class="textField" type="password" maxlength="255" required></td>
                 </tr>
                 <tr align="center">
                     <td></td><td><button class="accountButton" type="submit">Submit</button></td>

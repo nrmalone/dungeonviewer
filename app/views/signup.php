@@ -13,15 +13,15 @@
             <form method="POST">
                 <tr align="center">
                     <td><p style="display: inline; width: 25%;">Username: </p></td>
-                    <td><input name="username" class="textField" type="text" required></td>
+                    <td><input name="username" class="textField" type="text" maxlength="16" required></td>
                 </tr>
                 <tr align="center">
                     <td><p style="display: inline; width: 25%;">Email: </p></td>
-                    <td><input name="email" class="textField" type="email" required></td>
+                    <td><input name="email" class="textField" type="email" maxlength="100" required></td>
                 </tr>
                 <tr align="center">
                     <td><p style="display: inline; width: 25%;">Password: </p></td>
-                    <td><input name="password" class="textField" type="password" required></td>
+                    <td><input name="password" class="textField" type="password" maxlength="255" required></td>
                 </tr>
                 <tr align="center">
                     <td><h5>*Username must be 4-16<br>
