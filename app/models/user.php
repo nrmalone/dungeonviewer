@@ -92,7 +92,7 @@ class User
 
                 if ($data) {
                     $_SESSION['email'] = $arr['submittedEmail'];
-                    $_SESSION['message'] = 'Email updated to' . $arr['submittedEmail'];
+                    $_SESSION['message'] = 'Email updated to ' . $arr['submittedEmail'];
                     header("Location:" . ROOT . "account");
                     exit();
                 } else {

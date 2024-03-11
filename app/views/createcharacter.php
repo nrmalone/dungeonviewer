@@ -1,21 +1,17 @@
-<?php require_once '../app/components/pageheader.php'; ?>
-
-<?php if (isset($_SESSION['message'])) {
+<?php require_once '../app/components/pageheader.php';
+if(isset($_SESSION['message'])) {
     echo '<div class="accountDiv" style="margin-left: 2%; margin-top: 2%; max-width: max-content;"><strong>' . $_SESSION['message'] . '</strong></p></div>';
     unset($_SESSION['message']);
-}
-?>
-
-<?php /*
+}?>
+<div style="justify-content: center; max-width: max-content; margin: auto;">
+<!--
 DONE: name, race, class, alignment, level, STR, DEX, CON, INT, WIS, CHA, AC
 NEED: attribute modifiers, backstory, equipment, lifestyle, gold
-*/ ?>
-
-<div style="justify-content: center; max-width: max-content; margin: auto;">
+-->
     <div style="margin-top: 55px;">
         <h1 align="center">Character Creation</h1>
         <div class="pcDiv" style="max-width: 100%; max-height: 50%; padding-top: 10px;">
-            <form>
+            <form method="POST">
                 <!-- made a disabled & hidden submit button to prevent enter auto-submitting form -->
                 <button type="submit" disabled style="display: none;"></button>
                 <!-- left half character creation -->
@@ -38,18 +34,47 @@ NEED: attribute modifiers, backstory, equipment, lifestyle, gold
                     <tr align="center">
                         <td class="pcCreationText">Race:&nbsp;</td>
                         <td align="left"><select class="textField" name="race">
-                            <?php foreach($data['defaultRaces'] as $race) {
+                            <?php foreach ($data['defaultRaces'] as $race) {
                                 echo '<option value="' . $race . '">' . $race . '</option>';
-                            } ?>
+                            }?>
                         </select></td>
+                        <!--
+                        <td align="left"><select class="textField" name="race">
+                            <option value="Dragonborn">Dragonborn</option>
+                            <option value="Dwarf">Dwarf</option>
+                            <option value="Elf">Elf</option>
+                            <option value="Gnome">Gnome</option>
+                            <option value="Half-Elf">Half-Elf</option>
+                            <option value="Halfling">Halfling</option>
+                            <option value="Half-Orc">Half-Orc</option>
+                            <option value="Human">Human</option>
+                            <option value="Tiefling">Tiefling</option>
+                        </select></td>
+                        -->                            
                     </tr>
                     <!-- Class -->
                     <tr align="center">
                         <td class="pcCreationText">Class:&nbsp;</td>
                         <td align="left"><select class="textField" name="class">
-                            <?php foreach($data['defaultClasses'] as $class) {
-                                echo '<option value = "' . $class . '">' . $class . '</option>';
-                            } ?>
+                            <!--
+                            <option value="Barbarian">Barbarian</option>
+                            <option value="Bard">Bard</option>
+                            <option value="Cleric">Cleric</option>
+                            <option value="Druid">Druid</option>
+                            <option value="Fighter">Fighter</option>
+                            <option value="Monk">Monk</option>
+                            <option value="Paladin">Paladin</option>
+                            <option value="Ranger">Ranger</option>
+                            <option value="Rogue">Rogue</option>
+                            <option value="Sorcerer">Sorcerer</option>
+                            <option value="Warlock">Warlock</option>
+                            <option value="Wizard">Wizard</option>
+                            -->
+                        <!-- Commenting out this section. Reading the classes and alignments from $data
+                        was causing header conflicts when trying to redirect after submission -->
+                            <?php foreach($data['defaultClasses'] as $pcClass) {
+                                echo '<option value="' . $pcClass . '">' . $pcClass . '</option>';
+                            }?>
                         </select></td>
                     </tr>
 
@@ -69,8 +94,27 @@ NEED: attribute modifiers, backstory, equipment, lifestyle, gold
                         <td class="pcCreationText">Alignment:&nbsp;</td>
                         <td align="left">
                             <table>
+                                <!--
                                 <tr align="left">
-                            <?php for ($i=0; $i<count($data['alignments']); $i++) {
+                                    <td class="pcAlignment"><input id="lawfulGood" type="radio" name="alignment" value="Lawful Good"><label for="lawfulGood">Lawful Good</label></td>
+                                    <td class="pcAlignment"><input id="neutralGood" type="radio" name="alignment" value="Neutral Good"><label for="neutralGood">Neutral Good</label></td>
+                                    <td class="pcAlignment"><input id="lawfulGood" type="radio" name="alignment" value="Lawful Good"><label for="lawfulGood">Chaotic Good</label></td>
+                                </tr>
+                                <tr align="left">
+                                    <td class="pcAlignment"><input id="lawfulNeutral" type="radio" name="alignment" value="Lawful Neutral"><label for="lawfulNeutral">Lawful Neutral</label></td>
+                                    <td class="pcAlignment"><input id="trueNeutral" type="radio" name="alignment" value="True Neutral" checked><label for="trueNeutral">True Neutral</label></td>
+                                    <td class="pcAlignment"><input id="chaoticGood" type="radio" name="alignment" value="Chaotic Good"><label for="chaoticGood">Chaotic Good</label></td>
+                                </tr>
+                                <tr align="left">
+                                    <td class="pcAlignment"><input id="lawfulEvil" type="radio" name="alignment" value="Lawful Evil"><label for="lawfulEvil">Lawful Evil</label></td>
+                                    <td class="pcAlignment"><input id="neutralEvil" type="radio" name="alignment" value="Neutral Evil"><label for="neutralEvil">Neutral Evil</label></td>
+                                    <td class="pcAlignment"><input id="chaoticEvil" type="radio" name="alignment" value="Chaotic Evil"><label for="chaoticEvil">Chaotic Evil</label></td>
+                                </tr>
+                                -->
+                                <!-- Commenting out this section. Reading the classes and alignments from $data
+                                was causing header conflicts when trying to redirect after submission -->
+                                <tr align="left">
+                                <?php for ($i=0; $i<count($data['alignments']); $i++) {
                                 if($i === 3) {
                                     echo '</tr><tr align="left">';
                                 }
@@ -149,7 +193,7 @@ NEED: attribute modifiers, backstory, equipment, lifestyle, gold
                             <button class="attributeButton" type="button" onclick="decAttr('wisdom')">-</button>
                             <button class="attributeButton" type="button" onclick="incAttr('wisdom')">+</button>
                         </td>
-                        <td style="font-size: 10pt;">Modifiers added later</td>
+                        <td style="font-size: 10pt;">We'll auto-calculate modifiers later</td>
                     </tr>
                     <!-- CHA -->
                     <tr align="center">
@@ -165,7 +209,7 @@ NEED: attribute modifiers, backstory, equipment, lifestyle, gold
                     <!-- Armor -->
                     <tr align="center">
                         <td class="pcCreationText">Armor:&nbsp;</td>
-                        <td><select class="textField" name="armorClass">
+                        <td><select class="textField" name="armor">
                             <option value="0">None</option>
                             <optgroup label="Light Armor">
                                 <option value="11">Padded</option>

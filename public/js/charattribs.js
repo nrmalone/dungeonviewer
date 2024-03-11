@@ -1,14 +1,17 @@
-pointsPool = 27;
+currentURL = window.location.href;
+characterURL = currentURL.replace('createcharacter', '');
+
+let pointsPool = 27;
 
 function decAttr(attr) {
     switch (attr) {
         case 'strength':
             strengthP = document.getElementById('strength');
             currentstrength = parseInt(strengthP.textContent);
-            if ((currentstrength == 15) && (pointsPool<=27)) {
-                newstrength = currentstrength - 1;
+            if ((currentstrength == 15) && (pointsPool<=21)) {
+                newstrength = 14;
                 pointsPool += 2;
-            } else if ((currentstrength > 8) && (currentstrength < 15) && (pointsPool<=27)) {
+            } else if ((currentstrength > 8) && (currentstrength < 15) && (pointsPool<=26)) {
                 newstrength = currentstrength - 1;
                 pointsPool += 1;
             } else {
@@ -25,10 +28,10 @@ function decAttr(attr) {
         case 'dexterity':
             dexterityP = document.getElementById('dexterity');
             currentdexterity = parseInt(dexterityP.textContent);
-            if ((currentdexterity == 15) && (pointsPool<=27)) {
-                newdexterity = currentdexterity - 1;
+            if ((currentdexterity == 15) && (pointsPool<=21)) {
+                newdexterity = 14;
                 pointsPool += 2;
-            } else if ((currentdexterity > 8) && (currentdexterity < 15) && (pointsPool<=27)) {
+            } else if ((currentdexterity > 8) && (currentdexterity < 15) && (pointsPool<=26)) {
                 newdexterity = currentdexterity - 1;
                 pointsPool += 1;
             } else {
@@ -45,18 +48,18 @@ function decAttr(attr) {
         case 'constitution':
             constitutionP = document.getElementById('constitution');
             currentconstitution = parseInt(constitutionP.textContent);
-            if ((currentconstitution == 15) && (pointsPool<=27)) {
-                newconstitution = currentconstitution - 1;
+            if ((currentconstitution == 15) && (pointsPool<=21)) {
+                newconstitution = 14;
                 pointsPool += 2;
-            } else if ((currentconstitution > 8) && (currentconstitution < 15) && (pointsPool<=27)) {
+            } else if ((currentconstitution > 8) && (currentconstitution < 15) && (pointsPool<=26)) {
                 newconstitution = currentconstitution - 1;
                 pointsPool += 1;
             } else {
                 newconstitution = currentconstitution;
             }
             constitutionInput = document.getElementById('constitutionInput');
-            constitutionInput.value = newstrength;
-            constitutionP.textContent = newstrength;
+            constitutionInput.value = newconstitution;
+            constitutionP.textContent = newconstitution;
             
             remainingPts = document.getElementById('remainingPts');
             remainingPts.textContent = 'Remaining Pts: ' + pointsPool;
@@ -65,10 +68,10 @@ function decAttr(attr) {
         case 'intelligence':
             intelligenceP = document.getElementById('intelligence');
             currentintelligence = parseInt(intelligenceP.textContent);
-            if ((currentintelligence == 15) && (pointsPool<=27)) {
-                newintelligence = currentintelligence - 1;
+            if ((currentintelligence == 15) && (pointsPool<=21)) {
+                newintelligence = 14;
                 pointsPool += 2;
-            } else if ((currentintelligence > 8) && (currentintelligence < 15) && (pointsPool<=27)) {
+            } else if ((currentintelligence > 8) && (currentintelligence < 15) && (pointsPool<=26)) {
                 newintelligence = currentintelligence - 1;
                 pointsPool += 1;
             } else {
@@ -85,10 +88,10 @@ function decAttr(attr) {
         case 'wisdom':
             wisdomP = document.getElementById('wisdom');
             currentwisdom = parseInt(wisdomP.textContent);
-            if ((currentwisdom == 15) && (pointsPool<=27)) {
-                newwisdom = currentwisdom - 1;
+            if ((currentwisdom == 15) && (pointsPool<=21)) {
+                newwisdom = 14;
                 pointsPool += 2;
-            } else if ((currentwisdom > 8) && (currentwisdom < 15) && (pointsPool<=27)) {
+            } else if ((currentwisdom > 8) && (currentwisdom < 15) && (pointsPool<=26)) {
                 newwisdom = currentwisdom - 1;
                 pointsPool += 1;
             } else {
@@ -105,10 +108,10 @@ function decAttr(attr) {
         case 'charisma':
             charismaP = document.getElementById('charisma');
             currentcharisma = parseInt(charismaP.textContent);
-            if ((currentcharisma == 15) && (pointsPool<=27)) {
-                newcharisma = currentcharisma - 1;
+            if ((currentcharisma == 15) && (pointsPool<=21)) {
+                newcharisma = 14;
                 pointsPool += 2;
-            } else if ((currentcharisma > 8) && (currentcharisma < 15) && (pointsPool<=27)) {
+            } else if ((currentcharisma > 8) && (currentcharisma < 15) && (pointsPool<=26)) {
                 newcharisma = currentcharisma - 1;
                 pointsPool += 1;
             } else {

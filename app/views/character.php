@@ -1,7 +1,13 @@
 <?php require_once '../app/components/pageheader.php'; ?>
 
+<?php if (isset($_SESSION['message'])) {
+    echo '<div class="accountDiv" style="margin-left: 2%; margin-top: 2%; max-width: max-content;"><strong>' . $_SESSION['message'] . '</strong></p></div>';
+    unset($_SESSION['message']);
+}
+?>
+
 <div style="justify-content: center; max-width: max-content; margin: auto;">
-    <?php if (is_array($data['pcs']) && (count($data['pcs']['pcID']) < 5)): ?>
+    <?php if (is_array($data['pcs']) && (count($data['pcs']) < 5)): ?>
         <h2 align="center"><a href="character/createcharacter" style="text-decoration: none; text-decoration: underline;">Create Character</a></h2>
     <?php endif; ?>
     <?php if ($data['pcs'] !== false): ?>

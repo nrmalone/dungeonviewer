@@ -27,6 +27,7 @@ class PlayerCharacter
 
         if (isset($POST['name']) && isset($_SESSION['userID']))
         {
+            $arr['userID'] = $_SESSION['userID'];
             //character traits
             $arr['pcName'] = sanitize($POST['name']);
             $arr['pcRace'] = sanitize($POST['race']);
@@ -60,7 +61,7 @@ class PlayerCharacter
             $arr['pcXP'] = $possibleXP[$arr['pcLevel']];
             
             //armor
-            if(intval($POST['shield']) === '2') {
+            if(isset($POST['shield'])) {
                 $arr['pcAC'] = intval(sanitize($POST['armor'])) + 2;
             } else {
                 $arr['pcAC'] = intval(sanitize($POST['armor']));
@@ -187,8 +188,26 @@ class PlayerCharacter
                 break;
             }
 
-
             //database write
+            $createCharacterQuery = "INSERT INTO pcs (userID, pcName, pcRace, pcClass, pcAlignment, pcHP, pcLevel, pcXP, pcAC, pcSTR, pcDEX, pcCON, pcINT, pcWIS, pcCHA) values (:userID, :pcName, :pcRace, :pcClass, :pcAlignment, :pcHP, :pcLevel, :pcXP, :pcAC, :pcSTR, :pcDEX, :pcCON, :pcINT, :pcWIS, :pcCHA);";
+            $createCharacter = $DB->write($createCharacterQuery, $arr);
+
+            if ($createCharacter) {
+                $_SESSION['message'] = 'Your character, ' . $arr['pcName'] . ' was successfully created!';
+                $_SESSION['characterCreated'] = 1;
+                ob_end_clean();
+                /*
+                Warning message about "cannot modify header" is gone after adding ob_end_clean
+                but headers below still aren't redirecting...
+                Already checked for trailing whitespaces after closing php tags.
+                createcharacter.php view line 40 (closing tag after race selects) is causing error.
+                */
+                header("Location:" . ROOT . "character");
+            } else {
+                $_SESSION['message'] = 'Problem creating character.';
+                ob_end_clean();
+                header("Location:" . ROOT . "createcharacter");
+            }
         }
     }
 }

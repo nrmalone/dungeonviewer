@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title><?= $data['title_page']?></title>
 
-        <link rel="stylesheet" href="<?= ROOT?>css/styles.css">
+        <link rel="stylesheet" href="<?=ROOT?>css/styles.css">
     </head>
     <body>
         <header>            
@@ -19,7 +19,6 @@
             } else {
                 echo '<h2 class="headerText"><a class="headerLink" href="' . ROOT . 'account/signin">Sign In</a></h2>';
                 echo '<h2 class="headerText"><a class="headerLink" href="' . ROOT . 'account/signup">Create Account</a></h2>';                
-            }
-            ?>
+            }?>
         </header>
         <main>
