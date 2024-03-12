@@ -42,4 +42,20 @@ class Character extends Controller
     {
 
     }
+
+    public function modeler($pcID)
+    {
+        $data['title_page'] = 'Character Modeler';
+
+        if (is_int(intval(sanitize($pcID)))) {
+            $character = $this->loadModel('PlayerCharacter');
+            $characterModel = new PlayerCharacter;
+            $data['pc'] = $characterModel->modeler(intval(sanitize($pcID)));
+
+            $this->view('modeler', $data);
+        } else {
+            $_SESSION['message'] = 'Unable to load character modeler.';
+            header("Location:" . ROOT . "character");
+        }
+    }
 }

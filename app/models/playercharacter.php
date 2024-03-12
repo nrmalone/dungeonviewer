@@ -212,4 +212,24 @@ class PlayerCharacter
             }
         }
     }
+
+    function modeler($pcID) {
+        $DB = new Database();
+        $_SESSION['error'] = '';
+
+        if (isset($_SESSION['userID'])) {
+            $arr['userID'] = $_SESSION['userID'];
+            $arr['pcID'] = $pcID;
+
+            $getPCQuery = "SELECT * FROM pcs WHERE (userID = :userID AND pcID = :pcID);";
+            $getPC = $DB->read($getPCQuery, $arr);
+
+            if(is_array($getPC))
+            {
+                return $getPC;
+            } else {
+                return false;
+            }
+        }
+    }
 }

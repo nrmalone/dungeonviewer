@@ -61,9 +61,9 @@
                 <tr name="roadmapRow1">
                     <td align="center" class="completed" style="width: 25%;">
                         Updating/deleting accounts</td>
-                    <td align="center" class="inProgress" style="width: 25%;">
+                    <td align="center" class="completed" style="width: 25%;">
                         5E Compatible Character Creation</td>
-                    <td align="center" class="notStarted" style="width: 25%;">
+                    <td align="center" class="inProgress" style="width: 25%;">
                         Models for all default 5E races</td>
                     <td align="center" class="notStarted" style="width: 25%;">
                         Default landscapes/interiors</td>
