@@ -15,3 +15,6 @@
 * Website licensing info, privacy policy, and about page
   * CC-BY-4.0 license of D&D 5E content & WotC Fan Content Policy
   * security and privacy of emails and user passwords explicitly outlined
+## Week 3 (03-10-24 to 03-16-24):
+* Finished character sheet creation form and database connection
+* Dynamically display character sheet info and avatar on main character list page
