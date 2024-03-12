@@ -35,7 +35,7 @@ NEED: attribute modifiers, backstory, equipment, lifestyle, gold
                         <td class="pcCreationText">Race:&nbsp;</td>
                         <td align="left"><select class="textField" name="race">
                             <?php foreach ($data['defaultRaces'] as $race) {
-                                echo '<option value="' . $race . '">' . $race . '</option>';
+                                echo ('<option value="' . $race . '">' . $race . '</option>');
                             }?>
                         </select></td>
                         <!--
@@ -245,5 +245,5 @@ NEED: attribute modifiers, backstory, equipment, lifestyle, gold
 </div>
 
 <script src="<?=ROOT?>js/charattribs.js"></script>
-
-<?php require_once '../app/components/pagefooter.php'; ?>
+<?php require_once '../app/components/pagefooter.php';
+//ob_start();?>

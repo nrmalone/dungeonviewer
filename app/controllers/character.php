@@ -24,8 +24,8 @@ class Character extends Controller
         $character = $this->loadModel('PlayerCharacter');
         $characterModel = new PlayerCharacter;
         
-        $this->view('createcharacter', $data);
         $characterModel->createCharacter($_POST);
+        $this->view('createcharacter', $data);
     }
 
     public function viewcharacter($pcID)
