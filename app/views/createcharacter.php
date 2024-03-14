@@ -11,9 +11,11 @@ NEED: attribute modifiers, backstory, equipment, lifestyle, gold
     <div style="margin-top: 55px;">
         <h1 align="center">Character Creation</h1>
         <div class="pcDiv" style="max-width: 100%; max-height: 50%; padding-top: 10px;">
+            <?php if (isset($_SESSION['userID'])): ?>
             <form method="POST">
                 <!-- made a disabled & hidden submit button to prevent enter auto-submitting form -->
                 <button type="submit" disabled style="display: none;"></button>
+            <?php endif; ?>
                 <!-- left half character creation -->
                 <table style="display: inline; padding-left: 10px;">
                     <!-- Systems Reference Guide -->
@@ -235,7 +237,9 @@ NEED: attribute modifiers, backstory, equipment, lifestyle, gold
                     <tr>
                         <td></td>
                         <td align="center">
-                            <button class="accountButton" style="margin-top: 15px;">Submit</button>
+                            <?php if (isset($_SESSION['userID'])) {
+                                echo '<button class="accountButton" style="margin-top: 15px;">Submit</button>'; }
+                                else { echo '<h4 style="background-color: #1E1E1E; border: 1px white solid; border-radius: 10px 0 10px 0; padding: 5px 5px 5px 5px;">You must <a href="' . ROOT . 'account/signin" style="color: white; text-decoration: none; text-decoration: underline;">sign in</a><br> to save your <br>character sheet.</h4>'; } ?>
                         </td>
                     </tr>
                 </table>
@@ -245,5 +249,6 @@ NEED: attribute modifiers, backstory, equipment, lifestyle, gold
 </div>
 
 <script src="<?=ROOT?>js/charattribs.js"></script>
+
 <?php require_once '../app/components/pagefooter.php';
 //ob_start();?>

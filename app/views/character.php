@@ -7,7 +7,7 @@
 ?>
 
 <div style="justify-content: center; max-width: max-content; margin: auto;">
-    <?php if ($data['pcs'] !== false): ?>
+    <?php if (isset($_SESSION['userID']) && ($data['pcs'] !== false)): ?>
         <?php foreach ($data['pcs'] as $character): ?>
             <div class="pcDiv" style="max-width: 100%; max-height: 50%; padding-top: 10px; margin-top: 5%; border-bottom: 5px solid #6A0F0F;">
                 <table style="display: inline; padding-left: 10px;">
