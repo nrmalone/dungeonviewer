@@ -2,6 +2,8 @@
 <?php $character = (is_array($data['pc'])) ? $data['pc'][0] : false; ?>
 <?php if (isset($_SESSION['userID']) && ($character->userID == $_SESSION['userID'])) : ?>
 <!-- viewing your own character... threejs-powered modeler -->
+<div id="renderframe" style="width: 75vw; height: 75vh; background-color: black; margin-top: 5%; margin-left: auto; margin-right: auto;"></div>
+<script type="module" src="<?=ROOT?>js/charmodeler.js"></script>
 
 <?php elseif (!is_bool($character)) : ?>
 <!-- view other player's character... shows stats & avatar if exists -->

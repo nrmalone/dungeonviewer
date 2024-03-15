@@ -2,3 +2,5 @@
 *.gif
 *.jpg
 *.jpeg
+*.env
+**/node_modules
