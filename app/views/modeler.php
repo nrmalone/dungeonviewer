@@ -1,12 +1,10 @@
-<?php require_once '../app/components/pageheader.php'; ?>
 <?php $character = (is_array($data['pc'])) ? $data['pc'][0] : false; ?>
 <?php if (isset($_SESSION['userID']) && ($character->userID == $_SESSION['userID'])) : ?>
+    <?php require_once '../app/components/threejs.php'; ?>
 <!-- viewing your own character... threejs-powered modeler -->
-<div id="renderframe" style="width: 75vw; height: 75vh; background-color: black; border: 2px solid #B51A1A; border-radius: 2vw 2vw 2vw 2vw; margin-top: 5%; margin-left: auto; margin-right: auto;">
-    <object type="text/html" data="<?=ROOT?>three/src/charmodeler.html"></object>
-</div>
 
 <?php elseif (!is_bool($character)) : ?>
+    <?php require_once '../app/components/pageheader.php'; ?>
 <!-- view other player's character... shows stats & avatar if exists -->
 <h1 align="center">Meet <?=$character->pcName?>!</h1>
 <div class="pcDiv" style="max-width: max-content; max-height: 50%; padding-top: 10px; margin-top: 2%; border-bottom: 5px solid #6A0F0F; margin-left: auto; margin-right: auto;">
@@ -70,6 +68,7 @@
 </div>
 <h3 align="center">Want to <a href=<?=ROOT?><?php if (isset($_SESSION['userID'])) { echo "character"; } else { echo "account/signin"; } ?> style="color: white; text-decoration: none; text-decoration: underline;">make your own</a>?</h3>
 <?php else: ?>
+    <?php require_once '../app/components/pageheader.php'; ?>
 <!-- display error about unable to load character -->
 <div align="center" style="justify-content: center; max-width: max-content; margin: auto;">
     <h2>Whoops! Looks like that character doesn't exist yet.</h2>
