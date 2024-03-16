@@ -12,7 +12,8 @@
             {
                 "imports": {
                     "three": "https://unpkg.com/three@0.162.0/build/three.module.js",
-                    "three/addons/": "https://unpkg.com/three@0.162.0/examples/jsm/"
+                    "three/addons/": "https://unpkg.com/three@0.162.0/examples/jsm/",
+                    "OrbitControls": "https://unpkg.com/three@0.162.0/examples/jsm/controls/OrbitControls.js"
                 }
             }
         </script>
@@ -31,26 +32,67 @@
             }?>
         </header>
         <main>
-            <div>
-                
+            <div class="pcDiv" style="max-width: max-content; max-height: 10%; margin-top: 2vh; border-bottom: 5px solid #6A0F0F; margin-left: auto; margin-right: auto; padding: 0 2vw 0 2vw;">
+                <table align="center">
+                    <tr>
+                        <td><button type="button" class="accountButton"><a href="<?=ROOT?>character" style="color: white; text-decoration: none;">← Cancel</a></button></td>
+                        <td><h3>Creating avatar for <?=$character->pcName?></h3></td>
+                        <td><a href="" style="color: white; text-decoration: none; text-decoration: underline;"></a></td>
+                    </tr>
+                </table>
+                <p align="center" style="margin: 0;">Level <?=$character->pcLevel?> <?=$character->pcRace?> <?=$character->pcClass?></p>
+                <table>
+                    <tr>
+                        <td>STR <?=$character->pcSTR?> &#9672;</td>
+                        <td>DEX <?=$character->pcDEX?> &#9672;</td>
+                        <td>CON <?=$character->pcCON?> &#9672;</td>
+                        <td>INT <?=$character->pcINT?> &#9672;</td>
+                        <td>WIS <?=$character->pcWIS?> &#9672;</td>
+                        <td>CHA <?=$character->pcCHA?></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                    </tr>
+                </table>
             </div>
             <script type="module">
-            import * as THREE from 'three';
+                import * as THREE from 'three';
+                import {OrbitControls} from 'OrbitControls';
 
-            const renderer = new THREE.WebGLRenderer();
+                const renderer = new THREE.WebGLRenderer();
 
-            renderer.setSize((0.75*window.innerWidth), (0.75*window.innerHeight));
-            //renderer.domElement.style.marginLeft = auto;
-            //renderer.domElement.style.marginRight = auto;
-            document.body.appendChild(renderer.domElement);
+                renderer.setSize((0.85*window.innerWidth), (0.63*window.innerHeight));
+                //renderer.domElement.style.marginLeft = auto;
+                //renderer.domElement.style.marginRight = auto;
+                document.body.appendChild(renderer.domElement);
 
-            const scene = new THREE.Scene();
-            const camera = new THREE.PerspectiveCamera(75, (0.75*window.innerWidth)/(0.75*window.innerHeight), 0.1, 1000);
+                const scene = new THREE.Scene();
+                const camera = new THREE.PerspectiveCamera(75, (0.75*window.innerWidth)/(0.75*window.innerHeight), 0.1, 1000);
+                const orbit = new OrbitControls(camera, renderer.domElement);
+                camera.position.set(0, 2, 5);
+                orbit.update();
 
-            const axesHelper = new THREE.AxesHelper(5);
-            scene.add(axesHelper);
+                const boxGeometry = new THREE.BoxGeometry();
+                const boxMaterial = new THREE.MeshBasicMaterial({
+                    color: 0x00ff00
+                });
+                const box = new THREE.Mesh(boxGeometry, boxMaterial);
+                scene.add(box);
 
-            camera.position.z = 5;
+                const axesHelper = new THREE.AxesHelper(5);
+                scene.add(axesHelper);
 
-            renderer.render(scene, camera);
-        </script>
+                camera.position.z = 5;
+                camera.position.y = 2;
+                camera.rotation.x = -0.3;
+
+                renderer.render(scene, camera);
+
+                function animate(time) {
+                    box.rotation.x = time / 1000;
+                    box.rotation.y = time / 1000;
+
+                    renderer.render(scene, camera);
+                }
+                renderer.setAnimationLoop(animate);
+            </script>
