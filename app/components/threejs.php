@@ -7,16 +7,15 @@
         <title><?= $data['title_page']?></title>
 
         <link rel="stylesheet" href="<?=ROOT?>css/styles.css">
-        <script async src="https://unpkg.com/es-module-shims@1.8.3/dist/es-module-shims.js"></script>
-        <?='<script type="importmap">
+        <!-- <script async src="https://unpkg.com/es-module-shims@1.8.3/dist/es-module-shims.js"></script> -->
+        <script type="importmap">
             {
                 "imports": {
-                    "three": "' . ROOT . 'three/dist/node_modules/three/build/three.module.js",
-                    "three/addons/": "../../public/three/examples/jsm/"
+                    "three": "https://unpkg.com/three@0.162.0/build/three.module.js",
+                    "three/addons/": "https://unpkg.com/three@0.162.0/examples/jsm/"
                 }
             }
-        </script>'?>
-        <script src="<?=ROOT?>three/src/js/modeler.js" type="module"></script>
+        </script>
     </head>
     <body>
         <header>            
@@ -32,3 +31,26 @@
             }?>
         </header>
         <main>
+            <div>
+                
+            </div>
+            <script type="module">
+            import * as THREE from 'three';
+
+            const renderer = new THREE.WebGLRenderer();
+
+            renderer.setSize((0.75*window.innerWidth), (0.75*window.innerHeight));
+            //renderer.domElement.style.marginLeft = auto;
+            //renderer.domElement.style.marginRight = auto;
+            document.body.appendChild(renderer.domElement);
+
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, (0.75*window.innerWidth)/(0.75*window.innerHeight), 0.1, 1000);
+
+            const axesHelper = new THREE.AxesHelper(5);
+            scene.add(axesHelper);
+
+            camera.position.z = 5;
+
+            renderer.render(scene, camera);
+        </script>
