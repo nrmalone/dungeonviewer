@@ -18,3 +18,4 @@
 ## Week 3 (03-10-24 to 03-16-24):
 * Finished character sheet creation form and database connection
 * Dynamically display character sheet info and avatar on main character list page
+* Set up threeJS via unpkg.com CDN and created sample of threeJS character modeler
