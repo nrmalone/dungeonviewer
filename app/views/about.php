@@ -73,7 +73,7 @@
                         Password Reset Emails</td>
                     <td align="center" class="notStarted" style="width: 25%;">
                         Avatar Photo Upload</td>
-                    <td align="center" class="notStarted" style="width: 25%;">
+                    <td align="center" class="inProgress" style="width: 25%;">
                         Background/Prop Customization</td>
                     <td align="center" class="notStarted" style="width: 25%;">
                         NPC and PC Movement</td>

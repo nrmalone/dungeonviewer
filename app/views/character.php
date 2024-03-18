@@ -11,8 +11,8 @@
         <?php foreach ($data['pcs'] as $character): ?>
             <div class="pcDiv" style="max-width: 100%; max-height: <?=(intval(100/(count($data['pcs']))))?>vh; padding-top: 10px; margin-top: 5%; border-bottom: 5px solid #6A0F0F;">
                 <table style="display: inline; padding-left: 10px;">
-                    <tr align="center">
-                        <td><h4 style="margin: 0;"><?=$character->pcName?></h4></td>
+                    <tr>
+                        <td align="center"><h4 style="margin: 0; width: 8em;"><?=$character->pcName?></h4></td>
                         <td style="font-size: 10pt;">STR <?=$character->pcSTR?></td>
                     </tr>
                     <tr>
@@ -38,10 +38,10 @@
                 </table>
                 <table style="display: inline; padding: 0 10px 0 10px">
                     <tr>
-                        <td align="center"><a href="<?=ROOT?>character/editcharacter/<?=$character->pcID?>" style="color: white; text-decoration: none; text-decoration: underline;">Edit <?=$character->pcName?></a>&emsp;<a href="<?=ROOT?>character/modeler/<?=$character->pcID?>" style="color: white; text-decoration: none; text-decoration: underline;">Create avatar for <?=$character->pcName?></a></td>
+                        <td align="center"><a href="<?=ROOT?>character/editcharacter/<?=$character->pcID?>" style="color: white; text-decoration: none; text-decoration: underline;">Edit Stats</a>&emsp;<a href="<?=ROOT?>character/modeler/<?=$character->pcID?>" style="color: white; text-decoration: none; text-decoration: underline;">Create avatar</a></td>
                     </tr>
                     <tr>
-                        <td align="center"><img style="margin-left: 2.5%; border: solid black 3px; width: 15vw; object-fit: cover; border-radius: 15px 0 15px 0; display: inline; aspect-ratio: 1/1; object-fit: cover;" src="<?php
+                        <td align="left"><img style="margin-left: 2em; border: solid black 3px; width: 15vw; object-fit: cover; border-radius: 15px 0 15px 0; display: inline; aspect-ratio: 1/1; object-fit: cover;" src="<?php
                             $charImgFolder = ROOT . 'img/characters/';
                             $imgpath = $charImgFolder . 'u' . $_SESSION['userID'] . 'p' . $character->pcID . '.png';
                             if (file_exists($imgpath)) { echo $imgpath; } else { echo $charImgFolder . 'defaultpfp.jpg'; } ?>"></td>

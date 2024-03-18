@@ -61,7 +61,7 @@
             <td><img style="margin-left: 2.5%; width: 30vw; border: solid black 3px;  border-radius: 15px 0 15px 0; display: inline; aspect-ratio: 1/1; object-fit: cover;" src="<?php
                 $charImgFolder = ROOT . 'img/characters/';
                 $imgpath = $charImgFolder . 'u' . $character->userID . 'p' . $character->pcID . '.png';
-                if (file_exists($imgpath)) { echo $imgpath; } else { echo $charImgFolder . 'defaultPC.png'; } ?>"></td>
+                if (file_exists($imgpath)) { echo $imgpath; } else { echo $charImgFolder . 'defaultpfp.jpg'; } ?>"></td>
         </tr>
     </table>
     <p align="center" style="width: 80%; margin-left: auto; margin-right: auto; margin-top: 10px; margin-bottom: 2%;"><em>backstory placeholder</em></p>
