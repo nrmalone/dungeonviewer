@@ -30,23 +30,25 @@ class Character extends Controller
 
     public function editcharacter($pcID = false)
     {
-        if (is_int(intval(sanitize($pcID)))) {
             $data['title_page'] = 'Edit Character';
-            $sanitizedpcID = intval(sanitize($pcID));
+
+            $data['defaultRaces'] = ['Dragonborn', 'Dwarf', 'Elf', 'Gnome', 'Half-Elf', 'Halfling', 'Half-Orc', 'Human', 'Tiefling'];
+            $data['defaultClasses'] = ['Barbarian', 'Bard', 'Cleric', 'Druid', 'Fighter', 'Monk', 'Paladin', 'Ranger', 'Rogue', 'Sorcerer', 'Warlock', 'Wizard'];
+            $data['alignments'] = ['Lawful Good', 'Neutral Good', 'Chaotic Good', 'Lawful Neutral', 'True Neutral', 'Chaotic Neutral', 'Lawful Evil', 'Neutral Evil', 'Chaotic Evil'];
+
+            if (is_int(intval(sanitize($pcID)))) {
+                $data['pcID'] = intval(sanitize($pcID));
+            } else {
+                $data['pcID'] = false;
+            }
+
             $character = $this->loadModel('PlayerCharacter');
             $characterModel = new PlayerCharacter;
-            try {
-                $data['pc'] = $characterModel->editCharacter($sanitizedpcID, $_POST);
-            } catch (ArgumentCountError $e) {
-                $_SESSION['message'] = 'Unable to edit character.';
-                header("Location:" . ROOT . "character");
-            }
-        } else {
-            $data['title_page'] = 'Error';
-            $_SESSION['error'] = 'Unable to edit character.';
-            $this->view('error', $data);
-        }
-    }
+            $data['pc'] = $characterModel->getCharacter($data['pcID']);
+
+            $characterModel->editCharacter($_POST);
+            $this->view('editcharacter', $data);
+    } 
 
     public function deletecharacter($pcID)
     {
