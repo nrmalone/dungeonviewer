@@ -13,32 +13,38 @@
                 <table style="display: inline; padding-left: 10px;">
                     <tr>
                         <td align="center"><h4 style="margin: 0; width: 8em;"><?=$character->pcName?></h4></td>
-                        <td style="font-size: 10pt;">STR <?=$character->pcSTR?></td>
+                        <td style="font-size: 10pt;">STR</td><td>&#9672;</td><td><?=$character->pcSTR?></td>
                     </tr>
                     <tr>
                         <td></td>
-                        <td style="font-size: 10pt;">DEX <?=$character->pcDEX?></td>
+                        <td style="font-size: 10pt;">DEX</td><td>&#9672;</td><td><?=$character->pcDEX?></td>
                     </tr>
                     <tr>
                         <td style="display: inline;">Level <?=$character->pcLevel?></td>
-                        <td style="font-size: 10pt;">CON <?=$character->pcCON?></td>
+                        <td style="font-size: 10pt;">CON</td><td>&#9672;</td><td><?=$character->pcCON?></td>
                     </tr>
                     <tr>
                         <td><?=$character->pcRace?></td>
-                        <td style="font-size: 10pt;">INT <?=$character->pcINT?></td>
+                        <td style="font-size: 10pt;">INT</td><td>&#9672;</td><td><?=$character->pcINT?></td>
                     </tr>
                     <tr>
                         <td><?=$character->pcClass?></td>
-                        <td style="font-size: 10pt;">WIS <?=$character->pcWIS?></td>
+                        <td style="font-size: 10pt;">WIS</td><td>&#9672;</td><td><?=$character->pcWIS?></td>
                     </tr>
                     <tr>
                         <td></td>
-                        <td style="font-size: 10pt;">CHA <?=$character->pcCHA?></td>
+                        <td style="font-size: 10pt;">CHA</td><td>&#9672;</td><td><?=$character->pcCHA?></td>
+                    </tr>
+                    <tr>
+                        <td align="center"><a href="<?=ROOT?>character/editcharacter/<?=$character->pcID?>" style="color: white; text-decoration: none; text-decoration: underline;">Edit Stats</a></td>
+                    </tr>
+                    <tr>
+                    <td align="center"><a href="<?=ROOT?>character/deletecharacter/<?=$character->pcID?>" style="color: white; text-decoration: none; text-decoration: underline;">Delete</a></td>
                     </tr>
                 </table>
                 <table style="display: inline; padding: 0 10px 0 10px">
                     <tr>
-                        <td align="center"><a href="<?=ROOT?>character/editcharacter/<?=$character->pcID?>" style="color: white; text-decoration: none; text-decoration: underline;">Edit Stats</a>&emsp;<a href="<?=ROOT?>character/modeler/<?=$character->pcID?>" style="color: white; text-decoration: none; text-decoration: underline;">Create avatar</a></td>
+                        <td align="center"><a href="<?=ROOT?>character/uploadavatar/<?=$character->pcID?>" style="color: white; text-decoration: none; text-decoration: underline;">Upload Avatar</a> &#9672; <a href="<?=ROOT?>character/modeler/<?=$character->pcID?>" style="color: white; text-decoration: none; text-decoration: underline;">Create Model</a></td>
                     </tr>
                     <tr>
                         <td align="left"><img style="margin-left: 2em; border: solid black 3px; width: 15vw; object-fit: cover; border-radius: 15px 0 15px 0; display: inline; aspect-ratio: 1/1; object-fit: cover;" src="<?php
