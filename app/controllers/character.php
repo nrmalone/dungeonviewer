@@ -28,14 +28,24 @@ class Character extends Controller
         $this->view('createcharacter', $data);
     }
 
-    public function viewcharacter($pcID)
+    public function editcharacter($pcID = false)
     {
-
-    }
-
-    public function editcharacter($pcID)
-    {
-
+        if (is_int(intval(sanitize($pcID)))) {
+            $data['title_page'] = 'Edit Character';
+            $sanitizedpcID = intval(sanitize($pcID));
+            $character = $this->loadModel('PlayerCharacter');
+            $characterModel = new PlayerCharacter;
+            try {
+                $data['pc'] = $characterModel->editCharacter($sanitizedpcID, $_POST);
+            } catch (ArgumentCountError $e) {
+                $_SESSION['message'] = 'Unable to edit character.';
+                header("Location:" . ROOT . "character");
+            }
+        } else {
+            $data['title_page'] = 'Error';
+            $_SESSION['error'] = 'Unable to edit character.';
+            $this->view('error', $data);
+        }
     }
 
     public function deletecharacter($pcID)

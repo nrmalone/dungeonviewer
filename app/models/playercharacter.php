@@ -213,6 +213,10 @@ class PlayerCharacter
         }
     }
 
+    function editCharacter($pcID, $POST) {
+
+    }
+
     function modeler($pcID) {
         $DB = new Database();
         $_SESSION['error'] = '';
