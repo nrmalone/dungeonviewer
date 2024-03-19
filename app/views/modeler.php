@@ -1,8 +1,9 @@
-<?php $character = (is_array($data['pc'])) ? $data['pc'][0] : false; ?>
-<?php if (isset($_SESSION['userID']) && ($character->userID == $_SESSION['userID'])) : ?>
+<?php $character = (is_array($data['pc']) && isset($data['pc'][0]->pcID)) ? $data['pc'][0] : false; ?>
+<?php if (isset($_SESSION['userID']) && isset($character->userID)) : ?>
+    <?php if ($character->userID == $_SESSION['userID']) : ?>
     <?php require_once '../app/components/threejs.php'; ?>
 <!-- viewing your own character... threejs-powered modeler -->
-
+<?php endif; ?>
 <?php elseif (!is_bool($character)) : ?>
     <?php require_once '../app/components/pageheader.php'; ?>
 <!-- view other player's character... shows stats & avatar if exists -->

@@ -35,7 +35,7 @@
             <div class="pcDiv" style="max-width: max-content; max-height: 10%; margin-top: 2vh; border-bottom: 5px solid #6A0F0F; margin-left: auto; margin-right: auto; padding: 0 2vw 0 2vw;">
                 <table align="center">
                     <tr>
-                        <td><button type="button" class="accountButton"><a href="<?=ROOT?>character" style="color: white; text-decoration: none;">← Cancel</a></button></td>
+                        <td><a href="<?=ROOT?>character" style="color: white; text-decoration: none;"><button type="button" class="accountButton">← Cancel</button></a></td>
                         <td><h3>Creating avatar for <?=$character->pcName?></h3></td>
                         <td><a href="" style="color: white; text-decoration: none; text-decoration: underline;"></a></td>
                     </tr>
@@ -157,7 +157,7 @@
                         tree[i].rotation.y = Math.random() * 180;
                         tree[i].scale.set(((0.2*Math.random())+0.6), ((0.2*Math.random())+0.6), ((0.2*Math.random())+0.6));
                         tree[i].visible = false;
-                        console.log('tree' + i + ' ' + tree[i].position.x + ', ' + tree[i].position.y + ', ' + tree[i].position.z);
+                        //console.log('tree' + i + ' ' + tree[i].position.x + ', ' + tree[i].position.y + ', ' + tree[i].position.z);
                     }, undefined, function (error) {
                         console.error(error);
                     });
@@ -198,13 +198,15 @@
                 //testing GUI
                 var gui = new GUI();
 
-                //change background
-                let options = {background: 'none'};
-                gui.add(options, 'background', ['none', 'forest', 'castle']);
+                //change background & body type
+                let options = {Background: 'None', BodyType: 'Human'};
+                gui.add(options, 'BodyType', ['Halfling', 'Gnome', 'Dwarf', 'Elf', 'Half-Elf', 'Human', 'Tiefling', 'Half-Orc', 'Dragonborn']);
+                gui.add(options, 'Background', ['None', 'Forest', 'Castle']);
 
                 gui.onChange(options => {
+                    //backgrounds
                     switch (options.value) {
-                        case 'none':
+                        case 'None':
                             scene.background = new THREE.Color(0x1E1E1E);
                             plane.material.color.set(0x1E1E1E);
                             castle.visible = false;
@@ -214,7 +216,7 @@
                                 i.visible = false;
                             });
                         break;
-                        case 'forest':
+                        case 'Forest':
                             scene.background = new THREE.Color(0xA4F7F0);
                             plane.material.color.set(0x67A260);
                             castle.visible = false;
@@ -229,7 +231,7 @@
                             i.visible = true;
                            });
                         break;
-                        case 'castle':
+                        case 'Castle':
                             scene.background = new THREE.Color(0xA6C6CC);
                             plane.material.color.set(0x6F5C30);
                             castle.visible = true;
@@ -238,6 +240,34 @@
                             tree.forEach((i) => {
                                 i.visible = false;
                             });
+                        break;
+                        //
+                        case 'Halfling':
+                            character.scale.set(0.6, 0.5, 0.6);
+                        break;
+                        case 'Gnome':
+                            character.scale.set(0.7, 0.57, 0.7);
+                        break;
+                        case 'Dwarf':
+                            character.scale.set(1, 0.68, 1);
+                        break;
+                        case 'Elf':
+                            character.scale.set(0.8, 0.9, 0.8);
+                        break;
+                        case 'Half-Elf':
+                            character.scale.set(0.9, 0.93, 0.9);
+                        break;
+                        case 'Human':
+                            character.scale.set(1, 1, 1);
+                        break;
+                        case 'Tiefling':
+                            character.scale.set(1.1, 1, 1.1);
+                        break;
+                        case 'Half-Orc':
+                            character.scale.set(1.2, 1.07, 1.2);
+                        break;
+                        case 'Dragonborn':
+                            character.scale.set(1, 1.1, 1);
                         break;
                     }
                 });
