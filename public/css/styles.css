@@ -196,3 +196,12 @@ footer {
     color: #D5D5D5;
     border-radius: 10px 10px 10px 10px;
 }
+
+canvas {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2%;
+
+    border: 3px solid #B51A1A;
+    border-radius: 3vw;
+}

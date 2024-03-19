@@ -18,3 +18,7 @@
 ## Week 3 (03-10-24 to 03-16-24):
 * Finished character sheet creation form and database connection
 * Dynamically display character sheet info and avatar on main character list page
+* Set up threeJS via unpkg.com CDN and created sample of threeJS character modeler
+## Week 4 (03-17-24 to 03-23-24):
+* created sample character, castle, house, and tree GLB files for character modeler
+* testing lil-gui interface for changing scene in character modeler

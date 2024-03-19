@@ -28,14 +28,24 @@ class Character extends Controller
         $this->view('createcharacter', $data);
     }
 
-    public function viewcharacter($pcID)
+    public function editcharacter($pcID = false)
     {
-
-    }
-
-    public function editcharacter($pcID)
-    {
-
+        if (is_int(intval(sanitize($pcID)))) {
+            $data['title_page'] = 'Edit Character';
+            $sanitizedpcID = intval(sanitize($pcID));
+            $character = $this->loadModel('PlayerCharacter');
+            $characterModel = new PlayerCharacter;
+            try {
+                $data['pc'] = $characterModel->editCharacter($sanitizedpcID, $_POST);
+            } catch (ArgumentCountError $e) {
+                $_SESSION['message'] = 'Unable to edit character.';
+                header("Location:" . ROOT . "character");
+            }
+        } else {
+            $data['title_page'] = 'Error';
+            $_SESSION['error'] = 'Unable to edit character.';
+            $this->view('error', $data);
+        }
     }
 
     public function deletecharacter($pcID)
@@ -43,15 +53,19 @@ class Character extends Controller
 
     }
 
-    public function modeler($pcID)
+    public function modeler($pcID = false)
     {
         $data['title_page'] = 'Character Modeler';
 
         if (is_int(intval(sanitize($pcID)))) {
             $character = $this->loadModel('PlayerCharacter');
             $characterModel = new PlayerCharacter;
-            $data['pc'] = $characterModel->modeler(intval(sanitize($pcID)));
-
+            try {
+                $data['pc'] = $characterModel->modeler(intval(sanitize($pcID)));
+            } catch (ArgumentCountError $e) {
+                $_SESSION['message'] = 'Unable to load character modeler.';
+                header("Location:" . ROOT . "character");
+            }
             $this->view('modeler', $data);
         } else {
             $_SESSION['message'] = 'Unable to load character modeler.';

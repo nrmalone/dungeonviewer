@@ -213,20 +213,29 @@ class PlayerCharacter
         }
     }
 
+    function editCharacter($pcID, $POST) {
+
+    }
+
     function modeler($pcID) {
         $DB = new Database();
         $_SESSION['error'] = '';
 
-        $arr['pcID'] = intval(sanitize($pcID));
+        if (isset($pcID) && is_int($pcID)) {
+            $arr['pcID'] = intval(sanitize($pcID));
 
-        $getPCQuery = "SELECT * FROM pcs WHERE pcID = :pcID;";
-        $getPC = $DB->read($getPCQuery, $arr);
+            $getPCQuery = "SELECT * FROM pcs WHERE pcID = :pcID;";
+            $getPC = $DB->read($getPCQuery, $arr);
 
-        if(is_array($getPC))
-        {
-            return $getPC;
+            if(is_array($getPC))
+            {
+                return $getPC;
+            } else {
+                return false;
+            }
         } else {
-            return false;
+            $_SESSION['message'] = 'character ID missing from URL, unable to open modeler';
+            header("Location:" . ROOT . "character");
         }
     }
 }
