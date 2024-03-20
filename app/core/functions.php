@@ -6,5 +6,3 @@ function sanitize($input) {
 
     return $sanitizedInput;
 }
-
-?>

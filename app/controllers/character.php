@@ -74,4 +74,25 @@ class Character extends Controller
             header("Location:" . ROOT . "character");
         }
     }
+
+    public function uploadavatar($pcID = false)
+    {
+        if (is_int(intval(sanitize($pcID)))) {
+            $character = $this->loadModel('PlayerCharacter');
+            $characterModel = new PlayerCharacter;
+            try {
+                $data['pc'] = $characterModel->getCharacter(intval(sanitize($pcID)));
+            } catch (ArgumentCountError $e) {
+                $_SESSION['message'] = 'Unable to grab character.';
+                header("Location:" . ROOT . "character");
+            }
+            $data['title_page'] = 'Upload Avatar';
+            $characterModel->uploadAvatar($_POST);
+            $this->view('uploadavatar', $data);
+        } else {
+            $data['title_page'] = 'Error';
+            $_SESSION['message'] = 'Unable to process avatar update.';
+            $this->view('error', $data);
+        }
+    }
 }

@@ -22,3 +22,5 @@
 ## Week 4 (03-17-24 to 03-23-24):
 * created sample character, castle, house, and tree GLB files for character modeler
 * testing lil-gui interface for changing scene in character modeler
+* added character stat editing and touched up character list styling
+* testing file upload for character avatars

@@ -12,7 +12,7 @@ NEED: attribute modifiers, backstory, equipment, lifestyle, gold
         <h1 align="center">Editing Character</h1>
         <div class="pcDiv" style="max-width: 100%; max-height: 50%; padding-top: 10px;">
             <?php if (isset($_SESSION['userID']) && is_int($data['pc'][0]->pcID)): ?>
-                <?php $character = $data['pc'][0] ?>
+                <?php $character = $data['pc'][0]; ?>
             <form method="POST">
                 <input type="hidden" name="pcID" value=<?=$character->pcID?>>
                 <!-- made a disabled & hidden submit button to prevent enter auto-submitting form -->
