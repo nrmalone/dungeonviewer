@@ -441,4 +441,25 @@ class PlayerCharacter
             header("Location:" . ROOT . "character");
         }
     }
+
+    function uploadAvatar($POST) {
+        $DB = new Database();
+        $_SESSION['error'] = '';
+
+        if (isset($POST['pcID']) && is_int(intval(sanitize($POST['pcID']))))
+        {
+            $arr['pcID'] = intval(sanitize($POST['pcID']));
+            $arr['userID'] = $_SESSION['userID'];
+
+            $getPCQuery = "SELECT * FROM pcs WHERE pcID = :pcID AND userID = :userID;";
+            $getPC = $DB->read($getPCQuery, $arr);
+
+            if ($getPC) {
+                //save uploaded file to img/characters/ folder... naming scheme: u(userID)p(pcID).(file-type)
+            } else {
+                $_SESSION['message'] = 'Unable to pull character.';
+                header("Location:" . ROOT . "character");
+            }
+        }
+    }
 }
