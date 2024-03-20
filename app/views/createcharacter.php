@@ -11,7 +11,8 @@ NEED: attribute modifiers, backstory, equipment, lifestyle, gold
     <div style="margin-top: 55px;">
         <h1 align="center">Character Creation</h1>
         <div class="pcDiv" style="max-width: 100%; max-height: 50%; padding-top: 10px;">
-            <?php if (isset($_SESSION['userID'])): ?>
+            <?php if (isset($_SESSION['userID']) && count($data['pcs']) < 10): ?>
+            <h1><?=count($data['pcs'])?></h1>
             <form method="POST">
                 <!-- made a disabled & hidden submit button to prevent enter auto-submitting form -->
                 <button type="submit" disabled style="display: none;"></button>
@@ -237,8 +238,9 @@ NEED: attribute modifiers, backstory, equipment, lifestyle, gold
                     <tr>
                         <td></td>
                         <td align="center">
-                            <?php if (isset($_SESSION['userID'])) {
+                            <?php if (isset($_SESSION['userID']) && count($data['pcs']) < 5) {
                                 echo '<button class="accountButton" style="margin-top: 15px;">Submit</button>'; }
+                                elseif (count($data['pcs']) >= 10) { echo '<h4 style="background-color: #1E1E1E; border: 1px white solid; border-radius: 10px 0 10px 0; padding: 5px 5px 5px 5px;">Maximum number<br>of characters<br>already created.</h4>'; }
                                 else { echo '<h4 style="background-color: #1E1E1E; border: 1px white solid; border-radius: 10px 0 10px 0; padding: 5px 5px 5px 5px;">You must <a href="' . ROOT . 'account/signin" style="color: white; text-decoration: none; text-decoration: underline;">sign in</a><br> to save your <br>character sheet.</h4>'; } ?>
                         </td>
                     </tr>

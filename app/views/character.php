@@ -8,6 +8,10 @@
 
 <div style="justify-content: center; max-width: max-content; margin: auto;">
     <?php if (isset($_SESSION['userID']) && ($data['pcs'] !== false)): ?>
+        <div align="center" style="margin-top: 2vh;">
+            <h2 style="margin: 0;"><?=$_SESSION['username']?>'s Characters</h2>
+            <p style="margin: 0;"><?=count($data['pcs'])?>/10 character slots used.&emsp;<?php if (count($data['pcs']) < 10) { echo '<a href="character/createcharacter" style=" color: white; text-decoration: none; text-decoration: underline;">Create Character</a>'; } ?></p>
+        </div>
         <?php foreach ($data['pcs'] as $character): ?>
             <div class="pcDiv" style="max-width: 100%; max-height: <?=(intval(100/(count($data['pcs']))))?>vh; padding-top: 10px; margin-top: 5%; border-bottom: 5px solid #6A0F0F;">
                 <table style="display: inline; padding-left: 10px;">
@@ -58,9 +62,6 @@
     <?php else: ?>
         <h1>No characters to display</h1>
         <h2 align="center"><a href="<?=ROOT?>character/createcharacter" style="color: white; text-decoration: none; text-decoration: underline;">Create Character</a></h2>
-    <?php endif; ?>
-    <?php if (is_array($data['pcs']) && (count($data['pcs']) < 5)): ?>
-        <h2 align="center"><a href="character/createcharacter" style="text-decoration: none; text-decoration: underline;">Create Character</a></h2>
     <?php endif; ?>
 </div>
 
