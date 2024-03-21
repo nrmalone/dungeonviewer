@@ -2,12 +2,6 @@ DROP DATABASE IF EXISTS dungeonviewer;
 CREATE DATABASE dungeonviewer;
 USE dungeonviewer;
 
-CREATE TABLE dms (
-    dmID                INT             NOT NULL AUTO_INCREMENT,
-    userID              INT             NOT NULL,
-    CONSTRAINT dms_PK PRIMARY KEY (dmID)
-);
-
 CREATE TABLE users (
     userID              INT             NOT NULL AUTO_INCREMENT,
     username            VARCHAR(16)     NOT NULL UNIQUE,
@@ -52,11 +46,11 @@ CREATE TABLE npcs (
 
 CREATE TABLE campaigns (
     campaignID          INT             NOT NULL AUTO_INCREMENT,
-    dmID                INT             NOT NULL,
+    userID              INT             NOT NULL,
     campaignName        VARCHAR(32)     NOT NULL,
     campaignPassword    VARCHAR(255)    NOT NULL,
     CONSTRAINT campaigns_PK PRIMARY KEY (campaignID),
-    INDEX campaigns_DMIDX (dmID)
+    INDEX campaigns_userIDX (userID)
 );
 
 CREATE USER IF NOT EXISTS 'dungeonmaster'@'localhost'

@@ -205,3 +205,23 @@ canvas {
     border: 3px solid #B51A1A;
     border-radius: 3vw;
 }
+
+.campaignDiv {
+    display: inline-block;
+    margin-left: 2.5vw;
+    margin-right: 2.5vw;
+    width: 40vw;
+
+    background-color: #B51A1A;
+
+    padding-top: 5px;
+    padding-bottom: 5px;
+
+    border-radius: 10px 10px 0 0;
+    border-bottom: 5px solid #6A0F0F;
+}
+
+.campaignCard {
+    background-color: #1E1E1E;
+    border-radius: 0 10px 0 10px;
+}
