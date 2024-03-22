@@ -11,9 +11,10 @@
     <?php if (isset($_SESSION['userID'])) : ?>
         <!-- display hosted campaigns -->
         <div class="campaignDiv" style="vertical-align: top;">
-            <h2>Hosted</h2>
+            <h2 style="margin: 0.5em 0 0 0;">Hosted</h2>
             <?php if ($data['campaignsHosted'] != false) : ?>
-                <?php if (count($data['campaignsHosted']) < 10) { echo '<h3><a href="' . ROOT . 'campaign/createcampaign" style="color: white; text-decoration: none; text-decoration: underline;">Create a campaign</a></h3>'; } ?>
+                <?php if (count($data['campaignsHosted']) < 10) { echo '<h3><a href="' . ROOT . 'campaign/createcampaign" class="defaultLink" style="margin: 0;">Create a campaign</a></h3>'; } ?>
+                <?php if (is_countable($data['campaignsHosted'])) { echo'<h4 style="margin: 0;">' . count($data['campaignsHosted']). '/10 campaigns created.</h4>'; } ?>
                 <?php foreach ($data['campaignsHosted'] as $campaign): ?>
                     <div class="campaignCard" style="margin-bottom: 0.5em;">
                         <h3 style="margin: 0.5em 0 0.5em 0;"><?=$campaign->campaignName?></h3>
@@ -44,7 +45,7 @@
 
         <!-- display played campaigns -->
         <div class="campaignDiv" style="vertical-align: top;">
-            <h2>Played</h2>
+            <h2 style="margin: 0.5em 0 0 0;">Played</h2>
             <?php if ($data['campaignsPlayed']['campaigns'] != false) : ?>
                 <?php if (count($data['campaignsPlayed']['campaigns']) < 10) { echo '<h3><a href="' . ROOT . 'campaign/joincampaign" style="color: white; text-decoration: none; text-decoration: underline;">Join a campaign</a></h3>'; } ?>
                 <?php foreach ($data['campaignsPlayed'] as $infoHolder): ?>
