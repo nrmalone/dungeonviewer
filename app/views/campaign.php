@@ -15,8 +15,13 @@
             <?php if ($data['campaignsHosted'] != false) : ?>
                 <?php if (count($data['campaignsHosted']) < 10) { echo '<h3><a href="' . ROOT . 'campaign/createcampaign" style="color: white; text-decoration: none; text-decoration: underline;">Create a campaign</a></h3>'; } ?>
                 <?php foreach ($data['campaignsHosted'] as $campaign): ?>
-                    <div class="campaignCard">
-                        <h3 style="display: inline; padding-right: 5px;"><?=$campaign->campaignName?></h3><h5 style="display: inline;">Password: <span style="padding-right: 5px; display: none;" id="show<?=$campaign->campaignID?>">testpassword</span></h5><button class="campaignButton" style="display: inline;" type="button" onclick="toggleHide('show<?=$campaign->campaignID?>')">Show/Hide</button>
+                    <div class="campaignCard" style="margin-bottom: 0.5em;">
+                        <h3 style="margin: 0.5em 0 0.5em 0;"><?=$campaign->campaignName?></h3>
+                        <h4 style="display: inline;">Join Info: <span style="padding-right: 5px; display: none; color: #B51A1A" id="show<?=$campaign->campaignID?>">ID: <?=$campaign->campaignID?>, Password: <?=$campaign->campaignPassword?></span></h4><button class="campaignButton" style="display: inline;" type="button" onclick="toggleHide('show<?=$campaign->campaignID?>')">Show/Hide</button>
+                        <h5 style="margin: 0.5em 0 0.5em 0;">
+                            <a class="defaultLink" style="margin-right: 2em;" href="<?=ROOT?>campaign/host/<?=$campaign->campaignID?>">Host</a>
+                            <a class="defaultLink" style="margin-right: 2em;" href="<?=ROOT?>campaign/editcampaign/<?=$campaign->campaignID?>">Edit</a>
+                            <a class="defaultLink" href="<?=ROOT?>campaign/deletecampaign/<?=$campaign->campaignID?>">Delete</a>
                     </div>
                 <?php endforeach; ?>
             <?php else: ?>
@@ -27,12 +32,12 @@
             <?php endif; ?>
         </div>
         <script type="text/javascript">
-            function toggleHide(pw) {
-                var pwDisplay = document.getElementById(pw);
-                if (pwDisplay.style.display === "none") {
-                    pwDisplay.style.display = "inline";
+            function toggleHide(info) {
+                var infoDisplay = document.getElementById(info);
+                if (infoDisplay.style.display === "none") {
+                    infoDisplay.style.display = "inline";
                 } else {
-                    pwDisplay.style.display = "none";
+                    infoDisplay.style.display = "none";
                 }
             }
         </script>

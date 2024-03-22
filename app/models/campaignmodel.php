@@ -13,6 +13,8 @@ class CampaignModel
 
             if ($listCampaignsHosted) {
                 return $listCampaignsHosted;
+            } else {
+                return false;
             }
         } else {
             return false;
@@ -53,7 +55,7 @@ class CampaignModel
         $DB = new Database();
         $_SESSION['error'] = '';
 
-        if (isset($POST['name']) && isset($_SESSION['userID']))
+        if (isset($POST['name']) && isset($POST['password']) && isset($_SESSION['userID']))
         {
             $arr['userID'] = $_SESSION['userID'];
             $arr['campaignName'] = sanitize($POST['name']);

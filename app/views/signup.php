@@ -21,7 +21,8 @@
                 </tr>
                 <tr align="center">
                     <td><p style="display: inline; width: 25%;">Password: </p></td>
-                    <td><input name="password" class="textField" type="password" maxlength="255" required></td>
+                    <td><input name="password" class="textField" type="password" maxlength="255" required id="password"></td>
+                    <td><button type="button" style="color: white; border: none; background: #B51A1A" onclick="togglePW()">&#128065;</button></td>
                 </tr>
                 <tr align="center">
                     <td><h5>*Username must be 4-16<br>
@@ -35,5 +36,15 @@
         </table>
     </div>
 </div>
+<script type="text/javascript">
+    function togglePW() {
+        var pw = document.getElementById('password');
+        if (pw.type === "password") {
+            pw.type = "text";
+        } else {
+            pw.type = "password";
+        }
+    }
+</script>
 
 <?php require_once '../app/components/pagefooter.php'; ?>

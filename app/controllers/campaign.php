@@ -20,12 +20,18 @@ class Campaign extends Controller
 
         $campaign = $this->loadModel('CampaignModel');
         $campaignModel = new CampaignModel;
-        
+
+        $data['campaigns'] = $campaignModel->listHosted(); 
         $campaignModel->createCampaign($_POST);
         $this->view('createcampaign', $data);
     }
 
     public function joincampaign()
+    {
+
+    }
+
+    public function editcampaign($campaignID = false)
     {
 
     }
