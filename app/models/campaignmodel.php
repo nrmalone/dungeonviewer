@@ -49,15 +49,39 @@ class CampaignModel
         }
     }
 
-    function createCampaign() {
+    function createCampaign($POST) {
+        $DB = new Database();
+        $_SESSION['error'] = '';
+
+        if (isset($POST['name']) && isset($_SESSION['userID']))
+        {
+            $arr['userID'] = $_SESSION['userID'];
+            $arr['campaignName'] = sanitize($POST['name']);
+            $arr['campaignPassword'] = sanitize($POST['password']);
+
+            $createCampaignQuery = "INSERT INTO campaigns (userID, campaignName, campaignPassword) values (:userID, :campaignName, :campaignPassword);";
+            $createCampaign = $DB->write($createCampaignQuery, $arr);
+
+            if ($createCampaign) {
+                $_SESSION['message'] = 'Your campaign -' . $arr['campaignName'] . ' was successfully created!';
+                header("Location:" . ROOT . "campaign");
+            } else {
+                $_SESSION['message'] = 'Problem creating ' . $arr['campaignName'] . '.';
+                header("Location:" . ROOT . "campaign");
+            }
+        }
+    }
+
+    function joinCampaign($POST)
+    {
 
     }
 
-    function editCampaign($campaignID = false) {
+    function editCampaign($POST) {
 
     }
 
-    function deleteCampaign($campaignID = false) {
+    function deleteCampaign($POST) {
 
     }
 }

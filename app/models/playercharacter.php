@@ -211,21 +211,10 @@ class PlayerCharacter
 
             if ($createCharacter) {
                 $_SESSION['message'] = 'Your character ' . $arr['pcName'] . ' was successfully created!';
-                //$_SESSION['characterCreated'] = 1;
-                //ob_end_clean();
-                /*
-                Warning message about "cannot modify header" is gone after adding ob_end_clean
-                but headers below still aren't redirecting...
-                Already checked for trailing whitespaces after closing php tags.
-                createcharacter.php view line 40 (closing tag after race selects) is causing error.
-                */
                 header("Location:" . ROOT . "character");
-                //echo '<script onload="charCreationSuccess()">function charCreationSuccess() { window.location.href="' . ROOT . 'character"; }</script>';
             } else {
                 $_SESSION['message'] = 'Problem creating character.';
-                //ob_end_clean();
                 header("Location:" . ROOT . "createcharacter");
-                //echo '<script onload="charCreationFailure()">function charCreationfailure() { window.location.href="' . ROOT . 'createcharacter";}</script>';
             }
         }
     }

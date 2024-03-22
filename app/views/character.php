@@ -51,7 +51,7 @@
                         <td align="center"><a href="<?=ROOT?>character/uploadavatar/<?=$character->pcID?>" style="color: white; text-decoration: none; text-decoration: underline;">Upload Avatar</a> &#9672; <a href="<?=ROOT?>character/modeler/<?=$character->pcID?>" style="color: white; text-decoration: none; text-decoration: underline;">Create Model</a></td>
                     </tr>
                     <tr>
-                        <td align="left"><img style="margin-left: 2em; border: solid black 3px; width: 15vw; object-fit: cover; border-radius: 15px 0 15px 0; display: inline; aspect-ratio: 1/1; object-fit: cover;" src="<?php
+                        <td align="left"><img style="margin-left: 2em; border: solid black 3px; height: 15vh; object-fit: contain; border-radius: 15px 0 15px 0; display: inline; aspect-ratio: 1/1; object-fit: scale-down;" src="<?php
                             $charImgFolder = ROOT . 'img/characters/';
                             $imgpath = $charImgFolder . 'u' . $_SESSION['userID'] . 'p' . $character->pcID . '.png';
                             if (file_exists($imgpath)) { echo $imgpath; } else { echo $charImgFolder . 'defaultpfp.jpg'; } ?>"></td>

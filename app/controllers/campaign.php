@@ -16,6 +16,17 @@ class Campaign extends Controller
 
     public function createcampaign()
     {
+        $data['title_page'] = 'Create a Campaign';
+
+        $campaign = $this->loadModel('CampaignModel');
+        $campaignModel = new CampaignModel;
+        
+        $campaignModel->createCampaign($_POST);
+        $this->view('createcampaign', $data);
+    }
+
+    public function joincampaign()
+    {
 
     }
 
