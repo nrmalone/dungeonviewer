@@ -12,7 +12,6 @@ NEED: attribute modifiers, backstory, equipment, lifestyle, gold
         <h1 align="center">Character Creation</h1>
         <div class="pcDiv" style="max-width: 100%; max-height: 50%; padding-top: 10px;">
             <?php if (isset($_SESSION['userID']) && count($data['pcs']) < 10): ?>
-            <h1><?=count($data['pcs'])?></h1>
             <form method="POST">
                 <!-- made a disabled & hidden submit button to prevent enter auto-submitting form -->
                 <button type="submit" disabled style="display: none;"></button>

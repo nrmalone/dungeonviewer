@@ -44,9 +44,10 @@
             }
         </script>
     <?php elseif (isset($_SESSION['userID']) && count($data['campaigns']) >= 10): ?>
-
+        <h3 align="center">Max number of campaigns already created.</h3>
+        <h5 align="center"><a href="<?=ROOT?>campaign" class="defaultLink">← Back to Campaigns menu</a></h5>
     <?php else: ?>
-
+        <h3 align="center">Please <a href="<?=ROOT?>account/signin" class="defaultLink">sign in</a> to view your campaigns.</h3>
     <?php endif; ?>
 </div>
 <?php include_once '../app/components/pagefooter.php'; ?>
