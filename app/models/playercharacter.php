@@ -21,6 +21,25 @@ class PlayerCharacter
         }
     }
 
+    function listAvailable() {
+        $DB = new Database();
+        $_SESSION['error'] = '';
+
+        if (isset($_SESSION['userID'])) {
+            $arr['userID'] = $_SESSION['userID'];
+
+            $listPCQuery = "SELECT * FROM pcs WHERE userID = :userID AND campaignID IS NULL;";
+            $data = $DB->read($listPCQuery, $arr);
+
+            if(is_array($data))
+            {
+                return $data;
+            } else {
+                return false;
+            }
+        }
+    }
+
     function getCharacter($pcID) {
         $DB = new Database();
         $_SESSION['error'] = '';

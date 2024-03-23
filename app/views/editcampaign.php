@@ -4,21 +4,22 @@
     unset($_SESSION['message']);
 }
 ?>
-
 <div style="justify-content: center; max-width: max-content; margin: auto;">
     <h1 align="center">Campaign Creation</h1>
-    <?php if (isset($_SESSION['userID']) && ($data['campaigns'] == false || count($data['campaigns']) < 10)): ?>
+    <?php if (isset($_SESSION['userID']) && is_array($data['campaign'])): ?>
+        <?php $campaign = $data['campaign'][0]; ?>
         <div class="campaignDiv" style="max-width: max-content; padding: 5px 5px 5px 5px;">
-            <form method="POST">
+            <form method="POST">        
                 <table style="display: flex;">
+                    <input type="hidden" name="campaignID" value="<?=$campaign->campaignID?>">
                     <button type="submit" disabled style="display: none;"></button>
                     <tr>
                         <td align="right">Campaign Name:</td>
-                        <td><input name="name" class="textField" type="text" maxlength="16" required></td>
+                        <td><input name="name" class="textField" type="text" maxlength="16" value="<?=$campaign->campaignName?>" required></td>
                     </tr>
                     <tr>
                         <td align="right">Password:</td>
-                        <td><input name="password" class="textField" type="password" maxlength="255" required id="password"></td>
+                        <td><input name="password" class="textField" type="password" maxlength="255" required value="<?=$campaign->campaignPassword?>" id="password"></td>
                         <td><button type="button" style="color: white; border: none; background: #B51A1A" onclick="togglePW()">&#128065;</button></td>
                     </tr>
                     <tr>
@@ -40,12 +41,9 @@
                     pw.type = "text";
                 } else {
                     pw.type = "password";
-                }
             }
+        }
         </script>
-    <?php elseif (isset($_SESSION['userID']) && count($data['campaigns']) >= 10): ?>
-        <h3 align="center">Max number of campaigns already created.</h3>
-        <h5 align="center"><a href="<?=ROOT?>campaign" class="defaultLink">← Back to Campaigns menu</a></h5>
     <?php else: ?>
         <h3 align="center">Please <a href="<?=ROOT?>account/signin" class="defaultLink">sign in</a> to view your campaigns.</h3>
     <?php endif; ?>

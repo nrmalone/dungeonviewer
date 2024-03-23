@@ -7,7 +7,8 @@
 ?>
 
 <div style="justify-content: center; max-width: max-content; margin: auto;">
-    <h1>Account Sign-in</h1>
+    <h1 align="center">Account Sign-in</h1>
+    <?php if (!isset($_SESSION['userID'])) : ?>
     <div class="accountDiv" style="max-width: 100%; max-height: max-content;">
         <table style="display: flex;">    
             <form method="POST">
@@ -30,16 +31,20 @@
             </tr>
         </table>
     </div>
-</div>
-<script type="text/javascript">
-    function togglePW() {
-        var pw = document.getElementById('password');
-        if (pw.type === "password") {
-            pw.type = "text";
-        } else {
-            pw.type = "password";
+    <script type="text/javascript">
+        function togglePW() {
+            var pw = document.getElementById('password');
+            if (pw.type === "password") {
+                pw.type = "text";
+            } else {
+                pw.type = "password";
+            }
         }
-    }
-</script>
+    </script>
+<?php else: ?>
+    <h3 align="center">Already signed in as <?=$_SESSION['username']?></h3>
+    <h4 align="center">Check out your <a href="<?=ROOT?>campaign" class="defaultLink">campaigns</a>, <a href="<?=ROOT?>character" class="defaultLink">characters</a>, and <a href="<?=ROOT?>account" class="defaultLink">account info</a>.</h4>
 
+<?php endif; ?>
+</div>
 <?php require_once '../app/components/pagefooter.php'; ?>

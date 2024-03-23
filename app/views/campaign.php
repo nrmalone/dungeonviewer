@@ -20,9 +20,9 @@
                         <h3 style="margin: 0.5em 0 0.5em 0;"><?=$campaign->campaignName?></h3>
                         <h4 style="display: inline;">Join Info: <span style="padding-right: 5px; display: none; color: #B51A1A" id="show<?=$campaign->campaignID?>">ID: <?=$campaign->campaignID?>, Password: <?=$campaign->campaignPassword?></span></h4><button class="campaignButton" style="display: inline;" type="button" onclick="toggleHide('show<?=$campaign->campaignID?>')">Show/Hide</button>
                         <h5 style="margin: 0.5em 0 0.5em 0;">
-                            <a class="defaultLink" style="margin-right: 2em;" href="<?=ROOT?>campaign/host/<?=$campaign->campaignID?>">Host</a>
-                            <a class="defaultLink" style="margin-right: 2em;" href="<?=ROOT?>campaign/editcampaign/<?=$campaign->campaignID?>">Edit</a>
-                            <a class="defaultLink" href="<?=ROOT?>campaign/deletecampaign/<?=$campaign->campaignID?>">Delete</a>
+                            <a class="defaultLink" style="margin-right: 2em;" href="<?=ROOT?>campaign/host/<?=intval($campaign->campaignID)?>">Host</a>
+                            <a class="defaultLink" style="margin-right: 2em;" href="<?=ROOT?>campaign/editcampaign/<?=intval($campaign->campaignID)?>">Edit</a>
+                            <a class="defaultLink" href="<?=ROOT?>campaign/deletecampaign/<?=intval($campaign->campaignID)?>">Delete</a>
                     </div>
                 <?php endforeach; ?>
             <?php else: ?>
