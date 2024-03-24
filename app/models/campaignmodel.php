@@ -45,7 +45,7 @@ class CampaignModel
                     }
                 }
             }
-            return $data;
+            return $data['campaigns'] && $data['pcs'];
         } else {
             return $data['campaigns'] = false && $data['pcs'] = false;
         }
@@ -96,44 +96,36 @@ class CampaignModel
 
     function joinCampaign($POST)
     {
-
         $DB = new Database();
         $_SESSION['error'] = '';
 
-        if (isset($POST['joinID']) && isset($POST['password']) && isset($POST['pcID'])) {
-            
-            $arr['pcID'] = intval(sanitize($POST['pcID']));
+        if (isset($_SESSION['userID']) && isset($POST['campaignID']) && isset($POST['password']) && isset($POST['pcID'])) {
             $arr['userID'] = $_SESSION['userID'];
+            $arr['campaignID'] = is_int(intval(sanitize($POST['campaignID']))) ? intval(sanitize($POST['campaignID'])) : false;
+            $arr['pcID'] = is_int(intval(sanitize($POST['pcID']))) ? intval(sanitize($POST['pcID'])) : false;
+            $arr['campaignPassword'] = sanitize($POST['password']);
 
-            $checkPCQuery = "SELECT * FROM pcs WHERE userID = :userID AND pcID = :pcID LIMIT 1;";
+            $checkPCQuery = ($arr['campaignID'] != false && $arr['pcID'] != false) ? "SELECT * FROM pcs WHERE pcID = :pcID AND userID = :userID;" : false;
             $checkPC = $DB->read($checkPCQuery, $arr);
 
-            if ($checkPC) {
-                $arr['campaignID'] = intval(sanitize($POST['joinID']));
-                $arr['campaignPassword'] = sanitize($POST['password']);
+            $checkCampaignQuery = ($checkPC) ? "SELECT * FROM campaigns WHERE campaignID = :campaignID AND campaignPassword = :campaignPassword;" : false;
+            $checkCampaign = ($checkCampaignQuery) ? $DB->read($checkCampaignQuery, $arr) : false;
 
-                $checkCampaignQuery = "SELECT * FROM campaigns WHERE campaignID = :campaignID AND campaignPassword = : campaignPassword LIMIT 1;";
-                $checkCampaign = $DB->read($checkCampaignQuery, $arr);
+            $joinCampaignQuery = ($checkCampaign) ? "UPDATE pcs SET campaignID = :campaignID WHERE (userID = :userID AND pcID = :pcID);" : false;
+            $joinCampaign = ($joinCampaignQuery) ? $DB->write($joinCampaignQuery, $arr) : false;
 
-                if ($checkCampaign) {
-                    $joinCampaignQuery = "UPDATE pcs SET campaignID = :campaignID WHERE (pcID = :pcID AND userID = :userID);";
-                    $joinCampaign = $DB->write($joinCampaignQuery, $arr);
-
-                    if ($joinCampaign) {
-                        $_SESSION['message'] = 'Successfully joined campaign';
-                    } else {
-                        $_SESSION['message'] = 'Unable to join campaign.';
-                    }
-                } else {
-                    $_SESSION['message'] = 'Incorrect campaign info provided.';
-                }
-
+            if ($joinCampaign) {
+                $_SESSION['message'] = "Successfully joined campaign!";
+                header("Location:" . ROOT . "campaign");
             } else {
-                $_SESSION['message'] = 'Unable to verify ownership of selected character.';
+                $_SESSION['message'] = 'Unable to join campaign.';
+                header("Location:" . ROOT . "campaign");
             }
+        } else {
+            //problem with one of the inputs... this header always fires before view loads
+            $_SESSION['message'] = 'Unable to join campaign.';
+            header("Location:" . ROOT . "campaign");
         }
-        header("Location:" . ROOT . "campaign");
-        
     }
 
     function editCampaign($POST) {

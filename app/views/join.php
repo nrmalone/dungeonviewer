@@ -41,16 +41,6 @@
             </div>
         </form>
 
-        <script type="text/javascript">
-            function togglePW() {
-                var pw = document.getElementById('password');
-                if (pw.type === "password") {
-                    pw.type = "text";
-                } else {
-                    pw.type = "password";
-                }
-            }
-        </script>
     <?php elseif (isset($_SESSION['userID']) && $data['pcs'] == false): ?>
         <h3 align="center">No available characters to join campaigns.</h3>
         <h5 align="center"><a href="<?=ROOT?>campaign" class="defaultLink">← Back to Campaigns menu</a></h5>
@@ -58,4 +48,15 @@
         <h3 align="center">Please <a href="<?=ROOT?>account/signin" class="defaultLink">sign in</a> to view your campaigns.</h3>
     <?php endif; ?>
 </div>
+
+<script type="text/javascript">
+    function togglePW() {
+        var pw = document.getElementById('password');
+        if (pw.type === "password") {
+            pw.type = "text";
+        } else {
+            pw.type = "password";
+        }
+    }
+</script>
 <?php include_once '../app/components/pagefooter.php'; ?>
