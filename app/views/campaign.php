@@ -46,8 +46,8 @@
         <!-- display played campaigns -->
         <div class="campaignDiv" style="vertical-align: top;">
             <h2 style="margin: 0.5em 0 0 0;">Played</h2>
-            <?php if ($data['campaignsPlayed']['campaigns'] != false) : ?>
-                <?php if (count($data['campaignsPlayed']['campaigns']) < 10) { echo '<h3><a href="' . ROOT . 'campaign/joincampaign" style="color: white; text-decoration: none; text-decoration: underline;">Join a campaign</a></h3>'; } ?>
+            <?php if (is_array($data['campaignsPlayed'])) : ?>
+                <?php if (is_countable($data['campaignsPlayed']['campaigns']) && count($data['campaignsPlayed']['campaigns']) < 10) { echo '<h3><a href="' . ROOT . 'campaign/joincampaign" style="color: white; text-decoration: none; text-decoration: underline;">Join a campaign</a></h3>'; } ?>
                 <?php foreach ($data['campaignsPlayed'] as $infoHolder): ?>
                     <?php
                         $pcCampaign = $infoHolder['campaigns'];

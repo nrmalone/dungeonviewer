@@ -43,7 +43,7 @@ class Campaign extends Controller
         form tags aren't nested in table or split incorrectly when double checking HTML
         marking as issue on Github
         */
-        $campaignModel->joinCampaign($_POST);
+        //$campaignModel->joinCampaign($_POST);
         $this->view('join', $data);
     }
 
