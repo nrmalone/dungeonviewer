@@ -44,7 +44,11 @@ class CampaignModel
                     }
                 }
             }
+            if (isset($data)) {
             return $data;
+            } else {
+                return false;
+            }
         } else {
             return false;
         }

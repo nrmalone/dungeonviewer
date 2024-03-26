@@ -11,6 +11,17 @@ class Campaign extends Controller
         $data['campaignsHosted'] = $campaignModel->listHosted();
         $data['campaignsPlayed'] = $campaignModel->listPlayed();
 
+        if ($data['campaignsPlayed'] != false) {
+            $data['pcsPlayed'] = [];
+            $character = $this->loadModel('PlayerCharacter');
+            $characterModel = new PlayerCharacter;
+            foreach($data['campaignsPlayed'] as $campaign) {
+                array_push($data['pcsPlayed'], $characterModel->getPlayedCharacter($campaign[0]->campaignID));
+            }
+        } else {
+            $data['pcsPlayed'] = false;
+        }
+
         $this->view('campaign', $data);
     }
 

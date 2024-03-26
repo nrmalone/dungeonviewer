@@ -57,6 +57,25 @@ class PlayerCharacter
             }
     }
 
+    function getPlayedCharacter($campaignID = false)
+    {
+        $DB = new Database();
+        $_SESSION['error'] = '';
+
+        if (is_int(intval(sanitize($campaignID))) && isset($_SESSION['userID'])) {
+            $arr['userID'] = $_SESSION['userID'];
+            $arr['campaignID'] = $campaignID;
+            $getPlayedCharacterQuery = "SELECT * FROM pcs WHERE userID = :userID AND campaignID = :campaignID;";
+            $getPlayedCharacter = $DB->read($getPlayedCharacterQuery, $arr);
+
+            if ($getPlayedCharacter) {
+                return $getPlayedCharacter;
+            } else {
+                return false;
+            }
+        }
+    }
+
     function createCharacter($POST) {
         $DB = new Database();
         $_SESSION['error'] = '';

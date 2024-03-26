@@ -49,9 +49,16 @@
             <?php if ($data['campaignsPlayed'] != false) : ?>
                 <?php if (is_countable($data['campaignsPlayed']) && count($data['campaignsPlayed']) < 10) { echo '<h3><a href="' . ROOT . 'campaign/joincampaign" style="color: white; text-decoration: none; text-decoration: underline;">Join a campaign</a></h3>'; } ?>
                 <?php foreach ($data['campaignsPlayed'] as $pcCampaign): ?>
+                    <?php foreach($pcCampaign as $campaign): ?>
+                        <?php //$campaign lines are firing correctly... trying to think how to get characters as well without a bunch of nested foreach's ?>
+                        <?php foreach($data['pcsPlayed'] as $pcPlayed): ?>
+                            <?php foreach($pcPlayed as $pc): ?>
                     <div class="campaignCard">
-                        <span><h3 style="display: inline;"><?=$pcCampaign->campaignName?></h3><h5 style="display: inline;">&nbsp;(playing as <?=$pc->pcName?>)</h5></span>
+                        <span><h3 style="display: inline;"><?=$campaign->campaignName?></h3><h5 style="display: inline;">&nbsp;(playing as <?=$pc->pcName?>)</h5></span>
                     </div>
+                    <?php endforeach; ?>
+                    <?php endforeach; ?>
+                    <?php endforeach; ?>
                 <?php endforeach;?>
             <?php else: ?>
                 <div class="campaignCard">
