@@ -31,23 +31,22 @@ class CampaignModel
             $listPCQuery = "SELECT * FROM pcs WHERE userID = :userID AND campaignID IS NOT NULL";
             $listPC = $DB->read($listPCQuery, $arr);
             unset($arr['userID']);
-
-            $data['campaigns'] = [];
-            $data['pcs'] = [];
             if (is_array($listPC)) {
+                $data = [];
                 foreach ($listPC as $PC) {
                     $arr['campaignID'] = $PC->campaignID;
                     $getCampaignQuery = "SELECT * FROM campaigns WHERE campaignID = :campaignID;";
                     $getCampaign = $DB->read($getCampaignQuery, $arr);
                     if (is_array($getCampaign)) {
-                        array_push($data['campaigns'], $getCampaign);
-                        array_push($data['pcs'], $PC);
+                        array_push($data, $getCampaign);
+                    } else {
+                        $data = false;
                     }
                 }
             }
-            return $data['campaigns'] && $data['pcs'];
+            return $data;
         } else {
-            return $data['campaigns'] = false && $data['pcs'] = false;
+            return false;
         }
     }
 
@@ -99,17 +98,23 @@ class CampaignModel
         $DB = new Database();
         $_SESSION['error'] = '';
 
-        if (isset($_SESSION['userID']) && isset($POST['campaignID']) && isset($POST['password']) && isset($POST['pcID'])) {
+        if (isset($_SESSION['userID']) && isset($POST['joinID']) && isset($POST['password']) && isset($POST['pcID'])) {
             $arr['userID'] = $_SESSION['userID'];
-            $arr['campaignID'] = is_int(intval(sanitize($POST['campaignID']))) ? intval(sanitize($POST['campaignID'])) : false;
             $arr['pcID'] = is_int(intval(sanitize($POST['pcID']))) ? intval(sanitize($POST['pcID'])) : false;
-            $arr['campaignPassword'] = sanitize($POST['password']);
 
-            $checkPCQuery = ($arr['campaignID'] != false && $arr['pcID'] != false) ? "SELECT * FROM pcs WHERE pcID = :pcID AND userID = :userID;" : false;
+            $checkPCQuery = ($arr['pcID'] != false) ? "SELECT * FROM pcs WHERE pcID = :pcID AND userID = :userID;" : false;
             $checkPC = $DB->read($checkPCQuery, $arr);
 
+            $arr2['campaignID'] = is_int(intval(sanitize($POST['joinID']))) ? intval(sanitize($POST['joinID'])) : false;
+            $arr2['campaignPassword'] = sanitize($POST['password']);
+
             $checkCampaignQuery = ($checkPC) ? "SELECT * FROM campaigns WHERE campaignID = :campaignID AND campaignPassword = :campaignPassword;" : false;
-            $checkCampaign = ($checkCampaignQuery) ? $DB->read($checkCampaignQuery, $arr) : false;
+            if ($checkCampaignQuery) {
+                $checkCampaign = $DB->read($checkCampaignQuery, $arr2);
+                $arr['campaignID'] = $arr2['campaignID'];
+            } else {
+                $checkCampaign = false;
+            }
 
             $joinCampaignQuery = ($checkCampaign) ? "UPDATE pcs SET campaignID = :campaignID WHERE (userID = :userID AND pcID = :pcID);" : false;
             $joinCampaign = ($joinCampaignQuery) ? $DB->write($joinCampaignQuery, $arr) : false;
@@ -118,14 +123,11 @@ class CampaignModel
                 $_SESSION['message'] = "Successfully joined campaign!";
                 header("Location:" . ROOT . "campaign");
             } else {
-                $_SESSION['message'] = 'Unable to join campaign.';
+                $_SESSION['message'] = 'Incorrect join information.';
                 header("Location:" . ROOT . "campaign");
             }
-        } else {
-            //problem with one of the inputs... this header always fires before view loads
-            $_SESSION['message'] = 'Unable to join campaign.';
-            header("Location:" . ROOT . "campaign");
-        }
+        } //fixed POST submission by removing else{} right here... no code will execute until submission button on form is pressed
+        //header in else[} kept firing because the POST was being auto-submitted?
     }
 
     function editCampaign($POST) {

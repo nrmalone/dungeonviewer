@@ -46,13 +46,9 @@
         <!-- display played campaigns -->
         <div class="campaignDiv" style="vertical-align: top;">
             <h2 style="margin: 0.5em 0 0 0;">Played</h2>
-            <?php if (is_array($data['campaignsPlayed'])) : ?>
-                <?php if (is_countable($data['campaignsPlayed']['campaigns']) && count($data['campaignsPlayed']['campaigns']) < 10) { echo '<h3><a href="' . ROOT . 'campaign/joincampaign" style="color: white; text-decoration: none; text-decoration: underline;">Join a campaign</a></h3>'; } ?>
-                <?php foreach ($data['campaignsPlayed'] as $infoHolder): ?>
-                    <?php
-                        $pcCampaign = $infoHolder['campaigns'];
-                        $pc = $infoHolder['pcs'];
-                    ?>
+            <?php if ($data['campaignsPlayed'] != false) : ?>
+                <?php if (is_countable($data['campaignsPlayed']) && count($data['campaignsPlayed']) < 10) { echo '<h3><a href="' . ROOT . 'campaign/joincampaign" style="color: white; text-decoration: none; text-decoration: underline;">Join a campaign</a></h3>'; } ?>
+                <?php foreach ($data['campaignsPlayed'] as $pcCampaign): ?>
                     <div class="campaignCard">
                         <span><h3 style="display: inline;"><?=$pcCampaign->campaignName?></h3><h5 style="display: inline;">&nbsp;(playing as <?=$pc->pcName?>)</h5></span>
                     </div>

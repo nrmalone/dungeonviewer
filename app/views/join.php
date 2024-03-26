@@ -44,8 +44,9 @@
     <?php elseif (isset($_SESSION['userID']) && $data['pcs'] == false): ?>
         <h3 align="center">No available characters to join campaigns.</h3>
         <h5 align="center"><a href="<?=ROOT?>campaign" class="defaultLink">← Back to Campaigns menu</a></h5>
+        <h5 align="center"><a href="<?=ROOT?>character/createcharacter" class="defaultLink">→ Create a character</a></h5>
     <?php else: ?>
-        <h3 align="center">Please <a href="<?=ROOT?>account/signin" class="defaultLink">sign in</a> to view your campaigns.</h3>
+        <h3 align="center">Please <a href="<?=ROOT?>account/signin" class="defaultLink">sign in</a> to join a campaign.</h3>
     <?php endif; ?>
 </div>
 
