@@ -23,6 +23,7 @@
                             <a class="defaultLink" style="margin-right: 2em;" href="<?=ROOT?>campaign/host/<?=intval($campaign->campaignID)?>">Host</a>
                             <a class="defaultLink" style="margin-right: 2em;" href="<?=ROOT?>campaign/editcampaign/<?=intval($campaign->campaignID)?>">Edit</a>
                             <a class="defaultLink" href="<?=ROOT?>campaign/deletecampaign/<?=intval($campaign->campaignID)?>">Delete</a>
+                        </h5>
                     </div>
                 <?php endforeach; ?>
             <?php else: ?>
@@ -48,18 +49,12 @@
             <h2 style="margin: 0.5em 0 0 0;">Played</h2>
             <?php if ($data['campaignsPlayed'] != false) : ?>
                 <?php if (is_countable($data['campaignsPlayed']) && count($data['campaignsPlayed']) < 10) { echo '<h3><a href="' . ROOT . 'campaign/joincampaign" style="color: white; text-decoration: none; text-decoration: underline;">Join a campaign</a></h3>'; } ?>
-                <?php foreach ($data['campaignsPlayed'] as $pcCampaign): ?>
-                    <?php foreach($pcCampaign as $campaign): ?>
-                        <?php //$campaign lines are firing correctly... trying to think how to get characters as well without a bunch of nested foreach's ?>
-                        <?php foreach($data['pcsPlayed'] as $pcPlayed): ?>
-                            <?php foreach($pcPlayed as $pc): ?>
-                    <div class="campaignCard">
-                        <span><h3 style="display: inline;"><?=$campaign->campaignName?></h3><h5 style="display: inline;">&nbsp;(playing as <?=$pc->pcName?>)</h5></span>
-                    </div>
-                    <?php endforeach; ?>
-                    <?php endforeach; ?>
-                    <?php endforeach; ?>
-                <?php endforeach;?>
+                    <?php for ($i = 0; $i < count($data['campaignsPlayed']); $i++): ?>
+                        <div class="campaignCard">
+                            <span><h3 style="display: inline;"><?=$data['campaignsPlayed'][$i][0]->campaignName?></h3><h5 style="display: inline;">&nbsp;(playing as <?=$data['pcsPlayed'][$i][0]->pcName?>)</h5></span>
+                            <h5>Lvl <?=$data['pcsPlayed'][$i][0]->pcLevel?>&nbsp;<?=$data['pcsPlayed'][$i][0]->pcRace?>&nbsp;<?=$data['pcsPlayed'][$i][0]->pcClass?></h5>
+                        </div>
+                    <?php endfor;?>
             <?php else: ?>
                 <div class="campaignCard">
                     <h3>No played campaigns to display.</h3>

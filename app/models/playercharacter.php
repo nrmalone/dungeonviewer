@@ -65,7 +65,7 @@ class PlayerCharacter
         if (is_int(intval(sanitize($campaignID))) && isset($_SESSION['userID'])) {
             $arr['userID'] = $_SESSION['userID'];
             $arr['campaignID'] = $campaignID;
-            $getPlayedCharacterQuery = "SELECT * FROM pcs WHERE userID = :userID AND campaignID = :campaignID;";
+            $getPlayedCharacterQuery = "SELECT * FROM pcs WHERE userID = :userID AND campaignID = :campaignID AND campaignID IS NOT NULL;";
             $getPlayedCharacter = $DB->read($getPlayedCharacterQuery, $arr);
 
             if ($getPlayedCharacter) {
