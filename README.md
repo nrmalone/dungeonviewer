@@ -48,3 +48,10 @@
 * Testing file upload for character avatars
 * Set up MVC files for campaigns
 </details>
+
+<details>
+<summary>Week 5 (03-24-24 to 03-30-24)</summary>
+
+* Backend and SQL set up for hosting, joining, and playing campaigns
+* General style and error fixes (catching ArgmentCountError)
+</details>

@@ -11,7 +11,7 @@
     <?php if (isset($_SESSION['userID'])) : ?>
         <!-- display hosted campaigns -->
         <div class="campaignDiv" style="vertical-align: top;">
-            <h2 style="margin: 0.5em 0 0 0;">Hosted</h2>
+            <h2 style="margin: 0.5em 0 0 0;">Hosted Campaigns</h2>
             <?php if ($data['campaignsHosted'] != false) : ?>
                 <?php if (count($data['campaignsHosted']) < 10) { echo '<h3><a href="' . ROOT . 'campaign/createcampaign" class="defaultLink" style="margin: 0;">Create a campaign</a></h3>'; } ?>
                 <?php if (is_countable($data['campaignsHosted'])) { echo'<h4 style="margin: 0;">' . count($data['campaignsHosted']). '/10 campaigns created.</h4>'; } ?>
@@ -21,7 +21,7 @@
                         <h4 style="display: inline;">Join Info: <span style="padding-right: 5px; display: none; color: #B51A1A" id="show<?=$campaign->campaignID?>">ID: <?=$campaign->campaignID?>, Password: <?=$campaign->campaignPassword?></span></h4><button class="campaignButton" style="display: inline;" type="button" onclick="toggleHide('show<?=$campaign->campaignID?>')">Show/Hide</button>
                         <h5 style="margin: 0.5em 0 0.5em 0;">
                             <a class="defaultLink" style="margin-right: 2em;" href="<?=ROOT?>campaign/host/<?=intval($campaign->campaignID)?>">Host</a>
-                            <a class="defaultLink" style="margin-right: 2em;" href="<?=ROOT?>campaign/editcampaign/<?=intval($campaign->campaignID)?>">Edit</a>
+                            <a class="defaultLink" style="margin-right: 2em;" href="<?=ROOT?>campaign/editcampaign/<?=intval($campaign->campaignID)?>">Edit Campaign</a>
                             <a class="defaultLink" href="<?=ROOT?>campaign/deletecampaign/<?=intval($campaign->campaignID)?>">Delete</a>
                         </h5>
                     </div>
@@ -46,13 +46,18 @@
 
         <!-- display played campaigns -->
         <div class="campaignDiv" style="vertical-align: top;">
-            <h2 style="margin: 0.5em 0 0 0;">Played</h2>
+            <h2 style="margin: 0.5em 0 0 0;">Played Campaigns</h2>
             <?php if ($data['campaignsPlayed'] != false) : ?>
                 <?php if (is_countable($data['campaignsPlayed']) && count($data['campaignsPlayed']) < 10) { echo '<h3><a href="' . ROOT . 'campaign/joincampaign" style="color: white; text-decoration: none; text-decoration: underline;">Join a campaign</a></h3>'; } ?>
                     <?php for ($i = 0; $i < count($data['campaignsPlayed']); $i++): ?>
                         <div class="campaignCard">
-                            <span><h3 style="display: inline;"><?=$data['campaignsPlayed'][$i][0]->campaignName?></h3><h5 style="display: inline;">&nbsp;(playing as <?=$data['pcsPlayed'][$i][0]->pcName?>)</h5></span>
-                            <h5>Lvl <?=$data['pcsPlayed'][$i][0]->pcLevel?>&nbsp;<?=$data['pcsPlayed'][$i][0]->pcRace?>&nbsp;<?=$data['pcsPlayed'][$i][0]->pcClass?></h5>
+                            <h3 style="display: inline; margin: 0.5em 0 0.5em 0;"><?=$data['campaignsPlayed'][$i][0]->campaignName?></h3><h5 style="display: inline;">&nbsp;(playing as <?=$data['pcsPlayed'][$i][0]->pcName?>)</h5>
+                            <h5 style="margin: 0.5em 0 0.5em 0;">Lvl <?=$data['pcsPlayed'][$i][0]->pcLevel?>&nbsp;<?=$data['pcsPlayed'][$i][0]->pcRace?>&nbsp;<?=$data['pcsPlayed'][$i][0]->pcClass?></h5>
+                            <h5 style="margin: 0.5em 0 0.5em 0;">
+                            <a class="defaultLink" style="margin-right: 2em;" href="<?=ROOT?>campaign/play/<?=intval($campaign->campaignID)?>/<?=intval($data['pcsPlayed'][$i][0]->pcID)?>">Play</a>
+                            <a class="defaultLink" style="margin-right: 2em;" href="<?=ROOT?>character/editcharacter/<?=intval($data['pcsPlayed'][$i][0]->pcID)?>">Edit Character</a>
+                            <a class="defaultLink" href="<?=ROOT?>campaign/leave/<?=intval($data['pcsPlayed'][$i][0]->pcID)?>">Leave</a>
+                        </h5>
                         </div>
                     <?php endfor;?>
             <?php else: ?>

@@ -79,7 +79,7 @@
                         NPC and PC Movement</td>
                 </tr>
                 <tr name="roadmapRow3">
-                    <td align="center" class="notStarted" style="width: 25%;">
+                    <td align="center" class="inProgress" style="width: 25%;">
                         Campaign Hosting & Organizing</td>
                     <td align="center" class="notStarted" style="width: 25%;">
                         Custom Weapons & Items</td>

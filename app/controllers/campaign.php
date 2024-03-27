@@ -87,8 +87,12 @@ class Campaign extends Controller
 
     }
 
-    public function play($campaignID = false)
+    public function play($campaignID = false, $pcID = false)
     {
+        if (is_int(intval(sanitize($campaignID))) && is_int(intval(sanitize($pcID)))) {
+            
+        } else {
 
+        }
     }
 }
