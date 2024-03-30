@@ -13,7 +13,7 @@ will test manually creating WebSockets w/ JS & PHP for handling w/ this tutorial
     }
 
     $(document).ready(function() {
-        var websocket = new WebSocket("<?=str_replace("https://", "ws://", PRIVATEROOT)?>core/ws.php");
+        var websocket = new WebSocket("<?=str_replace("https://", "wss://", PRIVATEROOT)?>core/ws.php");
 
         websocket.onopen = function(event) {
             showMessage("<div class='chat-connection-ack'>Connection established!</div>");

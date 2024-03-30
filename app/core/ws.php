@@ -3,7 +3,7 @@ define('HOST_NAME',"localhost");
 define("PORT","8090");
 $null = NULL;
 
-require_once("class.chathandler.php");
+require_once("./chatHandler.php");
 $chatHandler = new ChatHandler();
 
 $socketResource = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
