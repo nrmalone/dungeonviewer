@@ -90,7 +90,16 @@ class Campaign extends Controller
     public function play($campaignID = false, $pcID = false)
     {
         if (is_int(intval(sanitize($campaignID))) && is_int(intval(sanitize($pcID)))) {
+            $data['title_page'] = 'Playing a Campaign';
+            $campaign = $this->loadModel('CampaignModel');
+            $campaignModel = new CampaignModel;
+            $data['campaign'] = $campaignModel->getCampaign(intval(sanitize($campaignID)));
             
+            $character = $this->loadModel('PlayerCharacter');
+            $characterModel = new PlayerCharacter;
+            $data['pc'] = $characterModel->getCharacter(intval(sanitize($pcID)));
+
+            $this->view('campaignmap', $data);
         } else {
 
         }
