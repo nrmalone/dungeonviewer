@@ -84,7 +84,25 @@ class Campaign extends Controller
 
     public function host($campaignID = false)
     {
+        $data['title_page'] = 'Hosting a Campaign';
+        if (is_int(intval(sanitize($campaignID)))) {
+            $sanitizedCID = intval(sanitize($campaignID));
+            $campaign = $this->loadModel('CampaignModel');
+            $campaignModel = new CampaignModel;
 
+            $data['campaign'] = $campaignModel->getCampaign($sanitizedCID);
+            if ($data['campaign'] != false) {
+                $data['title_page'] = 'Hosting a Campaign';
+            } else {
+                $data['title_page'] = 'Campaign Error';
+                $_SESSION['message'] = 'Unable to host selected campaign.';
+            }
+        } else {
+            $data['title_page'] = 'Campaign Error';
+            $data['campaign'] = false;
+            $_SESSION['message'] = 'Unable to host selected campaign.';
+        }
+        $this->view('campaignhost', $data);
     }
 
     public function play($campaignID = false, $pcID = false)
@@ -99,7 +117,7 @@ class Campaign extends Controller
             $characterModel = new PlayerCharacter;
             $data['pc'] = $characterModel->getCharacter(intval(sanitize($pcID)));
 
-            $this->view('campaignmap', $data);
+            $this->view('campaignplay', $data);
         } else {
 
         }
