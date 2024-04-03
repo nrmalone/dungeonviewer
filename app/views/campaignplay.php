@@ -6,21 +6,26 @@
 }
 ?>
 
-<div style="height: 80vh; margin: auto; display: inline; background-image: url('<?=ROOT?>/img/maps/forest.jpg');">
-    <div style="display: inline; margin: none;">
+<div align="center" style="margin: 2vh;">
+
+</div>
+<div  align="center" style="margin: auto;">
+    <div class="forest" style=" width: 80vw; display: inline-block; margin: none;">
         <table>
-            <?php for ($y=20; $y>0; --$y): ?>
+            <?php for ($y=1; $y<=20; ++$y): ?>
                 <tr>
-                <?php for ($x=20; $x>0; --$x): ?>
+                <?php for ($x=1; $x<=25; ++$x): ?>
                     <td>
-                        <div style="max-width: 4vh; max-height: 4vh; margin: none;"><p>test<?="x".$x." & y".$y?></p></div>
+                        <div id="div:<?='x'.$x.':y'.$y?>" style="max-width: 3vw; max-height: 3vw; margin: none;">
+                            <input id="cell:<?='x'.$x.':y'.$y?>" type="radio" name="currentCell" value="cell:<?'x'.$x.':y'.$y?>"><label for=""></label>
+                        </div>
                     </td>
                 <?php endfor; ?>
                 </tr>
             <?php endfor; ?>
         </table>
     </div>
-    <div style="margin: none;">
+    <div style="width: 10vw; margin: none; display: inline-block; vertical-align: top;">
         <table>
             <tr>
                 <td>

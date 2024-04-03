@@ -37,6 +37,8 @@ header {
 }
 */
 
+
+/* general styling */
 body {
     background-color: #1E1E1E;
     color: #D5D5D5;
@@ -112,6 +114,7 @@ footer {
     font-family: 'Exo 2', serif;
 }
 
+/* signin/signup and general form styles */
 .accountDiv {
     background-color: #B51A1A;
 
@@ -143,6 +146,7 @@ footer {
     padding: 5px 10px 5px 10px;
 }
 
+/* character creation */
 .pcDiv {
     background-color: #B51A1A;
 
@@ -164,6 +168,13 @@ footer {
     background-color: #1E1E1E;
 }
 
+.attributeButton {
+    background-color: #1E1E1E;
+    color: #D5D5D5;
+    border-radius: 10px 10px 10px 10px;
+}
+
+/* about page */
 .notStarted {
     background-color:#1E1E1E;
     color: #B51A1A;
@@ -197,12 +208,7 @@ footer {
     border-right: 1px solid white;
 }
 
-.attributeButton {
-    background-color: #1E1E1E;
-    color: #D5D5D5;
-    border-radius: 10px 10px 10px 10px;
-}
-
+/* applies to three.js modeler */
 canvas {
     margin-left: auto;
     margin-right: auto;
@@ -212,6 +218,7 @@ canvas {
     border-radius: 3vw;
 }
 
+/* campaign menu styling */
 .campaignDiv {
     display: inline-block;
     margin-left: 2.5vw;
@@ -243,4 +250,26 @@ canvas {
     
     border-radius: 10px 10px 10px 10px;
     padding: 5px 10px 5px 10px;
+}
+
+/* campaign map backgrounds */
+.forest {
+    background-image: url('../img/maps/forest.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.cave {
+    background-image: url('../img/maps/cave.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.city {
+    background-image: url('../img/maps/city.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
 }
