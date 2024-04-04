@@ -8,7 +8,7 @@
 
 <div align="center" style="margin: 2vh;">
     <h1 style="display: inline;">Playing <em><?=$data['campaign'][0]->campaignName?></em></h1>
-    <h4 style="display: inline; margin-left: 3vw;"><a class="defaultLink">← Back</a>&emsp;&emsp;<a class="defaultLink" style="margin-left: 3vw;">&#10683; Leave</a></h4>
+    <h4 style="display: inline; margin-left: 3vw;"><a class="defaultLink" href="<?=ROOT?>campaign">← Back</a>&emsp;&emsp;<a class="defaultLink" style="margin-left: 3vw;">&#10683; Leave</a></h4>
 </div>
 <div align="center" style="margin: auto;">
     <div class="forest" style="width: 80vw; display: inline-block; margin: none; border: 0.75vw solid #6A0F0F; border-radius: 1vw 1vw 1vw 1vw;">
@@ -42,6 +42,19 @@
                 </td>
                 <td>
                     <?=$data['pc'][0]->pcClass?>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">
+                    <?=explode(' ', $data['pc'][0]->pcAlignment)[0]?>
+                </td>
+                <td>
+                    <?=explode(' ', $data['pc'][0]->pcAlignment)[1]?>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    &nbsp;
                 </td>
             </tr>
             <tr>
@@ -90,6 +103,22 @@
                 </td>
                 <td>
                     <?=$data['pc'][0]->pcCHA?>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">
+                    Armor
+                </td>
+                <td>
+                    <?=$data['pc'][0]->pcAC?>
+                </td>
+            </tr>
+            <tr>
+                <td>
+
+                </td>
+                <td>
+
                 </td>
             </tr>
         </table>
