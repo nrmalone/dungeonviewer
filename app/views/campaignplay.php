@@ -7,17 +7,18 @@
 ?>
 
 <div align="center" style="margin: 2vh;">
-
+    <h1 style="display: inline;">Playing <em><?=$data['campaign'][0]->campaignName?></em></h1>
+    <h4 style="display: inline; margin-left: 3vw;"><a class="defaultLink">← Back</a>&emsp;&emsp;<a class="defaultLink" style="margin-left: 3vw;">&#10683; Leave</a></h4>
 </div>
-<div  align="center" style="margin: auto;">
-    <div class="forest" style=" width: 80vw; display: inline-block; margin: none;">
+<div align="center" style="margin: auto;">
+    <div class="forest" style="width: 80vw; display: inline-block; margin: none; border: 0.75vw solid #6A0F0F; border-radius: 1vw 1vw 1vw 1vw;">
         <table>
             <?php for ($y=1; $y<=20; ++$y): ?>
                 <tr>
                 <?php for ($x=1; $x<=25; ++$x): ?>
-                    <td>
-                        <div id="div:<?='x'.$x.':y'.$y?>" style="max-width: 3vw; max-height: 3vw; margin: none;">
-                            <input id="cell:<?='x'.$x.':y'.$y?>" type="radio" name="currentCell" value="cell:<?'x'.$x.':y'.$y?>"><label for=""></label>
+                    <td style="margin: none; border: 1px solid black; width: 4vw; height: (4*(10/8))vw; max-width: 4vw; max-height: (4*(10/8))vw;">
+                        <div id="div:<?='x'.$x.':y'.$y?>" style="aspect-ratio: 1000/800; margin: none;">
+                            <input id="cell:<?='x'.$x.':y'.$y?>" type="radio" name="currentCell" value="cell:<?'x'.$x.':y'.$y?>" style="display: none;"><label for="cell:<?='x'.$x.':y'.$y?>"><p style="font-size: 8pt; margin: none; display: contents; overflow: hidden; display: block; text-align: end; vertical-align: bottom;"><?='x'.$x.' y'.$y?></p></label>
                         </div>
                     </td>
                 <?php endfor; ?>
@@ -25,22 +26,70 @@
             <?php endfor; ?>
         </table>
     </div>
-    <div style="width: 10vw; margin: none; display: inline-block; vertical-align: top;">
+    <div class="mapRightMenu" style="margin: none; display: inline-block; vertical-align: top; max-width: max-content;">
         <table>
-            <tr>
-                <td>
-                    test
+            <tr style="text-wrap: balance;">
+                <td style="font-size: 14pt;">
+                    <?=$data['pc'][0]->pcName?>
                 </td>
                 <td>
-                    test
+                    <span>HP: <p id="currentHP" style="display: inline; margin: none;"><?=$data['pc'][0]->pcHP?></p>/<?=$data['pc'][0]->pcHP?></span>
                 </td>
             </tr>
             <tr>
                 <td>
-                    blah
+                    Lvl <?=$data['pc'][0]->pcLevel?> <?=$data['pc'][0]->pcRace?>
                 </td>
                 <td>
-                    blah
+                    <?=$data['pc'][0]->pcClass?>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">
+                    STR
+                </td>
+                <td>
+                    <?=$data['pc'][0]->pcSTR?>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">
+                    DEX
+                </td>
+                <td>
+                    <?=$data['pc'][0]->pcDEX?>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">
+                    CON
+                </td>
+                <td>
+                    <?=$data['pc'][0]->pcCON?>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">
+                    INT
+                </td>
+                <td>
+                    <?=$data['pc'][0]->pcINT?>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">
+                    WIS
+                </td>
+                <td>
+                    <?=$data['pc'][0]->pcWIS?>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">
+                    CHA
+                </td>
+                <td>
+                    <?=$data['pc'][0]->pcCHA?>
                 </td>
             </tr>
         </table>

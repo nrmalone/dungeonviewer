@@ -252,7 +252,7 @@ canvas {
     padding: 5px 10px 5px 10px;
 }
 
-/* campaign map backgrounds */
+/* campaign map backgrounds & styling */
 .forest {
     background-image: url('../img/maps/forest.jpg');
     background-repeat: no-repeat;
@@ -272,4 +272,17 @@ canvas {
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
+}
+
+.mapRightMenu {
+        display: inline-block;
+        margin-left: 2.5vw;
+    
+        background-color: #B51A1A;
+    
+        padding-top: 5px;
+        padding-bottom: 5px;
+    
+        border-radius: 10px 10px 0 0;
+        border-bottom: 5px solid #6A0F0F;
 }
