@@ -25,10 +25,10 @@ class Chat
 
 do {
     $accept = socket_accept($sock) or die("Could not accept incoming connection.");
-    $msg = socket_read($accept, 1024) or die("Could not read input.\n");
+    $input = socket_read($accept, 1024) or die("Could not read input.\n");
 
-    $msg = trim($msg);
-    echo "Client says:\t".$msg,"\n\n";
+    $input = trim($input);
+    echo "Client says:\t".$input,"\n\n";
 
     $line = new Chat();
     echo "Enter Reply:\t";

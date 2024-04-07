@@ -111,15 +111,14 @@ class Campaign extends Controller
             $data['title_page'] = 'Playing a Campaign';
             $campaign = $this->loadModel('CampaignModel');
             $campaignModel = new CampaignModel;
-            $data['campaign'] = $campaignModel->getCampaign(intval(sanitize($campaignID)));
+            $data['campaign'] = $campaignModel->getPlayedCampaign(intval(sanitize($campaignID)));
             
             $character = $this->loadModel('PlayerCharacter');
             $characterModel = new PlayerCharacter;
             $data['pc'] = $characterModel->getCharacter(intval(sanitize($pcID)));
-
-            $this->view('campaignplay', $data);
         } else {
 
         }
+        $this->view('campaignplay', $data);
     }
 }

@@ -54,7 +54,7 @@
                             <h3 style="display: inline; margin: 0.5em 0 0.5em 0;"><?=$data['campaignsPlayed'][$i][0]->campaignName?></h3><h5 style="display: inline;">&nbsp;(playing as <?=$data['pcsPlayed'][$i][0]->pcName?>)</h5>
                             <h5 style="margin: 0.5em 0 0.5em 0;">Lvl <?=$data['pcsPlayed'][$i][0]->pcLevel?>&nbsp;<?=$data['pcsPlayed'][$i][0]->pcRace?>&nbsp;<?=$data['pcsPlayed'][$i][0]->pcClass?></h5>
                             <h5 style="margin: 0.5em 0 0.5em 0;">
-                            <a class="defaultLink" style="margin-right: 2em;" href="<?=ROOT?>campaign/play/<?=intval($campaign->campaignID)?>/<?=intval($data['pcsPlayed'][$i][0]->pcID)?>">Play</a>
+                            <a class="defaultLink" style="margin-right: 2em;" href="<?=ROOT?>campaign/play/<?=intval($data['campaignsPlayed'][$i][0]->campaignID)?>/<?=intval($data['pcsPlayed'][$i][0]->pcID)?>">Play</a>
                             <a class="defaultLink" style="margin-right: 2em;" href="<?=ROOT?>character/editcharacter/<?=intval($data['pcsPlayed'][$i][0]->pcID)?>">Edit Character</a>
                             <a class="defaultLink" href="<?=ROOT?>campaign/leave/<?=intval($data['pcsPlayed'][$i][0]->pcID)?>">Leave</a>
                         </h5>

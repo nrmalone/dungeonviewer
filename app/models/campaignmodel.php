@@ -55,7 +55,7 @@ class CampaignModel
     }
 
     function getCampaign($campaignID = false) {
-        if (is_int(($campaignID))) {
+        if (is_int($campaignID)) {
             $arr['campaignID'] = $campaignID;
         } else {
             return false;
@@ -65,6 +65,24 @@ class CampaignModel
 
         $DB = new Database();
         $getCampaignQuery = "SELECT * FROM campaigns WHERE campaignID = :campaignID AND userID = :userID LIMIT 1;";
+        $getCampaign = $DB->read($getCampaignQuery, $arr);
+
+        if (is_array($getCampaign)) {
+            return $getCampaign;
+        } else {
+            return false;
+        }
+    }
+
+    function getPlayedCampaign($campaignID = false) {
+        if (is_int($campaignID)) {
+            $arr['campaignID'] = $campaignID;
+        } else {
+            return false;
+        }
+
+        $DB = new Database();
+        $getCampaignQuery = "SELECT * FROM campaigns WHERE campaignID = :campaignID;";
         $getCampaign = $DB->read($getCampaignQuery, $arr);
 
         if (is_array($getCampaign)) {
