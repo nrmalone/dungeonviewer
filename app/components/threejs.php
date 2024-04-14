@@ -200,11 +200,13 @@
 
                 //change background & body type
                 let options = {Background: 'None', BodyType: 'Human'};
+                loadGUISettings();
+                
                 gui.add(options, 'BodyType', ['Halfling', 'Gnome', 'Dwarf', 'Elf', 'Half-Elf', 'Human', 'Tiefling', 'Half-Orc', 'Dragonborn']);
                 gui.add(options, 'Background', ['None', 'Forest', 'Castle']);
+                
 
-                gui.onChange(options => {
-                    //backgrounds
+                function changeOptions(options) {
                     switch (options.value) {
                         case 'None':
                             scene.background = new THREE.Color(0x1E1E1E);
@@ -270,7 +272,48 @@
                             character.scale.set(1, 1.1, 1);
                         break;
                     }
+                }
+                gui.onChange(options => {
+                    //backgrounds
+                    changeOptions(options);
+                    saveGUISettings();
                 });
+
+                function saveGUISettings() {
+                    const cookieData = {
+                        Background: options.Background,
+                        BodyType: options.BodyType
+                    };
+
+                    const cookieString = JSON.stringify(cookieData);
+                    document.cookie = "guiSettings=" + cookieString + "; expires=" + getCookieExpiry() + "; path=/"; 
+                }
+
+                function getCookieExpiry() {
+                    const now = new Date();
+                    const expiry = new Date(now.getTime() + 365 * 24 * 60 * 60 * 1000); // 1 year
+                    return expiry.toUTCString();
+                }
+
+                function loadGUISettings() {
+                    const cookies = document.cookie.split(';');
+                    for (let i = 0; i < cookies.length; i++) {
+                        const cookiePair = cookies[i].trim().split('=');
+                        if (cookiePair[0] === 'guiSettings') {
+                        const cookieData = JSON.parse(cookiePair[1]);
+
+                        options.Background= cookieData.Background;
+                        options.BodyType = cookieData.BodyType;
+
+                        // Trigger update for GUI elements
+                        gui.controllers.forEach(controller => controller.updateDisplay());
+                        // ... and scene objects, see next point
+                        changeOptions(); 
+                        
+                        return; // Settings loaded
+                        }
+                    }
+                }
 
                 //EventListener for automatic resizing of window
                 window.addEventListener('resize', function(e) {
@@ -289,7 +332,6 @@
 
                     //plane.rotation.z = time/1000;
                     //character.rotation.y = time/10000;
-
                     renderer.render(scene, camera);
                 }
                 renderer.setAnimationLoop(animate);
