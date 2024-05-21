@@ -9,7 +9,7 @@
 
 ## Progress
 <details>
-<summary>Week 1 (02-27-24 to 03-02-24)</summary>
+<summary>(03-02-24)</summary>
  
 * Established PHP routing and basic error handling
 * Initial CSS setup
@@ -21,7 +21,7 @@
 
 
 <details>
-<summary>Week 2 (03-03-24 to 03-09-24)</summary>
+<summary>(03-09-24)</summary>
  
 * Created pages for users to update account info
 * Started character sheet creation form
@@ -31,7 +31,7 @@
 
 
 <details>
-<summary>Week 3 (03-10-24 to 03-16-24)</summary>
+<summary>(03-16-24)</summary>
  
 * Finished character sheet creation form and database connection
 * Dynamically display character sheet info and avatar on main character list page
@@ -40,7 +40,7 @@
 
 
 <details>
-<summary>Week 4 (03-17-24 to 03-23-24)</summary>
+<summary>(03-23-24)</summary>
  
 * Created sample character, castle, house, and tree GLB files for character modeler
 * Created lil-gui interface for changing scene elements in character modeler
@@ -50,8 +50,16 @@
 </details>
 
 <details>
-<summary>Week 5 (03-24-24 to 03-30-24)</summary>
+<summary>(03-30-24)</summary>
 
 * Backend and SQL set up for hosting, joining, and playing campaigns
 * General style and error fixes (catching ArgmentCountError)
+</details>
+
+<details>
+<summary>(05-21-24)</summary>
+
+* Fixed loading of cookie data for background and body type on character modeler
+  * Need to make cookie data character-dependent to avoid loading same settings for all characters
+* Installed `phpmailer` library to start password reset functionality
 </details>

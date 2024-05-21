@@ -61,6 +61,11 @@
                 import {GLTFLoader} from 'GLTFLoader';
                 import GUI from 'https://cdn.jsdelivr.net/npm/lil-gui@0.19/+esm';
                 //create renderer object and attach to body
+                const loadingManager = new THREE.LoadingManager();
+                loadingManager.onLoad = () => {
+                    changeOptions(options);
+                }
+                
                 const renderer = new THREE.WebGLRenderer();
                 renderer.shadowMap.enabled = true;
                 renderer.setSize((0.85*window.innerWidth), (0.63*window.innerHeight));
@@ -89,7 +94,7 @@
                 plane.receiveShadow = true;
 
                 //create character THREE.Object3D() by loading GLB file thru GLTFLoader()
-                const loader = new GLTFLoader();
+                const loader = new GLTFLoader(loadingManager);
                 let character = new THREE.Object3D();              
                 loader.load('<?=ROOT?>img/characters/samplecharacter.glb', function (gltf) {
                     character = gltf.scene;
@@ -98,7 +103,7 @@
                     scene.add(character);
                 }, undefined, function (error) {
                     console.error(error);
-                });
+                }, loadingManager);
 
                 //castle
                 let castle = new THREE.Object3D();
@@ -109,7 +114,7 @@
                     scene.add(castle);
                     castle.scale.set(0.3, 0.3, 0.3);
                     castle.position.set(-8, 0, 0);
-                    castle.visible = false;
+                    castle.visible = options.Background === 'Castle';
                 }, undefined, function (error) {
                     console.error(error);
                 });
@@ -123,7 +128,7 @@
                     house1.scale.set(0.75, 0.75, 0.75);
                     house1.position.set(-4, 0, -4);
                     house1.rotation.y = 62.5;
-                    house1.visible = false;
+                    house1.visible = options.Background === 'Castle';
                 });
                 let house2 = new THREE.Object3D();
                 loader.load('<?=ROOT?>img/characters/house.glb', function (gltf) {
@@ -134,7 +139,7 @@
                     house2.scale.set(0.75, 0.75, 0.75);
                     house2.position.set(5, 0, -2);
                     house2.rotation.y = 230;
-                    house2.visible = false;
+                    house2.visible = options.Background === 'Castle';
                 });
 
                 
@@ -156,8 +161,8 @@
                         }
                         tree[i].rotation.y = Math.random() * 180;
                         tree[i].scale.set(((0.2*Math.random())+0.6), ((0.2*Math.random())+0.6), ((0.2*Math.random())+0.6));
-                        tree[i].visible = false;
-                        //console.log('tree' + i + ' ' + tree[i].position.x + ', ' + tree[i].position.y + ', ' + tree[i].position.z);
+                        tree[i].visible = options.Background === 'Forest';
+                        console.log('tree' + i + ' ' + tree[i].position.x + ', ' + tree[i].position.y + ', ' + tree[i].position.z);
                     }, undefined, function (error) {
                         console.error(error);
                     });
@@ -304,11 +309,27 @@
 
                         options.Background= cookieData.Background;
                         options.BodyType = cookieData.BodyType;
+						
+						// Update scene background and plane color based on the loaded settings
+						switch (options.Background) {
+							case 'None':
+								scene.background = new THREE.Color(0x1E1E1E);
+								plane.material.color.set(0x1E1E1E);
+								break;
+							case 'Forest':
+								scene.background = new THREE.Color(0xA4F7F0);
+								plane.material.color.set(0x67A260);
+								break;
+							case 'Castle':
+								scene.background = new THREE.Color(0xA6C6CC);
+								plane.material.color.set(0x6F5C30);
+								break;
+						}
 
                         // Trigger update for GUI elements
                         gui.controllers.forEach(controller => controller.updateDisplay());
                         // ... and scene objects, see next point
-                        changeOptions(); 
+                        changeOptions(options); 
                         
                         return; // Settings loaded
                         }
