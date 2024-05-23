@@ -33,6 +33,7 @@
         </header>
         <main>
             <div class="pcDiv" style="max-width: max-content; max-height: 10%; margin-top: 2vh; border-bottom: 5px solid #6A0F0F; margin-left: auto; margin-right: auto; padding: 0 2vw 0 2vw;">
+                <input type="hidden" id="pcID" value="<?=$character->pcID?>">
                 <table align="center">
                     <tr>
                         <td><a href="<?=ROOT?>character" style="color: white; text-decoration: none;"><button type="button" class="accountButton">← Cancel</button></a></td>
@@ -61,6 +62,8 @@
                 import {GLTFLoader} from 'GLTFLoader';
                 import GUI from 'https://cdn.jsdelivr.net/npm/lil-gui@0.19/+esm';
                 //create renderer object and attach to body
+                const pcID = document.getElementById('pcID').value;
+
                 const loadingManager = new THREE.LoadingManager();
                 loadingManager.onLoad = () => {
                     changeOptions(options);
@@ -162,7 +165,7 @@
                         tree[i].rotation.y = Math.random() * 180;
                         tree[i].scale.set(((0.2*Math.random())+0.6), ((0.2*Math.random())+0.6), ((0.2*Math.random())+0.6));
                         tree[i].visible = options.Background === 'Forest';
-                        console.log('tree' + i + ' ' + tree[i].position.x + ', ' + tree[i].position.y + ', ' + tree[i].position.z);
+                        //console.log('tree' + i + ' ' + tree[i].position.x + ', ' + tree[i].position.y + ', ' + tree[i].position.z);
                     }, undefined, function (error) {
                         console.error(error);
                     });
@@ -291,7 +294,7 @@
                     };
 
                     const cookieString = JSON.stringify(cookieData);
-                    document.cookie = "guiSettings=" + cookieString + "; expires=" + getCookieExpiry() + "; path=/"; 
+                    document.cookie = eval(new String("guiSetting" + pcID)) + "=" + cookieString + "; expires=" + getCookieExpiry() + "; path=/"; 
                 }
 
                 function getCookieExpiry() {
@@ -304,7 +307,7 @@
                     const cookies = document.cookie.split(';');
                     for (let i = 0; i < cookies.length; i++) {
                         const cookiePair = cookies[i].trim().split('=');
-                        if (cookiePair[0] === 'guiSettings') {
+                        if (cookiePair[0] == (eval(new String('guiSetting' + pcID)))) {
                         const cookieData = JSON.parse(cookiePair[1]);
 
                         options.Background= cookieData.Background;
