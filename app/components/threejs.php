@@ -67,6 +67,7 @@
                 const loadingManager = new THREE.LoadingManager();
                 loadingManager.onLoad = () => {
                     changeOptions(options);
+                    loadGUISettings();
                 }
                 
                 const renderer = new THREE.WebGLRenderer();
@@ -328,6 +329,35 @@
 								plane.material.color.set(0x6F5C30);
 								break;
 						}
+                        switch (options.BodyType) {
+                            case 'Halfling':
+                                character.scale.set(0.6, 0.5, 0.6);
+                            break;
+                            case 'Gnome':
+                                character.scale.set(0.7, 0.57, 0.7);
+                            break;
+                            case 'Dwarf':
+                                character.scale.set(1, 0.68, 1);
+                            break;
+                            case 'Elf':
+                                character.scale.set(0.8, 0.9, 0.8);
+                            break;
+                            case 'Half-Elf':
+                                character.scale.set(0.9, 0.93, 0.9);
+                            break;
+                            case 'Human':
+                                character.scale.set(1, 1, 1);
+                            break;
+                            case 'Tiefling':
+                                character.scale.set(1.1, 1, 1.1);
+                            break;
+                            case 'Half-Orc':
+                                character.scale.set(1.2, 1.07, 1.2);
+                            break;
+                            case 'Dragonborn':
+                                character.scale.set(1, 1.1, 1);
+                            break;
+                        }
 
                         // Trigger update for GUI elements
                         gui.controllers.forEach(controller => controller.updateDisplay());
