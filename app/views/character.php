@@ -51,10 +51,10 @@
                         <td align="center"><a href="<?=ROOT?>character/uploadavatar/<?=$character->pcID?>" style="color: white; text-decoration: none; text-decoration: underline;">Upload Avatar</a> &#9672; <a href="<?=ROOT?>character/modeler/<?=$character->pcID?>" style="color: white; text-decoration: none; text-decoration: underline;">Create Model</a></td>
                     </tr>
                     <tr>
-                        <td align="left"><img style="margin-left: 2em; border: solid black 3px; height: 15vh; object-fit: contain; border-radius: 15px 0 15px 0; display: inline; aspect-ratio: 1/1; object-fit: scale-down;" src="<?php
-                            $charImgFolder = ROOT . 'img/characters/pcs/';
-                            $imgpath = $charImgFolder . 'user' . $_SESSION['userID'] . 'pc' . $character->pcID . '.png';
-                            if (checkImageUrl($imgpath)) { echo $imgpath; } else { echo $charImgFolder . 'defaultpfp.jpg'; } ?>"></td>
+                        <td align="left">
+                            <img style="margin-left: 2em; border: solid black 3px; height: 15vh; object-fit: contain; border-radius: 15px 0 15px 0; display: inline; aspect-ratio: 1/1; object-fit: scale-down;"
+                                src="<?=ROOT.'img/characters/pcs/user'.$_SESSION['userID'].'pc'.$character->pcID?>.png" onerror="this.onerror=null; src= '<?=ROOT.'img/characters/pcs/defaultpfp.jpg'?>'">
+                        </td>
                     </tr>
                 </table>
             </div>    
