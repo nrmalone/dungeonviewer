@@ -17,8 +17,9 @@ define("DB_PASS", 'rollforinitiative1d20');
 //localhost would be replaced w/ server path in production
 define("DB_HOST", 'localhost');
 
-
-define("PROTOCOL", 'https');
+//using http for the time being since trying to use cURL and newer certs won't get along with https
+define("PROTOCOL", 'http');
+//define("PROTOCOL", 'https');
 
 
 /*

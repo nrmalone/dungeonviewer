@@ -7,3 +7,5 @@
 **/.parcel-cache/
 **/dist/
 vendor/
+app/misc/
+public/img/characters/

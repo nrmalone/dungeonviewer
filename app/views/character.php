@@ -52,9 +52,9 @@
                     </tr>
                     <tr>
                         <td align="left"><img style="margin-left: 2em; border: solid black 3px; height: 15vh; object-fit: contain; border-radius: 15px 0 15px 0; display: inline; aspect-ratio: 1/1; object-fit: scale-down;" src="<?php
-                            $charImgFolder = ROOT . 'img/characters/';
-                            $imgpath = $charImgFolder . 'u' . $_SESSION['userID'] . 'p' . $character->pcID . '.png';
-                            if (file_exists($imgpath)) { echo $imgpath; } else { echo $charImgFolder . 'defaultpfp.jpg'; } ?>"></td>
+                            $charImgFolder = ROOT . 'img/characters/pcs/';
+                            $imgpath = $charImgFolder . 'user' . $_SESSION['userID'] . 'pc' . $character->pcID . '.png';
+                            if (checkImageUrl($imgpath)) { echo $imgpath; } else { echo $charImgFolder . 'defaultpfp.jpg'; } ?>"></td>
                     </tr>
                 </table>
             </div>    
