@@ -40,6 +40,20 @@
         </table>
     </div>
 </div>
+<script type="text/javascript">
+    const socket = new WebSocket('ws://localhost:9000');
+    
+    socket.onmessage = (event) => {
+        // Update the map based on the received message
+        console.log(`Received message: ${event.data}`);
+        // Update the map accordingly
+    };
+
+    // Send a message to the server when a cell is selected
+    document.getElementById('cell:x1:y1').addEventListener('click', () => {
+        socket.send('Cell x1:y1 selected');
+    });
+</script>
 
 
 <?php include_once '../app/components/pagefooter.php'; ?>
