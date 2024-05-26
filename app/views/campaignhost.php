@@ -16,7 +16,7 @@
             <?php for ($y=1; $y<=20; ++$y): ?>
                 <tr>
                 <?php for ($x=1; $x<=25; ++$x): ?>
-                    <td style="margin: none; border: 1px solid black; width: 4vw; height: (4*(10/8))vw; max-width: 4vw; max-height: (4*(10/8))vw;">
+                    <td style="margin: none; border: 1px solid black; width: 4vw; height: (4*(10/8))vw; max-width: 4vw; max-height: (4*(10/8))vw; aspect-ratio:1/1;">
                         <div id="div:<?='x'.$x.':y'.$y?>" style="aspect-ratio: 1000/800; margin: none;">
                             <input id="cell:<?='x'.$x.':y'.$y?>" type="radio" name="currentCell" value="cell:<?'x'.$x.':y'.$y?>" style="display: none;"><label for="cell:<?='x'.$x.':y'.$y?>"><p style="font-size: 8pt; margin: none; display: contents; overflow: hidden; display: block; text-align: end; vertical-align: bottom;"><?='x'.$x.' y'.$y?></p></label>
                         </div>
@@ -41,18 +41,16 @@
     </div>
 </div>
 <script type="text/javascript">
-    const socket = new WebSocket('ws://localhost:9000');
-    
-    socket.onmessage = (event) => {
-        // Update the map based on the received message
-        console.log(`Received message: ${event.data}`);
-        // Update the map accordingly
+    var conn = new WebSocket('ws://localhost:8080');
+    conn.onopen = function(e) {
+        console.log("Connection established!");
     };
 
-    // Send a message to the server when a cell is selected
-    document.getElementById('cell:x1:y1').addEventListener('click', () => {
-        socket.send('Cell x1:y1 selected');
-    });
+    conn.onmessage = function(e) {
+        console.log(e.data);
+    }
+
+
 </script>
 
 

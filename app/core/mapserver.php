@@ -1,42 +1,45 @@
 <?php
-
-require '../app/vendor/autoload.php';
+require '../vendor/autoload.php';
 use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
-use Ratchet\Http\HttpServer;
-use Ratchet\Http\HttpServerInterface;
-use Ratchet\WebSocket\WsServer;
 
-class MapServer implements MessageComponentInterface, HttpServerInterface {
-    protected $server;
+class MapServer implements MessageComponentInterface {
+    protected $clients;
 
-    public function __construct(WsServer $server) {
-        $this->server = $server;
+    public function __construct() {
+        $this->clients = new \SplObjectStorage;
     }
 
     public function onOpen(ConnectionInterface $conn) {
-        // New connection established
+        // Store the new connection to send messages to later
+        $this->clients->attach($conn);
+
+        echo "New connection! ({$conn->resourceId})\n";
     }
 
     public function onMessage(ConnectionInterface $from, $msg) {
-        // Handle incoming message (e.g., cell selection)
-        // Broadcast update to all connected clients
+        $numRecv = count($this->clients) - 1;
+        echo sprintf('Connection %d sending message "%s" to %d other connection%s' . "\n"
+            , $from->resourceId, $msg, $numRecv, $numRecv == 1 ? '' : 's');
 
-        //need a getClients() function
-        foreach ($this->server->getClients() as $client) {
-            $client->send($msg);
+        foreach ($this->clients as $client) {
+            if ($from !== $client) {
+                // The sender is not the receiver, send to each client connected
+                $client->send($msg);
+            }
         }
     }
 
     public function onClose(ConnectionInterface $conn) {
-        // Connection closed
+        // The connection is closed, remove it, as we can no longer send it messages
+        $this->clients->detach($conn);
+
+        echo "Connection {$conn->resourceId} has disconnected\n";
     }
 
     public function onError(ConnectionInterface $conn, \Exception $e) {
-        // Error occurred
+        echo "An error has occurred: {$e->getMessage()}\n";
+
+        $conn->close();
     }
 }
-
-$server = new HttpServer(new MapServer(new WsServer($this->server)));
-//will need to check why HttpServer->listen() isn't working
-$server->listen(9000, 'localhost');
