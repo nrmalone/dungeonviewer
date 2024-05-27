@@ -11,7 +11,7 @@
     <h4 style="display: inline; margin-left: 3vw;"><a class="defaultLink" href="<?=ROOT?>campaign">← Back</a>&emsp;&emsp;<a class="defaultLink" style="margin-left: 3vw;">&#10683; Leave</a></h4>
 </div>
 <div align="center" style="margin: auto;">
-    <div class="forest" style="width: 80vw; display: inline-block; margin: none; border: 0.75vw solid #6A0F0F; border-radius: 1vw 1vw 1vw 1vw;">
+    <div class="forest" style="width: 70%; display: inline-block; margin: none; border: 0.75vw solid #6A0F0F; border-radius: 1vw 1vw 1vw 1vw; aspect-ratio:calc(5/4);">
         <table>
             <?php for ($y=1; $y<=20; ++$y): ?>
                 <tr>

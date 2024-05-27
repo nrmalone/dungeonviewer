@@ -6,134 +6,219 @@
 }
 ?>
 
-<div align="center" style="margin: 2vh;">
-    <h1 style="display: inline;">Playing <em><?=$data['campaign'][0]->campaignName?></em></h1>
-    <h4 style="display: inline; margin-left: 3vw;"><a class="defaultLink" href="<?=ROOT?>campaign">← Back</a>&emsp;&emsp;<a class="defaultLink" style="margin-left: 3vw;">&#10683; Leave</a></h4>
-</div>
-<div align="center" style="margin: auto;">
-    <div class="forest" style="width: 80vw; display: inline-block; margin: none; border: 0.75vw solid #6A0F0F; border-radius: 1vw 1vw 1vw 1vw;">
-        <table>
-            <?php for ($y=1; $y<=20; ++$y): ?>
-                <tr>
-                <?php for ($x=1; $x<=25; ++$x): ?>
-                    <td style="margin: none; border: 1px solid black; width: 4vw; height: (4*(10/8))vw; max-width: 4vw; max-height: (4*(10/8))vw; aspect-ratio:1/1;">
-                        <div id="div:<?='x'.$x.':y'.$y?>" style="aspect-ratio: 1000/800; margin: none;">
-                            <input id="cell:<?='x'.$x.':y'.$y?>" type="radio" name="currentCell" value="cell:<?'x'.$x.':y'.$y?>" style="display: none;"><label for="cell:<?='x'.$x.':y'.$y?>"><p style="font-size: 8pt; margin: none; display: contents; overflow: hidden; display: block; text-align: end; vertical-align: bottom;"><?='x'.$x.' y'.$y?></p></label>
-                        </div>
-                    </td>
+<?php if (isset($_SESSION['userID']) && ($data['pc'] != false) && ($_SESSION['userID'] == $data['pc'][0]->userID) && ($data['pc'][0]->campaignID == $data['campaign'][0]->campaignID)) : ?>
+    <div align="center" style="margin: 2vh;">
+        <h1 style="display: inline;">Playing <em><?=$data['campaign'][0]->campaignName?></em></h1>
+        <h4 style="display: inline; margin-left: 3vw;"><a class="defaultLink" href="<?=ROOT?>campaign">← Back</a>&emsp;&emsp;<a class="defaultLink" style="margin-left: 3vw;">&#10683; Leave</a></h4>
+    </div>
+    <div align="center" style="margin: auto;">
+        <div class="forest" style="width: 70%; display: inline-block; margin: none; border: 0.5vw solid #6A0F0F; border-radius: 1vw 1vw 1vw 1vw; position: relative;">
+            <table style="aspect-ratio:calc(5/4);">
+                <?php for ($y=1; $y<=20; ++$y): ?>
+                    <tr style="overflow: hidden;">
+                    <?php for ($x=1; $x<=25; ++$x): ?>
+                        <td style="margin: none; border: 1px solid black; width: 4vw; aspect-ratio:1/1;">
+                            <div id="div:<?='x'.$x.':y'.$y?>" style="aspect-ratio: calc(5/4); margin: none;">
+                                <input id="cell:<?='x'.$x.':y'.$y?>" type="radio" name="currentCell" value="cell:<?'x'.$x.':y'.$y?>" style="display: none;"><label for="cell:<?='x'.$x.':y'.$y?>"><p style="font-size: 6pt; margin: none; display: contents; overflow: hidden; display: block; text-align: end; vertical-align: bottom;"><?='x'.$x.' y'.$y?></p></label>
+                            </div>
+                        </td>
+                    <?php endfor; ?>
+                    </tr>
                 <?php endfor; ?>
+            </table>
+        </div>
+        <div class="mapRightMenu" style="margin: none; display: inline-block; vertical-align: top; max-width: 20%; position: relative;">
+            <table>
+                <tr style="text-wrap: balance;">
+                    <td style="font-size: 14pt; font-weight: bold;">
+                        <?=$data['pc'][0]->pcName?>
+                    </td>
+                    <td>
+                        <span>HP: <p id="currentHP" style="display: inline; margin: none;"><?=$data['pc'][0]->pcHP?></p>/<?=$data['pc'][0]->pcHP?></span>
+                    </td>
                 </tr>
-            <?php endfor; ?>
-        </table>
+                <tr>
+                    <td>
+                        Lvl <?=$data['pc'][0]->pcLevel?> <?=$data['pc'][0]->pcRace?>
+                    </td>
+                    <td>
+                        <?=$data['pc'][0]->pcClass?>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">
+                        <?=explode(' ', $data['pc'][0]->pcAlignment)[0]?>
+                    </td>
+                    <td>
+                        <?=explode(' ', $data['pc'][0]->pcAlignment)[1]?>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        &nbsp;
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">
+                        STR
+                    </td>
+                    <td>
+                        <?=$data['pc'][0]->pcSTR?>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">
+                        DEX
+                    </td>
+                    <td>
+                        <?=$data['pc'][0]->pcDEX?>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">
+                        CON
+                    </td>
+                    <td>
+                        <?=$data['pc'][0]->pcCON?>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">
+                        INT
+                    </td>
+                    <td>
+                        <?=$data['pc'][0]->pcINT?>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">
+                        WIS
+                    </td>
+                    <td>
+                        <?=$data['pc'][0]->pcWIS?>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">
+                        CHA
+                    </td>
+                    <td>
+                        <?=$data['pc'][0]->pcCHA?>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">
+                        Armor
+                    </td>
+                    <td>
+                        <?=$data['pc'][0]->pcAC?>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        &nbsp;
+                    </td>
+                </tr>
+            </table>
+
+            <!-- chatbox -->
+            <table>
+                <tr align="center">
+                    <td>
+                        Chat
+                    </td>
+                </tr>
+                <tr align="center">
+                    <td>
+                        <textarea disabled id="campaign<?=$data['campaign'][0]->campaignID?>chat" style="height: 30vh; resize: none; width: 95%;"></textarea>
+                    </td>
+                </tr>
+                <tr align="center">
+                    <td>
+                        <input type="text" id="messageInput" style="width: 62.5%;"></input>
+                        <button type="button" class="accountButton" onclick="content = document.getElementById('messageInput').value.toString(); sendMessage('msg', content)">Send</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center">
+                        <button type="button" onclick="sendMessage('roll', 1)">Coin</button>
+                        <button type="button" onclick="sendMessage('roll', 4)">D4</button>
+                        <button type="button" onclick="sendMessage('roll', 6)">D6</button>
+                        <button type="button" onclick="sendMessage('roll', 8)">D8</button>
+                    </td>                
+                </tr>
+                <tr>
+                    <td align="center">
+                        <button type="button" onclick="sendMessage('roll', 10)">D10</button>
+                        <button type="button" onclick="sendMessage('roll', 12)">D12</button>
+                        <button type="button" onclick="sendMessage('roll', 20)">D20</button>
+                        <button type="button" onclick="sendMessage('roll', 100)">D100</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
-    <div class="mapRightMenu" style="margin: none; display: inline-block; vertical-align: top; max-width: max-content;">
-        <table>
-            <tr style="text-wrap: balance;">
-                <td style="font-size: 14pt;">
-                    <?=$data['pc'][0]->pcName?>
-                </td>
-                <td>
-                    <span>HP: <p id="currentHP" style="display: inline; margin: none;"><?=$data['pc'][0]->pcHP?></p>/<?=$data['pc'][0]->pcHP?></span>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Lvl <?=$data['pc'][0]->pcLevel?> <?=$data['pc'][0]->pcRace?>
-                </td>
-                <td>
-                    <?=$data['pc'][0]->pcClass?>
-                </td>
-            </tr>
-            <tr>
-                <td align="right">
-                    <?=explode(' ', $data['pc'][0]->pcAlignment)[0]?>
-                </td>
-                <td>
-                    <?=explode(' ', $data['pc'][0]->pcAlignment)[1]?>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    &nbsp;
-                </td>
-            </tr>
-            <tr>
-                <td align="right">
-                    STR
-                </td>
-                <td>
-                    <?=$data['pc'][0]->pcSTR?>
-                </td>
-            </tr>
-            <tr>
-                <td align="right">
-                    DEX
-                </td>
-                <td>
-                    <?=$data['pc'][0]->pcDEX?>
-                </td>
-            </tr>
-            <tr>
-                <td align="right">
-                    CON
-                </td>
-                <td>
-                    <?=$data['pc'][0]->pcCON?>
-                </td>
-            </tr>
-            <tr>
-                <td align="right">
-                    INT
-                </td>
-                <td>
-                    <?=$data['pc'][0]->pcINT?>
-                </td>
-            </tr>
-            <tr>
-                <td align="right">
-                    WIS
-                </td>
-                <td>
-                    <?=$data['pc'][0]->pcWIS?>
-                </td>
-            </tr>
-            <tr>
-                <td align="right">
-                    CHA
-                </td>
-                <td>
-                    <?=$data['pc'][0]->pcCHA?>
-                </td>
-            </tr>
-            <tr>
-                <td align="right">
-                    Armor
-                </td>
-                <td>
-                    <?=$data['pc'][0]->pcAC?>
-                </td>
-            </tr>
-            <tr>
-                <td>
+    <script type="text/javascript">
+        var chatContent = '';
+        var pc = '<?=$data['pc'][0]->pcName?>';
+        var chatID = 'campaign' + (<?=$data['campaign'][0]->campaignID?>).toString() + 'chat';
+        var conn = new WebSocket('ws://localhost:8080');
+        conn.onopen = function(e) {
+            if (document.getElementById(chatID)) {
+            chatContent = chatContent.concat(pc + " connected!\n");
+            document.getElementById(chatID).value = chatContent;
+            }
+        };
 
-                </td>
-                <td>
+        conn.onmessage = function(e) {
+            chatContent = chatContent.concat(e.data + "\n");
+            document.getElementById(chatID).value = chatContent;
+        }
 
-                </td>
-            </tr>
-        </table>
+        conn.onclose = function(e) {
+            chatContent = chatContent.concat("<?=$data['pc'][0]->pcName?> disconnected.\n")
+            document.getElementById(chatID).value = chatContent;
+        }
+
+        function sendMessage(type, content) {
+            switch (type) {
+                case 'msg':
+                    if (content) {
+                        msg = content.toString().replaceAll(/"/g, '\"').replaceAll(/'/g, '\'');
+                        msg = pc + ': ' + msg;
+                        document.getElementById('messageInput').value = "";
+                        document.getElementById(chatID).value = document.getElementById(chatID).value.concat(msg);
+                        conn.send(msg);
+                    }
+                break;
+                case 'roll':
+                    if (Number.isInteger(content)) {
+                        if (content > 1) {
+                            roll = (Math.floor(Math.random() * content) + 1);
+                            msg = pc + ' rolled ' + roll.toString();
+                            document.getElementById(chatID).value = document.getElementById(chatID).value.concat(msg);
+                            conn.send(msg);
+                        } else if (content == 1) {
+                            coin = Math.random()
+                            msg = coin < 0.5 ? (pc + ' flipped heads.') : (pc + ' flipped tails.');
+                            document.getElementById(chatID).value = document.getElementById(chatID).value.concat(msg);
+                            conn.send(msg);
+                        }
+                    }
+                break;
+            }
+        }
+    </script>
+<?php elseif (isset($_SESSION['userID'])) : ?>
+    <div align="center" style="margin: 2vh;">
+        <h1>Whoops, some sorcery has interfered with your URL bar!</h1>
+        <h4>Head <a class="defaultLink" href="<?=ROOT?>campaign">back</a> to the campaigns menu to host a campaign or play as one of your characters.</h4>
     </div>
-</div>
-<script type="text/javascript">
-    var conn = new WebSocket('ws://localhost:8080');
-    conn.onopen = function(e) {
-        console.log("Connection established!");
-    };
-
-    conn.onmessage = function(e) {
-        console.log(e.data);
-    }
-</script>
-
+<?php else : ?>
+    <div align="center" style="margin: 2vh;">
+        <h1 style="display: inline;"><a class="defaultLink" href="<?=ROOT?>account/signin">Sign-in</a> to set forth on your journey.</h1>
+        <h4 style="display: inline; margin-left: 3vw;"><a class="defaultLink" href="<?=ROOT?>campaign">← Back</a>&emsp;&emsp;<a class="defaultLink" style="margin-left: 3vw;">&#10683; Leave</a></h4>
+    </div>
+<?php endif; ?>
 
 <?php include_once '../app/components/pagefooter.php'; ?>
