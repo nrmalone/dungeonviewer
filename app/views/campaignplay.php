@@ -136,23 +136,23 @@
                 <tr align="center">
                     <td>
                         <input type="text" id="messageInput" style="width: 62.5%;"></input>
-                        <button type="button" class="accountButton" onclick="content = document.getElementById('messageInput').value.toString(); sendMessage('msg', content)">Send</button>
+                        <button type="button" class="accountButton" onclick="content = document.getElementById('messageInput').value.toString(); sendMessage('campaign<?=$data['campaign'][0]->campaignID?>chat', 'msg', content)">Send</button>
                     </td>
                 </tr>
                 <tr>
                     <td align="center">
-                        <button type="button" onclick="sendMessage('roll', 1)">Coin</button>
-                        <button type="button" onclick="sendMessage('roll', 4)">D4</button>
-                        <button type="button" onclick="sendMessage('roll', 6)">D6</button>
-                        <button type="button" onclick="sendMessage('roll', 8)">D8</button>
+                        <button type="button" onclick="sendMessage('campaign<?=$data['campaign'][0]->campaignID?>chat', 'roll', 1)">Coin</button>
+                        <button type="button" onclick="sendMessage('campaign<?=$data['campaign'][0]->campaignID?>chat', 'roll', 4)">D4</button>
+                        <button type="button" onclick="sendMessage('campaign<?=$data['campaign'][0]->campaignID?>chat', 'roll', 6)">D6</button>
+                        <button type="button" onclick="sendMessage('campaign<?=$data['campaign'][0]->campaignID?>chat', 'roll', 8)">D8</button>
                     </td>                
                 </tr>
                 <tr>
                     <td align="center">
-                        <button type="button" onclick="sendMessage('roll', 10)">D10</button>
-                        <button type="button" onclick="sendMessage('roll', 12)">D12</button>
-                        <button type="button" onclick="sendMessage('roll', 20)">D20</button>
-                        <button type="button" onclick="sendMessage('roll', 100)">D100</button>
+                        <button type="button" onclick="sendMessage('campaign<?=$data['campaign'][0]->campaignID?>chat', 'roll', 10)">D10</button>
+                        <button type="button" onclick="sendMessage('campaign<?=$data['campaign'][0]->campaignID?>chat', 'roll', 12)">D12</button>
+                        <button type="button" onclick="sendMessage('campaign<?=$data['campaign'][0]->campaignID?>chat', 'roll', 20)">D20</button>
+                        <button type="button" onclick="sendMessage('campaign<?=$data['campaign'][0]->campaignID?>chat', 'roll', 100)">D100</button>
                     </td>
                 </tr>
             </table>
@@ -165,29 +165,43 @@
         var conn = new WebSocket('ws://localhost:8080');
         conn.onopen = function(e) {
             if (document.getElementById(chatID)) {
-            chatContent = chatContent.concat(pc + " connected!\n");
-            document.getElementById(chatID).value = chatContent;
+                msg = pc + " joined!";
+                sendMessage(chatID, 'connection', msg);
             }
         };
 
         conn.onmessage = function(e) {
-            chatContent = chatContent.concat(e.data + "\n");
-            document.getElementById(chatID).value = chatContent;
+            msg = e.data.toString();
+            msg = msg.split(';');
+            if (msg[0] == chatID) {
+                chatContent = chatContent.concat(msg[1] + "\n");
+                document.getElementById(chatID).value = chatContent;
+            }
         }
 
         conn.onclose = function(e) {
-            chatContent = chatContent.concat("<?=$data['pc'][0]->pcName?> disconnected.\n")
-            document.getElementById(chatID).value = chatContent;
+            if (document.getElementById(chatID)) {
+                msg = pc + " disconnected.";
+                sendMessage(chatID, 'connection', msg);
+            }
         }
 
-        function sendMessage(type, content) {
+        function sendMessage(campaign, type, content) {
             switch (type) {
+                case 'connection':
+                    if (content) {
+                        msg = campaign + ';' + content.toString();
+                        document.getElementById(chatID).value = document.getElementById(chatID).value.concat(msg);
+                        conn.send(msg);
+                    }
+                break;
                 case 'msg':
                     if (content) {
-                        msg = content.toString().replaceAll(/"/g, '\"').replaceAll(/'/g, '\'');
+                        msg = content.toString().replaceAll(/"/g, '\"').replaceAll(/'/g, '\'').replaceAll(';', '');
                         msg = pc + ': ' + msg;
                         document.getElementById('messageInput').value = "";
                         document.getElementById(chatID).value = document.getElementById(chatID).value.concat(msg);
+                        msg = campaign + ';' + msg;
                         conn.send(msg);
                     }
                 break;
@@ -197,11 +211,13 @@
                             roll = (Math.floor(Math.random() * content) + 1);
                             msg = pc + ' rolled ' + roll.toString();
                             document.getElementById(chatID).value = document.getElementById(chatID).value.concat(msg);
+                            msg = campaign + ';' + msg;
                             conn.send(msg);
                         } else if (content == 1) {
                             coin = Math.random()
                             msg = coin < 0.5 ? (pc + ' flipped heads.') : (pc + ' flipped tails.');
                             document.getElementById(chatID).value = document.getElementById(chatID).value.concat(msg);
+                            msg = campaign + ';' + msg;
                             conn.send(msg);
                         }
                     }
