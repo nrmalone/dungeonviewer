@@ -175,7 +175,7 @@
             msg = msg.split(';');
             if (msg[0] == chatID) {
                 chatContent = chatContent.concat(msg[1] + "\n");
-                document.getElementById(chatID).value = chatContent;
+                document.getElementById(chatID).textContent = chatContent;
             }
         }
 
@@ -191,7 +191,7 @@
                 case 'connection':
                     if (content) {
                         msg = campaign + ';' + content.toString();
-                        document.getElementById(chatID).value = document.getElementById(chatID).value.concat(msg);
+                        document.getElementById(chatID).textContent = document.getElementById(chatID).textContent.concat(msg);
                         conn.send(msg);
                     }
                 break;
@@ -200,7 +200,7 @@
                         msg = content.toString().replaceAll(/"/g, '\"').replaceAll(/'/g, '\'').replaceAll(';', '');
                         msg = pc + ': ' + msg;
                         document.getElementById('messageInput').value = "";
-                        document.getElementById(chatID).value = document.getElementById(chatID).value.concat(msg);
+                        document.getElementById(chatID).textContent = document.getElementById(chatID).textContent.concat(msg);
                         msg = campaign + ';' + msg;
                         conn.send(msg);
                     }
@@ -210,13 +210,13 @@
                         if (content > 1) {
                             roll = (Math.floor(Math.random() * content) + 1);
                             msg = pc + ' rolled ' + roll.toString();
-                            document.getElementById(chatID).value = document.getElementById(chatID).value.concat(msg);
+                            document.getElementById(chatID).textContent = document.getElementById(chatID).textContent.concat(msg);
                             msg = campaign + ';' + msg;
                             conn.send(msg);
                         } else if (content == 1) {
                             coin = Math.random()
                             msg = coin < 0.5 ? (pc + ' flipped heads.') : (pc + ' flipped tails.');
-                            document.getElementById(chatID).value = document.getElementById(chatID).value.concat(msg);
+                            document.getElementById(chatID).textContent = document.getElementById(chatID).textContent.concat(msg);
                             msg = campaign + ';' + msg;
                             conn.send(msg);
                         }
