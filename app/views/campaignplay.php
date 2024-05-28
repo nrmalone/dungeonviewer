@@ -63,7 +63,7 @@
                         STR
                     </td>
                     <td>
-                        <?=$data['pc'][0]->pcSTR?>
+                        <?=$data['pc'][0]->pcSTR?> <span style="font-size: 9pt;">(<?=$data['modifiers'][$data['pc'][0]->pcSTR]?>)</span>
                     </td>
                 </tr>
                 <tr>
@@ -71,7 +71,7 @@
                         DEX
                     </td>
                     <td>
-                        <?=$data['pc'][0]->pcDEX?>
+                        <?=$data['pc'][0]->pcDEX?> <span style="font-size: 9pt;">(<?=$data['modifiers'][$data['pc'][0]->pcDEX]?>)</span>
                     </td>
                 </tr>
                 <tr>
@@ -79,7 +79,7 @@
                         CON
                     </td>
                     <td>
-                        <?=$data['pc'][0]->pcCON?>
+                        <?=$data['pc'][0]->pcCON?> <span style="font-size: 9pt;">(<?=$data['modifiers'][$data['pc'][0]->pcCON]?>)</span>
                     </td>
                 </tr>
                 <tr>
@@ -87,7 +87,7 @@
                         INT
                     </td>
                     <td>
-                        <?=$data['pc'][0]->pcINT?>
+                        <?=$data['pc'][0]->pcINT?> <span style="font-size: 9pt;">(<?=$data['modifiers'][$data['pc'][0]->pcINT]?>)</span>
                     </td>
                 </tr>
                 <tr>
@@ -95,7 +95,7 @@
                         WIS
                     </td>
                     <td>
-                        <?=$data['pc'][0]->pcWIS?>
+                        <?=$data['pc'][0]->pcWIS?> <span style="font-size: 9pt;">(<?=$data['modifiers'][($data['pc'][0]->pcWIS)]?>)</span>
                     </td>
                 </tr>
                 <tr>
@@ -103,7 +103,7 @@
                         CHA
                     </td>
                     <td>
-                        <?=$data['pc'][0]->pcCHA?>
+                        <?=$data['pc'][0]->pcCHA?> <span style="font-size: 9pt;">(<?=$data['modifiers'][$data['pc'][0]->pcCHA]?>)</span>
                     </td>
                 </tr>
                 <tr>
