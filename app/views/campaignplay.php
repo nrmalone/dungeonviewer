@@ -185,13 +185,20 @@
                 sendMessage(chatID, 'connection', msg);
             }
         }
+        
+        conn.onerror = function(e) {
+            if (document.getElementById(chatID)) {
+                msg = pc + " disconnected.";
+                sendMessage(chatID, 'connection', msg);
+            }
+        }
 
         function sendMessage(campaign, type, content) {
             switch (type) {
                 case 'connection':
                     if (content) {
+                        document.getElementById(chatID).textContent = document.getElementById(chatID).textContent.concat(content.toString());
                         msg = campaign + ';' + content.toString();
-                        document.getElementById(chatID).textContent = document.getElementById(chatID).textContent.concat(msg);
                         conn.send(msg);
                     }
                 break;
