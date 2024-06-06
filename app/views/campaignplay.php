@@ -34,7 +34,7 @@
                         <?=$data['pc'][0]->pcName?>
                     </td>
                     <td>
-                        <span>HP: <p id="currentHP" style="display: inline; margin: none;"><?=$data['pc'][0]->pcHP?></p>/<?=$data['pc'][0]->pcHP?></span>
+                        <span>HP: <p id="currentHP" style="display: inline; margin: none;"><?=$data['pc'][0]->pcCurrentHP?></p>/<?=$data['pc'][0]->pcMaxHP?></span>
                     </td>
                 </tr>
                 <tr>
@@ -162,7 +162,7 @@
         var chatContent = '';
         var pc = '<?=$data['pc'][0]->pcName?>';
         var chatID = 'campaign' + (<?=$data['campaign'][0]->campaignID?>).toString() + 'chat';
-        var conn = new WebSocket('ws://localhost:8080');
+        var conn = new WebSocket('ws://192.168.1.158:8080');
         conn.onopen = function(e) {
             if (document.getElementById(chatID)) {
                 msg = pc + " joined!";
@@ -173,9 +173,13 @@
         conn.onmessage = function(e) {
             msg = e.data.toString();
             msg = msg.split(';');
-            if (msg[0] == chatID) {
-                chatContent = chatContent.concat(msg[1] + "\n");
-                document.getElementById(chatID).textContent = chatContent;
+            if (msg[1] == chatID) {
+                if (msg[0] != 'move') {
+                    chatContent = chatContent.concat(msg[2] + "\n");
+                    document.getElementById(chatID).textContent = chatContent;
+                } else {
+                    document.getElementById()
+                }
             }
         }
 
@@ -198,7 +202,7 @@
                 case 'connection':
                     if (content) {
                         document.getElementById(chatID).textContent = document.getElementById(chatID).textContent.concat(content.toString());
-                        msg = campaign + ';' + content.toString();
+                        msg = type + ';' + campaign + ';' + content.toString();
                         conn.send(msg);
                     }
                 break;
@@ -208,7 +212,7 @@
                         msg = pc + ': ' + msg;
                         document.getElementById('messageInput').value = "";
                         document.getElementById(chatID).textContent = document.getElementById(chatID).textContent.concat(msg);
-                        msg = campaign + ';' + msg;
+                        msg = type + ';' + campaign + ';' + msg;
                         conn.send(msg);
                     }
                 break;
@@ -218,15 +222,20 @@
                             roll = (Math.floor(Math.random() * content) + 1);
                             msg = pc + ' rolled ' + roll.toString();
                             document.getElementById(chatID).textContent = document.getElementById(chatID).textContent.concat(msg);
-                            msg = campaign + ';' + msg;
+                            msg = type + ';' + campaign + ';' + msg;
                             conn.send(msg);
                         } else if (content == 1) {
                             coin = Math.random()
                             msg = coin < 0.5 ? (pc + ' flipped heads.') : (pc + ' flipped tails.');
                             document.getElementById(chatID).textContent = document.getElementById(chatID).textContent.concat(msg);
-                            msg = campaign + ';' + msg;
+                            msg = type + ';' + campaign + ';' + msg;
                             conn.send(msg);
                         }
+                    }
+                break;
+                case 'move':
+                    if (content) {
+
                     }
                 break;
             }

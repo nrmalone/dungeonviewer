@@ -244,7 +244,7 @@ class PlayerCharacter
             }
 
             //database write
-            $createCharacterQuery = "INSERT INTO pcs (userID, pcName, pcRace, pcClass, pcAlignment, pcHP, pcLevel, pcXP, pcAC, pcSTR, pcDEX, pcCON, pcINT, pcWIS, pcCHA) values (:userID, :pcName, :pcRace, :pcClass, :pcAlignment, :pcHP, :pcLevel, :pcXP, :pcAC, :pcSTR, :pcDEX, :pcCON, :pcINT, :pcWIS, :pcCHA);";
+            $createCharacterQuery = "INSERT INTO pcs (userID, pcName, pcRace, pcClass, pcAlignment, pcCurrentHP, pcMaxHP, pcLevel, pcXP, pcAC, pcSTR, pcDEX, pcCON, pcINT, pcWIS, pcCHA) values (:userID, :pcName, :pcRace, :pcClass, :pcAlignment, :pcHP, :pcHP, :pcLevel, :pcXP, :pcAC, :pcSTR, :pcDEX, :pcCON, :pcINT, :pcWIS, :pcCHA);";
             $createCharacter = $DB->write($createCharacterQuery, $arr);
 
             if ($createCharacter) {
@@ -430,7 +430,7 @@ class PlayerCharacter
                     break;
                 }
 
-                $editCharacterQuery = "UPDATE pcs SET pcName = :pcName, pcRace = :pcRace, pcClass = :pcClass, pcAlignment = :pcAlignment, pcHP = :pcHP, pcLevel = :pcLevel, pcXP = :pcXP, pcAC = :pcAC, pcSTR = :pcSTR, pcDEX = :pcDEX, pcCON = :pcCON, pcINT = :pcINT, pcWIS = :pcWIS, pcCHA = :pcCHA WHERE (pcID = :pcID AND userID = :userID);";
+                $editCharacterQuery = "UPDATE pcs SET pcName = :pcName, pcRace = :pcRace, pcClass = :pcClass, pcAlignment = :pcAlignment, pcCurrentHP = :pcHP, pcMaxHP = :pcHP, pcLevel = :pcLevel, pcXP = :pcXP, pcAC = :pcAC, pcSTR = :pcSTR, pcDEX = :pcDEX, pcCON = :pcCON, pcINT = :pcINT, pcWIS = :pcWIS, pcCHA = :pcCHA WHERE (pcID = :pcID AND userID = :userID);";
                 $editCharacter = $DB->write($editCharacterQuery, $arr);
 
                 if ($editCharacter) {

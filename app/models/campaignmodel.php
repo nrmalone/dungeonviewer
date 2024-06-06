@@ -138,14 +138,26 @@ class CampaignModel
                 $checkCampaign = false;
             }
 
-            $joinCampaignQuery = ($checkCampaign) ? "UPDATE pcs SET campaignID = :campaignID WHERE (userID = :userID AND pcID = :pcID);" : false;
-            $joinCampaign = ($joinCampaignQuery) ? $DB->write($joinCampaignQuery, $arr) : false;
+            $arr3['userID'] = $arr['userID'];
+            $arr3['campaignID'] = $arr['campaignID'];
+
+            $checkOtherPCinCampaignQuery = "SELECT * FROM pcs WHERE userID = :userID AND campaignID = :campaignID;";
+            $checkOtherPCinCampaign = $DB->read($checkOtherPCinCampaignQuery, $arr3);
+
+            if (isset($checkOtherPCinCampaign[0]->pcID)) {
+                if ($checkOtherPCinCampaign[0]->pcID != $arr['pcID']) {
+                    $joinCampaign = false;
+                }
+            } else {
+                $joinCampaignQuery = ($checkCampaign) ? "UPDATE pcs SET campaignID = :campaignID WHERE (userID = :userID AND pcID = :pcID);" : false;
+                $joinCampaign = ($joinCampaignQuery) ? $DB->write($joinCampaignQuery, $arr) : false;
+            }
 
             if ($joinCampaign) {
                 $_SESSION['message'] = "Successfully joined campaign!";
                 header("Location:" . ROOT . "campaign");
             } else {
-                $_SESSION['message'] = 'Incorrect join information.';
+                $_SESSION['message'] = "Unable to join campaign.";
                 header("Location:" . ROOT . "campaign");
             }
         } //fixed POST submission by removing else{} right here... no code will execute until submission button on form is pressed
