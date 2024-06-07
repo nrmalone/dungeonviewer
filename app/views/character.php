@@ -57,7 +57,7 @@
                         </td>
                     </tr>
                 </table>
-            </div>    
+            </div>
         <?php endforeach; ?>
     <?php else: ?>
         <h1>No characters to display</h1>

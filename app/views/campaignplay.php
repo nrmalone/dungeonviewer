@@ -18,9 +18,7 @@
                     <tr style="overflow: hidden;">
                     <?php for ($x=1; $x<=25; ++$x): ?>
                         <td style="margin: none; border: 1px solid black; width: 4vw; aspect-ratio:1/1;">
-                            <div id="div:<?='x'.$x.':y'.$y?>" style="aspect-ratio: calc(5/4); margin: none;">
-                                <input id="cell:<?='x'.$x.':y'.$y?>" type="radio" name="currentCell" value="cell:<?'x'.$x.':y'.$y?>" style="display: none;"><label for="cell:<?='x'.$x.':y'.$y?>"><p style="font-size: 6pt; margin: none; display: contents; overflow: hidden; display: block; text-align: end; vertical-align: bottom;"><?='x'.$x.' y'.$y?></p></label>
-                            </div>
+                                <div id="div:<?='x'.$x.':y'.$y?>" style="aspect-ratio: calc(5/4); margin: none;" onclick="sendMessage('campaign<?=$data['campaign'][0]->campaignID?>chat', 'move', '<?=$_SESSION['userID']?>,<?=$data['pc'][0]->pcID?>,<?=$x?>,<?=$y?>,<?=$data['pc'][0]->pcName?>')"></div>
                         </td>
                     <?php endfor; ?>
                     </tr>
@@ -177,8 +175,52 @@
                 if (msg[0] != 'move') {
                     chatContent = chatContent.concat(msg[2] + "\n");
                     document.getElementById(chatID).textContent = chatContent;
-                } else {
-                    document.getElementById()
+                } else if (msg[0] == 'move') {
+                    try {
+                        movementContent = msg[2].split(',');
+
+                        charUID = movementContent[0];
+                        charPID = movementContent[1];
+                        xCoord = movementContent[2];
+                        yCoord = movementContent[3];
+                        charName = movementContent[4];
+
+                        //check to make sure the selected div doesn't contain another player's token
+                        if (!document.getElementById('div:x' + xCoord + ':y' + yCoord).hasChildNodes()) {
+                            if (document.getElementById('u' + charUID + 'p' + charPID)) {
+                                document.getElementById('u' + charUID + 'p' + charPID).remove();
+                                try {
+                                    document.getElementById('u' + charUID + 'p' + charPID + 'name' + charName).remove();
+                                } catch (error) {
+                                    console.error(error);
+                                }
+                            }
+                            alignAttr = document.createAttribute("align");
+                            alignAttr.value = "center";
+
+                            charNameText = document.createElement("p");
+                            charNameText.id = 'u' + charUID + 'p' + charPID + 'name' + charName;
+                            charNameText.style = "font-size: 8pt; max-width: 75%;";
+                            charNameText.textContent = charName;
+                            charNameText.setAttributeNode(align=alignAttr);
+
+                            // create character token on map
+                            charToken = document.createElement("img");
+                            charToken.id= 'u' + charUID + 'p' + charPID;
+                            charToken.src = "<?=ROOT?>" + "img/characters/pcs/user" + charUID + "pc" + charPID + ".png";
+                            charToken.style = 'object-fit: contain; max-width: 75%; aspect-ratio: 1/1; border-radius: 2vw;';
+
+                            onerrorAttr = document.createAttribute("onerror");
+                            onerrorAttr.value = "this.onerror=null; this.src='<?=ROOT?>img/characters/pcs/defaultpfp.jpg'";
+                            charToken.setAttributeNode(onerror=onerrorAttr, align=alignAttr);
+
+                            parentDiv = document.getElementById('div:x' + xCoord + ':y' + yCoord);
+                            parentDiv.append(charNameText);
+                            parentDiv.append(charToken);
+                        }
+                    } catch (error) {
+                        console.error(error);
+                    }
                 }
             }
         }
@@ -235,7 +277,9 @@
                 break;
                 case 'move':
                     if (content) {
-
+                        console.log(content);
+                        msg = type + ';' + campaign + ';' + content;
+                        conn.send(msg);
                     }
                 break;
             }
