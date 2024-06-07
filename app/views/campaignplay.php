@@ -12,13 +12,13 @@
         <h4 style="display: inline; margin-left: 3vw;"><a class="defaultLink" href="<?=ROOT?>campaign">← Back</a>&emsp;&emsp;<a class="defaultLink" style="margin-left: 3vw;">&#10683; Leave</a></h4>
     </div>
     <div align="center" style="margin: auto;">
-        <div class="forest" style="width: 70%; display: inline-block; margin: none; border: 0.5vw solid #6A0F0F; border-radius: 1vw 1vw 1vw 1vw; position: relative;">
+        <div class="mapBackground forest" style="width: 70%; display: inline-block; margin: none; border: 0.5vw solid #6A0F0F; border-radius: 1vw 1vw 1vw 1vw; position: relative;">
             <table style="aspect-ratio:calc(5/4);">
                 <?php for ($y=1; $y<=20; ++$y): ?>
                     <tr style="overflow: hidden;">
                     <?php for ($x=1; $x<=25; ++$x): ?>
                         <td style="margin: none; border: 1px solid black; width: 4vw; aspect-ratio:1/1;">
-                                <div id="div:<?='x'.$x.':y'.$y?>" style="aspect-ratio: calc(5/4); margin: none;" onclick="sendMessage('campaign<?=$data['campaign'][0]->campaignID?>chat', 'move', '<?=$_SESSION['userID']?>,<?=$data['pc'][0]->pcID?>,<?=$x?>,<?=$y?>,<?=$data['pc'][0]->pcName?>')"></div>
+                                <div align="center" id="div:<?='x'.$x.':y'.$y?>" style="aspect-ratio: calc(5/4); margin: none;" onclick="sendMessage('campaign<?=$data['campaign'][0]->campaignID?>chat', 'move', '<?=$_SESSION['userID']?>,<?=$data['pc'][0]->pcID?>,<?=$x?>,<?=$y?>,<?=$data['pc'][0]->pcName?>')"></div>
                         </td>
                     <?php endfor; ?>
                     </tr>
@@ -195,24 +195,21 @@
                                     console.error(error);
                                 }
                             }
-                            alignAttr = document.createAttribute("align");
-                            alignAttr.value = "center";
-
+                            //display character's name
                             charNameText = document.createElement("p");
                             charNameText.id = 'u' + charUID + 'p' + charPID + 'name' + charName;
-                            charNameText.style = "font-size: 8pt; max-width: 75%;";
+                            charNameText.style = "font-size: 8pt; max-width: 8em; margin: 0; padding: 0;";
                             charNameText.textContent = charName;
-                            charNameText.setAttributeNode(align=alignAttr);
 
                             // create character token on map
                             charToken = document.createElement("img");
                             charToken.id= 'u' + charUID + 'p' + charPID;
                             charToken.src = "<?=ROOT?>" + "img/characters/pcs/user" + charUID + "pc" + charPID + ".png";
-                            charToken.style = 'object-fit: contain; max-width: 75%; aspect-ratio: 1/1; border-radius: 2vw;';
+                            charToken.style = 'object-fit: contain; max-width: 60%; aspect-ratio: 1/1; border-radius: 2vw; margin: 0; padding: 0;';
 
                             onerrorAttr = document.createAttribute("onerror");
                             onerrorAttr.value = "this.onerror=null; this.src='<?=ROOT?>img/characters/pcs/defaultpfp.jpg'";
-                            charToken.setAttributeNode(onerror=onerrorAttr, align=alignAttr);
+                            charToken.setAttributeNode(onerror=onerrorAttr);
 
                             parentDiv = document.getElementById('div:x' + xCoord + ':y' + yCoord);
                             parentDiv.append(charNameText);
@@ -276,8 +273,7 @@
                     }
                 break;
                 case 'move':
-                    if (content) {
-                        console.log(content);
+                    if (content.split(',').length == 5) {
                         msg = type + ';' + campaign + ';' + content;
                         conn.send(msg);
                     }

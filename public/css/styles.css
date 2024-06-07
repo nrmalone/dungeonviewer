@@ -253,25 +253,23 @@ canvas {
 }
 
 /* campaign map backgrounds & styling */
-.forest {
-    background-image: url('../img/maps/forest.jpg');
+.mapBackground {
     background-repeat: no-repeat;
     background-position: center;
+    background-attachment: fixed;
     background-size: cover;
+}
+
+.forest {
+    background-image: url('../img/maps/forest.jpg');
 }
 
 .cave {
     background-image: url('../img/maps/cave.jpg');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
 }
 
 .city {
     background-image: url('../img/maps/city.jpg');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
 }
 
 .mapRightMenu {
