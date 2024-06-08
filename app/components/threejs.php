@@ -13,6 +13,7 @@
                 "imports": {
                     "three": "https://unpkg.com/three@0.162.0/build/three.module.js",
                     "GLTFLoader": "https://unpkg.com/three@0.162.0/examples/jsm/loaders/GLTFLoader.js",
+                    "TextureLoader": "https://unpkg.com/three@0.162.0/src/loaders/TextureLoader.js",
                     "OrbitControls": "https://unpkg.com/three@0.162.0/examples/jsm/controls/OrbitControls.js"
                 }
             }
@@ -60,6 +61,7 @@
                 import * as THREE from 'three';
                 import {OrbitControls} from 'OrbitControls';
                 import {GLTFLoader} from 'GLTFLoader';
+                import {TextureLoader} from 'TextureLoader';
                 import GUI from 'https://cdn.jsdelivr.net/npm/lil-gui@0.19/+esm';
                 //create renderer object and attach to body
                 const pcID = document.getElementById('pcID').value;
@@ -84,8 +86,10 @@
                 camera.position.set(0, 2, 5);
                 let targetPosition = new THREE.Vector3();
 
+                /*
                 const orbit = new OrbitControls(camera, renderer.domElement);
                 orbit.update();
+                */
 
                 //simple white plane for character to stand on
                 const planeGeometry = new THREE.PlaneGeometry(30, 30);
@@ -107,7 +111,38 @@
                     character.castShadow = true;
                     scene.add(character);
                     targetPosition.copy(character.position);
-                    character.jumpHeight = character.scale.y * 0.5;
+                    character.jumpHeight = character.scale.y * 0.6;
+                }, undefined, function (error) {
+                    console.error(error);
+                }, loadingManager);
+
+                const textureLoader = new THREE.TextureLoader(loadingManager);
+                //load current character avatar, black sphere when no image is found
+                const face = textureLoader.load('<?=ROOT.'img/characters/pcs/user'.$_SESSION['userID'].'pc'.$character->pcID.'.png'?>');
+                face.wrapS = THREE.RepeatWrapping;
+                face.wrapT = THREE.RepeatWrapping;
+                face.repeat.set(2,1);
+                face.needsUpdate = true;
+                face.encoding = THREE.sRGBEncoding;
+                face.rotation = 3;
+                const faceMaterial = new THREE.MeshStandardMaterial({
+                    map: face,
+                    toneMapped: false,
+                });
+                faceMaterial.side = THREE.DoubleSide;
+
+                let characterFace = new THREE.Object3D();
+
+                loader.load('<?=ROOT?>img/characters/characterhead.glb', function (gltf) {
+                    characterFace = gltf.scene;
+                    characterFace.name = 'characterFace';
+                    characterFace.castShadow = true;
+                    characterFace.traverse((o) => {
+                        if (o.isMesh) {
+                            o.material = faceMaterial;
+                        }
+                    });
+                    scene.add(characterFace);
                 }, undefined, function (error) {
                     console.error(error);
                 }, loadingManager);
@@ -187,16 +222,16 @@
                 });
                 document.addEventListener('keyup', (event) => { keysPressed[event.key.toLowerCase()] = false; });
 
-                /*
+                
                 //simple cube to test positioning
                 const boxGeometry = new THREE.BoxGeometry();
                 const boxMaterial = new THREE.MeshBasicMaterial({
                     color: 0x00ff00
                 });
                 const box = new THREE.Mesh(boxGeometry, boxMaterial);
-                box.position.set(0, 0, -5);
+                box.position.set(0, 0, 0);
                 scene.add(box);
-                */
+                
 
                 // add lighting and helpers for lights, shadows, and axes
                 const directionalLight = new THREE.DirectionalLight(0xFFFFFF, 4);
@@ -270,30 +305,39 @@
                         //
                         case 'Halfling':
                             character.scale.set(0.6, 0.5, 0.6);
+                            characterFace.scale.set(0.6, 0.5, 0.6);
                         break;
                         case 'Gnome':
                             character.scale.set(0.7, 0.57, 0.7);
+                            characterFace.scale.set(0.7, 0.57, 0.7);
                         break;
                         case 'Dwarf':
                             character.scale.set(1, 0.68, 1);
+                            characterFace.scale.set(1, 0.68, 1);
                         break;
                         case 'Elf':
                             character.scale.set(0.8, 0.9, 0.8);
+                            characterFace.scale.set(0.8, 0.9, 0.8);
                         break;
                         case 'Half-Elf':
                             character.scale.set(0.9, 0.93, 0.9);
+                            characterFace.scale.set(0.9, 0.93, 0.9);
                         break;
                         case 'Human':
                             character.scale.set(1, 1, 1);
+                            characterFace.scale.set(1, 1, 1);
                         break;
                         case 'Tiefling':
                             character.scale.set(1.1, 1, 1.1);
+                            characterFace.scale.set(1.1, 1, 1.1);
                         break;
                         case 'Half-Orc':
                             character.scale.set(1.2, 1.07, 1.2);
+                            characterFace.scale.set(1.2, 1.07, 1.2);
                         break;
                         case 'Dragonborn':
                             character.scale.set(1, 1.1, 1);
+                            characterFace.scale.set(1, 1.1, 1);
                         break;
                     }
                 }
@@ -347,30 +391,39 @@
                         switch (options.BodyType) {
                             case 'Halfling':
                                 character.scale.set(0.6, 0.5, 0.6);
+                                characterFace.scale.set(0.6, 0.5, 0.6);
                             break;
                             case 'Gnome':
                                 character.scale.set(0.7, 0.57, 0.7);
+                                characterFace.scale.set(0.7, 0.57, 0.7);
                             break;
                             case 'Dwarf':
                                 character.scale.set(1, 0.68, 1);
+                                characterFace.scale.set(1, 0.68, 1);
                             break;
                             case 'Elf':
                                 character.scale.set(0.8, 0.9, 0.8);
+                                characterFace.scale.set(0.8, 0.9, 0.8);
                             break;
                             case 'Half-Elf':
                                 character.scale.set(0.9, 0.93, 0.9);
+                                characterFace.scale.set(0.9, 0.93, 0.9);
                             break;
                             case 'Human':
                                 character.scale.set(1, 1, 1);
+                                characterFace.scale.set(1, 1, 1);
                             break;
                             case 'Tiefling':
                                 character.scale.set(1.1, 1, 1.1);
+                                characterFace.scale.set(1.1, 1, 1.1);
                             break;
                             case 'Half-Orc':
                                 character.scale.set(1.2, 1.07, 1.2);
+                                characterFace.scale.set(1.2, 1.07, 1.2);
                             break;
                             case 'Dragonborn':
                                 character.scale.set(1, 1.1, 1);
+                                characterFace.scale.set(1, 1.1, 1);
                             break;
                         }
 
@@ -392,29 +445,106 @@
                     renderer.setSize((0.85*window.innerWidth), 0.63*(window.innerHeight));
                 });
 
+                function checkMovement() {
+                    let movementAdjusted = false;
+                    if (character.position.x <= -12.5) {
+                        character.position.x = -12;
+                        movementAdjusted = true;
+                    }
+                    if (character.position.x >= 12.5) {
+                        character.position.x = 12;
+                        movementAdjusted = true;
+                    }
+                    if (character.position.z <= -12.5) {
+                        character.position.z = -12;
+                        movementAdjusted = true;
+                    }
+                    if (character.position.z >= 12.5) {
+                        character.position.z = 12;
+                        movementAdjusted = true;
+                    }
+                    if (movementAdjusted) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+                }
+
                 //animation loop for renderer
                 function animate(time) {
                     if (character) {
-                        const moveSpeed = 0.1;
-                        const rotateSpeed = 0.05;
+                        const moveSpeed = 0.05;
+                        const charRotateSpeed = 0.05;
+                        const cameraRotateSpeed = 0.01;
 
-                        if (keysPressed['q']) { character.rotateY(rotateSpeed); }
-                        if (keysPressed['e']) { character.rotateY(-rotateSpeed); }
+                        //rotate character
+                        if (keysPressed['q']) { character.rotateY(charRotateSpeed); }
+                        if (keysPressed['e']) { character.rotateY(-charRotateSpeed); }
 
                         const direction = new THREE.Vector3();
                         camera.getWorldDirection(direction);
                         direction.y = 0;
                         direction.normalize();
 
-                        if (keysPressed['w']) { character.translateOnAxis(direction, moveSpeed); }
-                        if (keysPressed['s']) { character.translateOnAxis(direction, -moveSpeed); }
-                        if (keysPressed['a']) { character.translateOnAxis(new THREE.Vector3(direction.z, 0, -direction.x), moveSpeed); }
-                        if (keysPressed['d']) { character.translateOnAxis(new THREE.Vector3(-direction.z, 0, direction.x), moveSpeed); }
+                        if (keysPressed['w']) {
+                            if (checkMovement()) { character.translateOnAxis(direction, moveSpeed); }
+                        }
+                        if (keysPressed['s']) {
+                            if (checkMovement()) { character.translateOnAxis(direction, -moveSpeed); }
+                        }
+                        if (keysPressed['a']) {
+                            if (checkMovement()) { character.translateOnAxis(new THREE.Vector3(direction.z, 0, -direction.x), moveSpeed); }
+                        }
+                        if (keysPressed['d']) {
+                            if (checkMovement()) { character.translateOnAxis(new THREE.Vector3(-direction.z, 0, direction.x), moveSpeed); }
+                        }
 
+                        //zoom in and out
+                        if (keysPressed['=']) {
+                            if (camera.fov > 15) {
+                                camera.fov -= 0.5;
+                                camera.updateProjectionMatrix();
+                            }
+                        }
+                        if (keysPressed['-']) {
+                            if (camera.fov < 115) {
+                                camera.fov += 0.5;
+                                camera.updateProjectionMatrix();
+                            }
+                        }
+
+                        //rotate camera
+                        if (keysPressed['i']) {
+                            if (camera.rotation.x < 0.25) {
+                                camera.rotation.x += cameraRotateSpeed;
+                                camera.updateProjectionMatrix();
+                            }
+                        }
+                        if (keysPressed['k']) {
+                            if (camera.rotation.x > -0.75) {
+                                camera.rotation.x -= cameraRotateSpeed;
+                                camera.updateProjectionMatrix();
+                            }
+                        }
+                        if (keysPressed['j']) {
+                            if (camera.rotation.y < 0.65) {
+                                camera.rotation.y += cameraRotateSpeed;
+                                camera.updateProjectionMatrix();
+                            }
+                        }
+                        if (keysPressed['l']) {
+                            if (camera.rotation.y > -0.65) {
+                                camera.rotation.y -= cameraRotateSpeed;
+                                camera.updateProjectionMatrix();
+                            }
+                        }
+
+                        characterFace.position.copy(character.position);
+                        characterFace.rotation.copy(character.rotation);
                         character.updateMatrixWorld();
 
                         if (isJumping) {
-                            const jumpTime = (Date.now() - jumpStartTime) / 1000;
+                            const jumpTime = (Date.now() - jumpStartTime) / 800;
                             const jumpProgress = Math.min(jumpTime / 0.5, 1);
                             character.position.y = Math.sin(jumpProgress * Math.PI) * character.jumpHeight;
 
@@ -429,7 +559,6 @@
                         camera.position.copy(targetPosition);
                         camera.position.y += 2;
                         camera.position.z += 5;
-                        camera.lookAt(targetPosition);
                     }
 
                     renderer.render(scene, camera);
