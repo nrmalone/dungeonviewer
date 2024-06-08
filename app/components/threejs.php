@@ -82,6 +82,7 @@
                 scene.background = new THREE.Color(0x1E1E1E);
                 const camera = new THREE.PerspectiveCamera(75, (0.85*window.innerWidth)/(0.63*window.innerHeight), 0.1, 1000);
                 camera.position.set(0, 2, 5);
+                let targetPosition = new THREE.Vector3();
 
                 const orbit = new OrbitControls(camera, renderer.domElement);
                 orbit.update();
@@ -105,6 +106,8 @@
                     character.name = 'character';
                     character.castShadow = true;
                     scene.add(character);
+                    targetPosition.copy(character.position);
+                    character.jumpHeight = character.scale.y * 0.5;
                 }, undefined, function (error) {
                     console.error(error);
                 }, loadingManager);
@@ -171,6 +174,18 @@
                         console.error(error);
                     });
                 }
+
+                let keysPressed = {};
+                let isJumping = false;
+                let jumpStartTime = 0;
+                document.addEventListener('keydown', (event) => {
+                    keysPressed[event.key.toLowerCase()] = true;
+                    if (event.key.toLowerCase() === ' ' && !isJumping && character) {
+                        isJumping = true;
+                        jumpStartTime = Date.now();
+                    }
+                });
+                document.addEventListener('keyup', (event) => { keysPressed[event.key.toLowerCase()] = false; });
 
                 /*
                 //simple cube to test positioning
@@ -379,13 +394,44 @@
 
                 //animation loop for renderer
                 function animate(time) {
-                    /* leftover from original testing
-                    box.rotation.x = time / 1000;
-                    box.rotation.y = time / 1000;
-                    */
+                    if (character) {
+                        const moveSpeed = 0.1;
+                        const rotateSpeed = 0.05;
 
-                    //plane.rotation.z = time/1000;
-                    //character.rotation.y = time/10000;
+                        if (keysPressed['q']) { character.rotateY(rotateSpeed); }
+                        if (keysPressed['e']) { character.rotateY(-rotateSpeed); }
+
+                        const direction = new THREE.Vector3();
+                        camera.getWorldDirection(direction);
+                        direction.y = 0;
+                        direction.normalize();
+
+                        if (keysPressed['w']) { character.translateOnAxis(direction, moveSpeed); }
+                        if (keysPressed['s']) { character.translateOnAxis(direction, -moveSpeed); }
+                        if (keysPressed['a']) { character.translateOnAxis(new THREE.Vector3(direction.z, 0, -direction.x), moveSpeed); }
+                        if (keysPressed['d']) { character.translateOnAxis(new THREE.Vector3(-direction.z, 0, direction.x), moveSpeed); }
+
+                        character.updateMatrixWorld();
+
+                        if (isJumping) {
+                            const jumpTime = (Date.now() - jumpStartTime) / 1000;
+                            const jumpProgress = Math.min(jumpTime / 0.5, 1);
+                            character.position.y = Math.sin(jumpProgress * Math.PI) * character.jumpHeight;
+
+                            if (jumpProgress >= 1) {
+                                isJumping = false;
+                                character.position.y = 0;
+                            }
+                        }
+
+                        targetPosition.lerp(character.position, 0.1);
+
+                        camera.position.copy(targetPosition);
+                        camera.position.y += 2;
+                        camera.position.z += 5;
+                        camera.lookAt(targetPosition);
+                    }
+
                     renderer.render(scene, camera);
                 }
                 renderer.setAnimationLoop(animate);
