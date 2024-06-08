@@ -224,6 +224,7 @@
 
                 
                 //simple cube to test positioning
+                /*
                 const boxGeometry = new THREE.BoxGeometry();
                 const boxMaterial = new THREE.MeshBasicMaterial({
                     color: 0x00ff00
@@ -231,6 +232,7 @@
                 const box = new THREE.Mesh(boxGeometry, boxMaterial);
                 box.position.set(0, 0, 0);
                 scene.add(box);
+                */
                 
 
                 // add lighting and helpers for lights, shadows, and axes
