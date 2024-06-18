@@ -3,11 +3,34 @@ require '../app/vendor/autoload.php';
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 
-function sanitize($input) {
-    $sanitizedInput = htmlspecialchars($input);
-    $sanitizedInput = addslashes($sanitizedInput);
+function sanitize($input, $type = 'text') {
+    // Initial Trimming
+    $input = trim($input);
 
-    return $sanitizedInput;
+    // Type-Specific Sanitization
+    switch ($type) {
+        case 'username':
+            // Allow alphanumeric characters, underscores, and dashes
+            $input = preg_replace('/[^a-zA-Z0-9_-]/', '', $input);
+            break;
+        case 'email':
+            // Validate email format and sanitize
+            $input = filter_var($input, FILTER_SANITIZE_EMAIL);
+            if (!filter_var($input, FILTER_VALIDATE_EMAIL)) {
+                return false; // Invalid email
+            }
+            break;
+        case 'password':
+            // No sanitization for passwords (hashed later)
+            break;
+        case 'text': // General Text
+        default:
+            // Remove HTML tags and encode special characters
+            $input = htmlspecialchars(strip_tags($input), ENT_QUOTES, 'UTF-8');
+            break;
+    }
+
+    return $input;
 }
 
 function checkImageInput($fileInput, $pcID) {
