@@ -13,11 +13,11 @@
     </div>
     <div align="center" style="margin: auto;">
         <div class="mapBackground forest" style="width: 70%; display: inline-block; margin: none; border: 0.5vw solid #6A0F0F; border-radius: 1vw 1vw 1vw 1vw; position: relative;">
-            <table style="aspect-ratio:calc(5/4);">
+            <table style="display: grid; aspect-ratio:calc(5/4);">
                 <?php for ($y=1; $y<=20; ++$y): ?>
                     <tr style="overflow: hidden;">
                     <?php for ($x=1; $x<=25; ++$x): ?>
-                        <td style="margin: none; border: 1px solid black; width: 4vw; aspect-ratio:1/1;">
+                        <td style="grid-column-start: <?=$x?>; grid-column-end: <?=$x?>; grid-row-start: <?=$y?>; grid-row-end: <?=$y?>; margin: none; border: 1px solid black; width: 4vw; aspect-ratio:1/1;">
                                 <div align="center" id="div:<?='x'.$x.':y'.$y?>" style="aspect-ratio: calc(5/4); margin: none;" onclick="sendMessage('campaign<?=$data['campaign'][0]->campaignID?>chat', 'move', '<?=$_SESSION['userID']?>,<?=$data['pc'][0]->pcID?>,<?=$x?>,<?=$y?>,<?=$data['pc'][0]->pcName?>')"></div>
                         </td>
                     <?php endfor; ?>
@@ -137,20 +137,23 @@
                         <button type="button" class="accountButton" onclick="content = document.getElementById('messageInput').value.toString(); sendMessage('campaign<?=$data['campaign'][0]->campaignID?>chat', 'msg', content)">Send</button>
                     </td>
                 </tr>
+                <tr align="center">
+                    <td><span style="font-size: 10pt;">Right click to roll twice <sub>(advantage or disadvantage)</sub></span></td>
+                </tr>
                 <tr>
                     <td align="center">
-                        <button type="button" onclick="sendMessage('campaign<?=$data['campaign'][0]->campaignID?>chat', 'roll', 1)">Coin</button>
-                        <button type="button" onclick="sendMessage('campaign<?=$data['campaign'][0]->campaignID?>chat', 'roll', 4)">D4</button>
-                        <button type="button" onclick="sendMessage('campaign<?=$data['campaign'][0]->campaignID?>chat', 'roll', 6)">D6</button>
-                        <button type="button" onclick="sendMessage('campaign<?=$data['campaign'][0]->campaignID?>chat', 'roll', 8)">D8</button>
+                        <button type="button" onclick="sendMessage('campaign<?=$data['campaign'][0]->campaignID?>chat', 'roll', 1)" oncontextmenu="sendMessage('campaign<?=$data['campaign'][0]->campaignID?>chat', 'roll', 1); sendMessage('campaign<?=$data['campaign'][0]->campaignID?>chat', 'roll', 1);">Coin</button>
+                        <button type="button" onclick="sendMessage('campaign<?=$data['campaign'][0]->campaignID?>chat', 'roll', 4)" oncontextmenu="sendMessage('campaign<?=$data['campaign'][0]->campaignID?>chat', 'roll', 4); sendMessage('campaign<?=$data['campaign'][0]->campaignID?>chat', 'roll', 4);">D4</button>
+                        <button type="button" onclick="sendMessage('campaign<?=$data['campaign'][0]->campaignID?>chat', 'roll', 6)" oncontextmenu="sendMessage('campaign<?=$data['campaign'][0]->campaignID?>chat', 'roll', 6); sendMessage('campaign<?=$data['campaign'][0]->campaignID?>chat', 'roll', 6);">D6</button>
+                        <button type="button" onclick="sendMessage('campaign<?=$data['campaign'][0]->campaignID?>chat', 'roll', 8)" oncontextmenu="sendMessage('campaign<?=$data['campaign'][0]->campaignID?>chat', 'roll', 8); sendMessage('campaign<?=$data['campaign'][0]->campaignID?>chat', 'roll', 8);">D8</button>
                     </td>                
                 </tr>
                 <tr>
                     <td align="center">
-                        <button type="button" onclick="sendMessage('campaign<?=$data['campaign'][0]->campaignID?>chat', 'roll', 10)">D10</button>
-                        <button type="button" onclick="sendMessage('campaign<?=$data['campaign'][0]->campaignID?>chat', 'roll', 12)">D12</button>
-                        <button type="button" onclick="sendMessage('campaign<?=$data['campaign'][0]->campaignID?>chat', 'roll', 20)">D20</button>
-                        <button type="button" onclick="sendMessage('campaign<?=$data['campaign'][0]->campaignID?>chat', 'roll', 100)">D100</button>
+                        <button type="button" onclick="sendMessage('campaign<?=$data['campaign'][0]->campaignID?>chat', 'roll', 10)" oncontextmenu="sendMessage('campaign<?=$data['campaign'][0]->campaignID?>chat', 'roll', 10); sendMessage('campaign<?=$data['campaign'][0]->campaignID?>chat', 'roll', 10);">D10</button>
+                        <button type="button" onclick="sendMessage('campaign<?=$data['campaign'][0]->campaignID?>chat', 'roll', 12)" oncontextmenu="sendMessage('campaign<?=$data['campaign'][0]->campaignID?>chat', 'roll', 12); sendMessage('campaign<?=$data['campaign'][0]->campaignID?>chat', 'roll', 12);">D12</button>
+                        <button type="button" onclick="sendMessage('campaign<?=$data['campaign'][0]->campaignID?>chat', 'roll', 20)" oncontextmenu="sendMessage('campaign<?=$data['campaign'][0]->campaignID?>chat', 'roll', 20); sendMessage('campaign<?=$data['campaign'][0]->campaignID?>chat', 'roll', 20);">D20</button>
+                        <button type="button" onclick="sendMessage('campaign<?=$data['campaign'][0]->campaignID?>chat', 'roll', 100)" oncontextmenu="sendMessage('campaign<?=$data['campaign'][0]->campaignID?>chat', 'roll', 100); sendMessage('campaign<?=$data['campaign'][0]->campaignID?>chat', 'roll', 100);">D100</button>
                     </td>
                 </tr>
             </table>
@@ -158,7 +161,9 @@
     </div>
     <script type="text/javascript">
         var chatContent = '';
+        var userID = '<?=$_SESSION['userID']?>';
         var pc = '<?=$data['pc'][0]->pcName?>';
+        var pcID = '<?=$data['pc'][0]->pcID?>';
         var chatID = 'campaign' + (<?=$data['campaign'][0]->campaignID?>).toString() + 'chat';
         var conn = new WebSocket('ws://192.168.1.158:8080');
         conn.onopen = function(e) {
@@ -173,6 +178,16 @@
             msg = msg.split(';');
             if (msg[1] == chatID) {
                 if (msg[0] != 'move') {
+                    if (msg[0] == 'connection') {
+                        if (document.getElementById('u' + userID + 'p' + pcID)) {
+                            characterCurrentPos = document.getElementById('u' + userID + 'p' + pcID).parentElement.id;
+                            characterCurrentPos = characterCurrentPos.split(':');
+                            x = characterCurrentPos[1];
+                            y = characterCurrentPos[2];
+                            content = 'move;' + chatID + ';' + userID + ',' + pcID + ',' + x.replace('x', '') + ',' + y.replace('y', '') + ',' + pc;
+                            conn.send(content);
+                        }
+                    }
                     chatContent = chatContent.concat(msg[2] + "\n");
                     document.getElementById(chatID).textContent = chatContent;
                 } else if (msg[0] == 'move') {
@@ -195,10 +210,11 @@
                                     console.error(error);
                                 }
                             }
+                            
                             //display character's name
                             charNameText = document.createElement("p");
                             charNameText.id = 'u' + charUID + 'p' + charPID + 'name' + charName;
-                            charNameText.style = "font-size: 8pt; max-width: 8em; margin: 0; padding: 0;";
+                            charNameText.style = "font-size: 8pt; max-width: 8em; margin: 0; padding: 0; overflow: hidden;";
                             charNameText.textContent = charName;
 
                             // create character token on map
@@ -244,7 +260,7 @@
                         msg = type + ';' + campaign + ';' + content.toString();
                         conn.send(msg);
                     }
-                break;
+                    break;
                 case 'msg':
                     if (content) {
                         msg = content.toString().replaceAll(/"/g, '\"').replaceAll(/'/g, '\'').replaceAll(';', '');
@@ -254,12 +270,12 @@
                         msg = type + ';' + campaign + ';' + msg;
                         conn.send(msg);
                     }
-                break;
+                    break;
                 case 'roll':
                     if (Number.isInteger(content)) {
                         if (content > 1) {
                             roll = (Math.floor(Math.random() * content) + 1);
-                            msg = pc + ' rolled ' + roll.toString();
+                            msg = pc + ' rolled ' + roll.toString() + ' (d' + content + ')';
                             document.getElementById(chatID).textContent = document.getElementById(chatID).textContent.concat(msg);
                             msg = type + ';' + campaign + ';' + msg;
                             conn.send(msg);
@@ -271,13 +287,78 @@
                             conn.send(msg);
                         }
                     }
-                break;
+                    break;
                 case 'move':
                     if (content.split(',').length == 5) {
                         msg = type + ';' + campaign + ';' + content;
                         conn.send(msg);
                     }
-                break;
+                    break;
+            }
+        }
+
+        window.addEventListener("keydown", function(e) { handleKeyInput(e); });
+        window.addEventListener("contextmenu", function(e) { e.preventDefault(); });
+
+        function handleKeyInput(e) {
+            e = e || window.event;
+
+            switch (e.code) {
+                case 'ArrowUp': // up
+                    if (document.activeElement != document.getElementById('messageInput')) { e.preventDefault(); moveCharacter(0, -1); }
+                    break;
+                case 'ArrowDown': // down
+                    if (document.activeElement != document.getElementById('messageInput')) { e.preventDefault(); moveCharacter(0, 1); }
+                    break;
+                case 'ArrowLeft': // left
+                    if (document.activeElement != document.getElementById('messageInput')) { e.preventDefault(); moveCharacter(-1, 0); }
+                    break;
+                case 'ArrowRight': // right
+                    if (document.activeElement != document.getElementById('messageInput')) { e.preventDefault(); moveCharacter(1, 0); }
+                    break;
+                case 'Enter': // enter
+                    if (document.getElementById('messageInput').value.toString() != '') {
+                        sendMessage(chatID, 'msg', document.getElementById('messageInput').value.toString());
+                    }
+                    break;
+            }
+
+            function moveCharacter(dx, dy) {
+                if (document.getElementById('u' + charUID + 'p' + charPID)) {
+                    character = document.getElementById('u' + charUID + 'p' + charPID);
+                    currentPos = character.parentElement.id;
+                    currentPos = currentPos.split(':');
+
+                    currentPosX = parseInt(currentPos[1].replace('x', ''));
+                    currentPosY = parseInt(currentPos[2].replace('y', ''));
+
+                    if (dx != 0) {
+                        if (dx < 0) {
+                            if (currentPosX > 1) {
+                                content = userID + ',' + pcID + ',' + (currentPosX+dx) + ',' + currentPosY + ',' + pc;
+                                sendMessage(chatID, 'move', content);
+                            }
+                        } else if (dx > 0) {
+                            if (currentPosX < 25) {
+                                content = userID + ',' + pcID + ',' + (currentPosX+dx) + ',' + currentPosY + ',' + pc;
+                                sendMessage(chatID, 'move', content);
+                            }
+                        }
+                    }
+                    if (dy != 0) {
+                        if (dy < 0) {
+                            if (currentPosY > 1) {
+                                content = userID + ',' + pcID + ',' + currentPosX + ',' + (currentPosY+dy) + ',' + pc;
+                                sendMessage(chatID, 'move', content);
+                            }
+                        } else if (dy > 0) {
+                            if (currentPosY < 20) {
+                                content = userID + ',' + pcID + ',' + currentPosX + ',' + (currentPosY+dy) + ',' + pc;
+                                sendMessage(chatID, 'move', content);
+                            }
+                        }
+                    }
+                }
             }
         }
     </script>
