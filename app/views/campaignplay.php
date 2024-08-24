@@ -190,6 +190,7 @@
                     }
                     chatContent = chatContent.concat(msg[2] + "\n");
                     document.getElementById(chatID).textContent = chatContent;
+                    document.getElementById(chatID).scrollTo(0, document.getElementById(chatID).scrollHeight);
                 } else if (msg[0] == 'move') {
                     try {
                         movementContent = msg[2].split(',');
