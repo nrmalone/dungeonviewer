@@ -9,3 +9,4 @@
 vendor/
 app/misc/
 public/img/characters/
+app/core/config.php
