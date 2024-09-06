@@ -165,7 +165,8 @@
         var pc = '<?=$data['pc'][0]->pcName?>';
         var pcID = '<?=$data['pc'][0]->pcID?>';
         var chatID = 'campaign' + (<?=$data['campaign'][0]->campaignID?>).toString() + 'chat';
-        var conn = new WebSocket('ws://192.168.1.158:8080');
+        var conn = new WebSocket('<?=WEB_SOCKET?>');
+        //var conn = new WebSocket('ws://127.0.0.1:8080');
         conn.onopen = function(e) {
             if (document.getElementById(chatID)) {
                 msg = pc + " joined!";
